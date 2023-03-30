@@ -5,12 +5,10 @@ from . import models
 class medicalShopAdmin(admin.ModelAdmin):
     pass    
 
-admin.site.register(models.medicalShop,medicalShopAdmin)
 
 class medicineAdmin(admin.ModelAdmin):
     pass 
 
-admin.site.register(models.medicine,medicalShopAdmin)
 
 class companyAdmin(admin.ModelAdmin):
     pass 

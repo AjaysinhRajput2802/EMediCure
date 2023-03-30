@@ -65,8 +65,7 @@ class stockItem(models.Model):
 
     def __str__(self):
         return str(self.id)
-    
-   
+
 
 class bill(models.Model):
     billId =  models.AutoField(primary_key=True)
@@ -76,7 +75,6 @@ class bill(models.Model):
  
     def __str__(self):
         return str(self.billId)
-    
 
 class billItem(models.Model):
     medName = models.ForeignKey(medicine,on_delete=models.DO_NOTHING)
@@ -86,9 +84,3 @@ class billItem(models.Model):
 
     def __str__(self):
         return str(self.id)
-
-    
-
-
-
-

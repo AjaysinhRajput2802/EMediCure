@@ -58,20 +58,12 @@ class stockRUD(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = stockSerializers
     # permission_classes = [IsAdminUser]
 
-class stockItemC(generics.CreateAPIView,generics.ListAPIView):
-    queryset = stockItem.objects.all()
-    serializer_class = stockItemSerializers
-    # permission_classes = [IsAdminUser]
 
 class stockItemRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = stockItem.objects.all()
     serializer_class = stockItemSerializers
     # permission_classes = [IsAdminUser]
 
-class billC(generics.CreateAPIView,generics.ListAPIView):
-    queryset = bill.objects.all()
-    serializer_class = billSerializers
-    # permission_classes = [IsAdminUser]
 
 class billRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = bill.objects.all()
@@ -84,9 +76,6 @@ class billItemC(generics.CreateAPIView,generics.ListAPIView):
     serializer_class = billItemSerializers
     # permission_classes = [IsAdminUser]
 
-class billItemRUD(generics.RetrieveUpdateDestroyAPIView):
-    queryset = billItem.objects.all()
-    serializer_class = billItemSerializers
 
 
 

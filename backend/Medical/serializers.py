@@ -45,4 +45,3 @@ class ProfileSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Profile
         fields = '__all__'
-
