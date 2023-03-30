@@ -1,104 +1,114 @@
 from django.shortcuts import render
-from .models import medicalShop,medicine,staffMember,stock,stockItem,bill,billItem,company,Profile
-from .serializers import medicalShopSerializers,medicineSerializers,staffMemberSerializers,stockItemSerializers,stockSerializers,companySerializers,billItemSerializers,billSerializers,ProfileSerializers
-
+from . import views
+from . import serializers
+from . import models
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
 # Create your views here.
 
-class MedicalShopC(generics.CreateAPIView,generics.ListAPIView):
-    queryset = medicalShop.objects.all()
-    serializer_class = medicalShopSerializers
+
+class MedicalShopC(generics.CreateAPIView, generics.ListAPIView):
+    queryset = models.MedicalShop.objects.all()
+    serializer_class = serializers.MedicalShopSerializers
     # permission_classes = [IsAdminUser]
+
 
 class MedicalShopRUD(generics.RetrieveUpdateDestroyAPIView):
-    queryset = medicalShop.objects.all()
-    serializer_class = medicalShopSerializers
+    queryset = models.MedicalShop.objects.all()
+    serializer_class = serializers.MedicalShopSerializers
     # permission_classes = [IsAdminUser]
 
 
-class MedicineC(generics.CreateAPIView,generics.ListAPIView):
-    queryset = medicine.objects.all()
-    serializer_class = medicineSerializers
+class MedicineC(generics.CreateAPIView, generics.ListAPIView):
+    queryset = models.Medicine.objects.all()
+    serializer_class = serializers.MedicineSerializers
     # permission_classes = [IsAdminUser]
+
 
 class MedicineRUD(generics.RetrieveUpdateDestroyAPIView):
-    queryset = medicine.objects.all()
-    serializer_class = medicineSerializers
-    # permission_classes = [IsAdminUser]
-
-class staffMemberC(generics.CreateAPIView,generics.ListAPIView):
-    queryset = staffMember.objects.all()
-    serializer_class = staffMemberSerializers
-    # permission_classes = [IsAdminUser]
-
-class staffMemberRUD(generics.RetrieveUpdateDestroyAPIView):
-    queryset = staffMember.objects.all()
-    serializer_class = staffMemberSerializers
+    queryset = models.Medicine.objects.all()
+    serializer_class = serializers.MedicineSerializers
     # permission_classes = [IsAdminUser]
 
 
-class companyC(generics.CreateAPIView,generics.ListAPIView):
-    queryset = company.objects.all()
-    serializer_class = companySerializers
-    # permission_classes = [IsAdminUser]
-
-class companyRUD(generics.RetrieveUpdateDestroyAPIView):
-    queryset = company.objects.all()
-    serializer_class = companySerializers
-    # permission_classes = [IsAdminUser]
-
-class stockC(generics.CreateAPIView,generics.ListAPIView):
-    queryset = stock.objects.all()
-    serializer_class = stockSerializers
-    # permission_classes = [IsAdminUser]
-
-class stockRUD(generics.RetrieveUpdateDestroyAPIView):
-    queryset = stock.objects.all()
-    serializer_class = stockSerializers
-    # permission_classes = [IsAdminUser]
-
-class stockItemC(generics.CreateAPIView,generics.ListAPIView):
-    queryset = stockItem.objects.all()
-    serializer_class = stockItemSerializers
-    # permission_classes = [IsAdminUser]
-
-class stockItemRUD(generics.RetrieveUpdateDestroyAPIView):
-    queryset = stockItem.objects.all()
-    serializer_class = stockItemSerializers
-    # permission_classes = [IsAdminUser]
-
-class billC(generics.CreateAPIView,generics.ListAPIView):
-    queryset = bill.objects.all()
-    serializer_class = billSerializers
-    # permission_classes = [IsAdminUser]
-
-class billRUD(generics.RetrieveUpdateDestroyAPIView):
-    queryset = bill.objects.all()
-    serializer_class = billSerializers
+class StaffMemberC(generics.CreateAPIView, generics.ListAPIView):
+    queryset = models.StaffMember.objects.all()
+    serializer_class = serializers.StaffMemberSerializers
     # permission_classes = [IsAdminUser]
 
 
-class billItemC(generics.CreateAPIView,generics.ListAPIView):
-    queryset = billItem.objects.all()
-    serializer_class = billItemSerializers
+class StaffMemberRUD(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.StaffMember.objects.all()
+    serializer_class = serializers.StaffMemberSerializers
     # permission_classes = [IsAdminUser]
 
-class billItemRUD(generics.RetrieveUpdateDestroyAPIView):
-    queryset = billItem.objects.all()
-    serializer_class = billItemSerializers
+
+class CompanyC(generics.CreateAPIView, generics.ListAPIView):
+    queryset = models.Company.objects.all()
+    serializer_class = serializers.CompanySerializers
+    # permission_classes = [IsAdminUser]
 
 
-class ProfileC(generics.CreateAPIView,generics.ListAPIView):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializers
+class CompanyRUD(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Company.objects.all()
+    serializer_class = serializers.CompanySerializers
+    # permission_classes = [IsAdminUser]
+
+
+class StockC(generics.CreateAPIView, generics.ListAPIView):
+    queryset = models.Stock.objects.all()
+    serializer_class = serializers.StockSerializers
+    # permission_classes = [IsAdminUser]
+
+
+class StockRUD(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Stock.objects.all()
+    serializer_class = serializers.StockSerializers
+    # permission_classes = [IsAdminUser]
+
+
+class StockItemC(generics.CreateAPIView, generics.ListAPIView):
+    queryset = models.StockItem.objects.all()
+    serializer_class = serializers.StockItemSerializers
+    # permission_classes = [IsAdminUser]
+
+
+class StockItemRUD(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.StockItem.objects.all()
+    serializer_class = serializers.StockItemSerializers
+    # permission_classes = [IsAdminUser]
+
+
+class BillC(generics.CreateAPIView, generics.ListAPIView):
+    queryset = models.Bill.objects.all()
+    serializer_class = serializers.BillSerializers
+    # permission_classes = [IsAdminUser]
+
+
+class BillRUD(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Bill.objects.all()
+    serializer_class = serializers.BillSerializers
+    # permission_classes = [IsAdminUser]
+
+
+class BillItemC(generics.CreateAPIView, generics.ListAPIView):
+    queryset = models.BillItem.objects.all()
+    serializer_class = serializers.BillItemSerializers
+    # permission_classes = [IsAdminUser]
+
+
+class BillItemRUD(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.BillItem.objects.all()
+    serializer_class = serializers.BillItemSerializers
+
+
+class ProfileC(generics.CreateAPIView, generics.ListAPIView):
+    queryset = models.Profile.objects.all()
+    serializer_class = serializers.ProfileSerializers
+    # permission_classes = [IsAdminUser]
 
 
 class ProfileRUD(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializers
-
-
-
-
+    queryset = models.Profile.objects.all()
+    serializer_class = serializers.ProfileSerializers

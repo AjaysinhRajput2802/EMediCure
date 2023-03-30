@@ -15,38 +15,13 @@ Including another URLconf
 """
 
 
-
 from django.conf import settings
 from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.urls import include, path
-from .views import MedicalShopRUD,MedicalShopC,MedicineC,MedicineRUD,staffMemberC,staffMemberRUD,companyC,companyRUD,billC,billRUD,billItemRUD,billItemC,stockC,stockRUD,stockItemC,stockItemRUD,ProfileC,ProfileRUD    
+from . import views
+
 urlpatterns = [
-    path('medical/',MedicalShopC.as_view(),name="medicalShop.create"),
-    path('medical/<int:pk>',MedicalShopRUD.as_view(),name="medicalShop.RUD"),
-
-    path('medicine/',MedicineC.as_view(),name="medicine.create"),
-    path('medicine/<int:pk>',MedicineRUD.as_view(),name="medicine.RUD"),
-
-    path('staffMember/',staffMemberC.as_view(),name="sfm.create"),
-    path('staffMember/<int:pk>',staffMemberRUD.as_view(),name="sfm.RUD"),
-
-    path('company/',companyC.as_view(),name="com.create"),
-    path('company/<int:pk>',companyRUD.as_view(),name="com.RUD"),
-
-    path('bill/',billC.as_view(),name="bill.create"),
-    path('bill/<int:pk>',billRUD.as_view(),name="bill.RUD"),
-
-    path('billItem/',billItemC.as_view(),name="billItem.create"),
-    path('billItem/<int:pk>',billItemRUD.as_view(),name="billItem.RUD"),
-
-    path('stock/',stockC.as_view(),name="stock.create"),
-    path('stock/<int:pk>',stockRUD.as_view(),name="stock.RUD"),
-
-    path('stockItem/',stockItemC.as_view(),name="stockItem.create"),
-    path('stockItem/<int:pk>',stockItemRUD.as_view(),name="stockItem.RUD"),
-
-    path('profile/',ProfileC.as_view(),name="profile.create"),
-    path('profile/<int:pk>',ProfileRUD.as_view(),name="profile.RUD"),
+    path('api/', include('Medical.apiURLS')),
 ]

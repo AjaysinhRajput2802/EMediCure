@@ -2,47 +2,65 @@ from django.contrib import admin
 from . import models
 # Register your models here.
 
-class medicalShopAdmin(admin.ModelAdmin):
-    pass    
 
-admin.site.register(models.medicalShop,medicalShopAdmin)
+class MedicalShopAdmin(admin.ModelAdmin):
+    pass
 
-class medicineAdmin(admin.ModelAdmin):
-    pass 
 
-admin.site.register(models.medicine,medicalShopAdmin)
+admin.site.register(models.MedicalShop, MedicalShopAdmin)
 
-class companyAdmin(admin.ModelAdmin):
-    pass 
 
-admin.site.register(models.company,companyAdmin)
+class MedicineAdmin(admin.ModelAdmin):
+    pass
 
-class stockAdmin(admin.ModelAdmin):
-    pass 
 
-admin.site.register(models.stock,stockAdmin)
+admin.site.register(models.Medicine, MedicalShopAdmin)
 
-class stockItemAdmin(admin.ModelAdmin):
-    pass 
 
-admin.site.register(models.stockItem,stockItemAdmin)
+class CompanyAdmin(admin.ModelAdmin):
+    pass
 
-class billAdmin(admin.ModelAdmin):
-    pass 
 
-admin.site.register(models.bill,billAdmin)
+admin.site.register(models.Company, CompanyAdmin)
 
-class billItemAdmin(admin.ModelAdmin):
-    pass 
 
-admin.site.register(models.billItem,billAdmin)
+class StockAdmin(admin.ModelAdmin):
+    pass
 
-class staffMemberAdmin(admin.ModelAdmin):
-    pass 
 
-admin.site.register(models.staffMember,staffMemberAdmin)
+admin.site.register(models.Stock, StockAdmin)
+
+
+class StockItemAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(models.StockItem, StockItemAdmin)
+
+
+class BillAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(models.Bill, BillAdmin)
+
+
+class BillItemAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(models.BillItem, BillAdmin)
+
+
+class StaffMemberAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(models.StaffMember, StaffMemberAdmin)
+
 
 class ProfileAdmin(admin.ModelAdmin):
-    pass 
+    pass
 
-admin.site.register(models.Profile,ProfileAdmin)
+
+admin.site.register(models.Profile, ProfileAdmin)
