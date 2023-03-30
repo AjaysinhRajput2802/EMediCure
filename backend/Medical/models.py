@@ -17,6 +17,7 @@ class MedicalShop(models.Model):
     shopTelephoneNo = PhoneNumberField(blank=False, null=False, unique=True)
     shopSupervisior = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='MedicalShops')
+    shopAddress = models.TextField(max_length=128,blank=False,null=False)
 
     def __str__(self):
         return self.shopName
@@ -33,6 +34,7 @@ class StaffMember(models.Model):
         return self.staffName
 
 
+
 class Company(models.Model):
     companyName = models.CharField(max_length=50)
     description = models.TextField()
@@ -45,13 +47,21 @@ class Company(models.Model):
 class Medicine(models.Model):
     medName = models.CharField(max_length=100)
     medDes = models.TextField()
-    medPrice = models.DecimalField(decimal_places=2, max_digits=5)
-    medType = models.CharField(max_length=20)
-    minimumQty = models.IntegerField()
+    medPrice = models.DecimalField(decimal_places=2,max_digits=5)
+    Type_Choices = [
+        ("TB", "Tablet"),
+        ("CP", "Capsule"),
+        ("LQ", "Liquid"),
+        ("CR", "Cream"),
+        ("PC", "Patche"),
+        ("OT", "Other"),
+    ]
+    medType = models.CharField(max_length=2,choices=Type_Choices,default="OT")
+    minimumQty = models.IntegerField(default=10)
+    medShop = models.ForeignKey(medicalShop,on_delete=models.CASCADE,related_name='Medicines')
+    medCompany = models.ForeignKey(company,on_delete=models.DO_NOTHING)
     medImage = models.ImageField(blank=True, null=True, upload_to='medicineImages/',
                                  default='../static/images/defMedImage.jpg')
-    relatedShop = models.ForeignKey(
-        MedicalShop, on_delete=models.CASCADE, related_name='Medicines')
 
     def __str__(self):
         return self.medName
@@ -59,10 +69,10 @@ class Medicine(models.Model):
 
 class Stock(models.Model):
     batchId = models.AutoField(primary_key=True, unique=True)
-    arrivalDate = models.DateField(default=datetime.date.today)
-    relatedShop = models.ForeignKey(
+    arrivalDate = models.DateTimeField(default=datetime.datetime.now)
+    medShop = models.ForeignKey(
         MedicalShop, on_delete=models.CASCADE, related_name='Stock')
-    relatedCompany = models.ForeignKey(
+    medCompany = models.ForeignKey(
         Company, on_delete=models.DO_NOTHING, related_name="Stock")
 
     def __str__(self):
@@ -84,8 +94,8 @@ class StockItem(models.Model):
 
 class Bill(models.Model):
     billId = models.AutoField(primary_key=True)
-    generatedDate = models.DateField(default=datetime.date.today)
-    relatedShop = models.ForeignKey(
+    generatedDate = models.DateTimeField(default=datetime.datetime.now)
+    medShop = models.ForeignKey(
         MedicalShop, on_delete=models.CASCADE, related_name="Bills")
     totalAmount = models.DecimalField(decimal_places=2, max_digits=5)
 
