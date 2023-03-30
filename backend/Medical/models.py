@@ -58,8 +58,8 @@ class Medicine(models.Model):
     ]
     medType = models.CharField(max_length=2,choices=Type_Choices,default="OT")
     minimumQty = models.IntegerField(default=10)
-    medShop = models.ForeignKey(medicalShop,on_delete=models.CASCADE,related_name='Medicines')
-    medCompany = models.ForeignKey(company,on_delete=models.DO_NOTHING)
+    medShop = models.ForeignKey(MedicalShop,on_delete=models.CASCADE,related_name='Medicines')
+    medCompany = models.ForeignKey(Company,on_delete=models.DO_NOTHING)
     medImage = models.ImageField(blank=True, null=True, upload_to='medicineImages/',
                                  default='../static/images/defMedImage.jpg')
 
