@@ -3,7 +3,8 @@ from .models import medicalShop,medicine,staffMember,stock,stockItem,bill,billIt
 from .serializers import medicalShopSerializers,medicineSerializers,staffMemberSerializers,stockItemSerializers,stockSerializers,companySerializers,billItemSerializers,billSerializers,ProfileSerializers
 
 from rest_framework import generics
-from rest_framework.permissions import IsAdminUser
+from rest_framework import status
+from rest_framework.response import Response
 # Create your views here.
 
 class MedicalShopC(generics.CreateAPIView,generics.ListAPIView):
@@ -89,11 +90,10 @@ class billItemRUD(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = billItemSerializers
 
 
-
 class ProfileC(generics.CreateAPIView,generics.ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializers
-    # permission_classes = [IsAdminUser]
+
 
 class ProfileRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()

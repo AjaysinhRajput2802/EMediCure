@@ -23,17 +23,17 @@ from django.contrib import admin
 from django.urls import include, path
 from .views import MedicalShopRUD,MedicalShopC,MedicineC,MedicineRUD,staffMemberC,staffMemberRUD,companyC,companyRUD,billC,billRUD,billItemRUD,billItemC,stockC,stockRUD,stockItemC,stockItemRUD,ProfileC,ProfileRUD    
 urlpatterns = [
-    path('ms/',MedicalShopC.as_view(),name="medicalShop.create"),
-    path('ms/<int:pk>',MedicalShopRUD.as_view(),name="medicalShop.RUD"),
+    path('medical/',MedicalShopC.as_view(),name="medicalShop.create"),
+    path('medical/<int:pk>',MedicalShopRUD.as_view(),name="medicalShop.RUD"),
 
-    path('med/',MedicineC.as_view(),name="medicine.create"),
-    path('med/<int:pk>',MedicineRUD.as_view(),name="medicine.RUD"),
+    path('medicine/',MedicineC.as_view(),name="medicine.create"),
+    path('medicine/<int:pk>',MedicineRUD.as_view(),name="medicine.RUD"),
 
-    path('sfm/',staffMemberC.as_view(),name="sfm.create"),
-    path('sfm/<int:pk>',staffMemberRUD.as_view(),name="sfm.RUD"),
+    path('staffMember/',staffMemberC.as_view(),name="sfm.create"),
+    path('staffMember/<int:pk>',staffMemberRUD.as_view(),name="sfm.RUD"),
 
-    path('com/',companyC.as_view(),name="com.create"),
-    path('com/<int:pk>',companyRUD.as_view(),name="com.RUD"),
+    path('company/',companyC.as_view(),name="com.create"),
+    path('company/<int:pk>',companyRUD.as_view(),name="com.RUD"),
 
     path('bill/',billC.as_view(),name="bill.create"),
     path('bill/<int:pk>',billRUD.as_view(),name="bill.RUD"),
@@ -50,6 +50,3 @@ urlpatterns = [
     path('profile/',ProfileC.as_view(),name="profile.create"),
     path('profile/<int:pk>',ProfileRUD.as_view(),name="profile.RUD"),
 ]
-
-if settings.DEBUG:
-        urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) 
