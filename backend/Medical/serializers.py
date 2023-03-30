@@ -1,45 +1,54 @@
 from rest_framework import serializers
 from . import models
 
-class medicalShopSerializers(serializers.ModelSerializer):
+
+class MedicalShopSerializers(serializers.ModelSerializer):
     class Meta:
-        model = models.medicalShop
+        model = models.MedicalShop
         fields = '__all__'
 
-class medicineSerializers(serializers.ModelSerializer):
+
+class MedicineSerializers(serializers.ModelSerializer):
     class Meta:
-        model = models.medicine
+        model = models.Medicine
         fields = '__all__'
 
-class staffMemberSerializers(serializers.ModelSerializer):
+
+class StaffMemberSerializers(serializers.ModelSerializer):
     class Meta:
-        model = models.staffMember
+        model = models.StaffMember
         fields = '__all__'
 
-class companySerializers(serializers.ModelSerializer):
+
+class CompanySerializers(serializers.ModelSerializer):
     class Meta:
-        model = models.company
+        model = models.Company
         fields = '__all__'
 
-class stockSerializers(serializers.ModelSerializer):
+
+class StockSerializers(serializers.ModelSerializer):
     class Meta:
-        model = models.stock
+        model = models.Stock
         fields = '__all__'
 
-class stockItemSerializers(serializers.ModelSerializer):
+
+class StockItemSerializers(serializers.ModelSerializer):
     class Meta:
-        model = models.stockItem
+        model = models.StockItem
         fields = '__all__'
 
-class billSerializers(serializers.ModelSerializer):
+
+class BillSerializers(serializers.ModelSerializer):
     class Meta:
-        model = models.bill
+        model = models.Bill
         fields = '__all__'
 
-class billItemSerializers(serializers.ModelSerializer):
+
+class BillItemSerializers(serializers.ModelSerializer):
     class Meta:
-        model = models.billItem
+        model = models.BillItem
         fields = '__all__'
+
 
 class ProfileSerializers(serializers.ModelSerializer):
     class Meta:
