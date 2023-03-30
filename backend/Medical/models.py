@@ -27,7 +27,7 @@ class StaffMember(models.Model):
     staffName = models.CharField(max_length=50)
     mobileNo = PhoneNumberField(blank=False, null=False, unique=True)
     salary = models.IntegerField()
-    relatedShop = models.ForeignKey(
+    medShop = models.ForeignKey(
         MedicalShop, on_delete=models.CASCADE, related_name='StaffMembers')
 
     def __str__(self):
