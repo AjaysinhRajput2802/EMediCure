@@ -17,31 +17,32 @@ Including another URLconf
 
 from django.urls import path
 from . import views
+
 urlpatterns = [
-    path('ms/', views.MedicalShopC.as_view(), name="medicalShop.create"),
-    path('ms/<int:pk>', views.MedicalShopRUD.as_view(), name="medicalShop.RUD"),
+    path('medical/',views.MedicalShopC.as_view(),name="medicalShop.create"),
+    path('medical/<int:pk>',views.MedicalShopRUD.as_view(),name="medicalShop.RUD"),
 
-    path('med/', views.MedicineC.as_view(), name="medicine.create"),
-    path('med/<int:pk>', views.MedicineRUD.as_view(), name="medicine.RUD"),
+    path('medicine/',views.MedicineC.as_view(),name="medicine.create"),
+    path('medicine/<int:pk>',views.MedicineRUD.as_view(),name="medicine.RUD"),
 
-    path('sfm/', views.StaffMemberC.as_view(), name="sfm.create"),
-    path('sfm/<int:pk>', views.StaffMemberRUD.as_view(), name="sfm.RUD"),
+    path('staffMember/',views.StaffMemberC.as_view(),name="sfm.create"),
+    path('staffMember/<int:pk>',views.StaffMemberRUD.as_view(),name="sfm.RUD"),
 
-    path('com/', views.CompanyC.as_view(), name="com.create"),
-    path('com/<int:pk>', views.CompanyRUD.as_view(), name="com.RUD"),
+    path('company/',views.CompanyC.as_view(),name="com.create"),
+    path('company/<int:pk>',views.CompanyRUD.as_view(),name="com.RUD"),
 
-    path('bill/', views.BillC.as_view(), name="bill.create"),
-    path('bill/<int:pk>', views.BillRUD.as_view(), name="bill.RUD"),
+    path('bill/',views.BillC.as_view(),name="bill.create"),
+    path('bill/<int:pk>',views.BillRUD.as_view(),name="bill.RUD"),
 
-    path('billItem/', views.BillItemC.as_view(), name="billItem.create"),
-    path('billItem/<int:pk>', views.BillItemRUD.as_view(), name="billItem.RUD"),
+    path('billItem/',views.BillItemC.as_view(),name="billItem.create"),
+    path('billItem/<int:pk>',views.BillItemRUD.as_view(),name="billItem.RUD"),
 
-    path('stock/', views.StockC.as_view(), name="stock.create"),
-    path('stock/<int:pk>', views.StockRUD.as_view(), name="stock.RUD"),
+    path('stock/',views.StockC.as_view(),name="stock.create"),
+    path('stock/<int:pk>',views.StockRUD.as_view(),name="stock.RUD"),
 
-    path('stockItem/', views.StockItemC.as_view(), name="stockItem.create"),
-    path('stockItem/<int:pk>', views.StockItemRUD.as_view(), name="stockItem.RUD"),
+    path('stockItem/',views.StockItemC.as_view(),name="stockItem.create"),
+    path('stockItem/<int:pk>',views.StockItemRUD.as_view(),name="stockItem.RUD"),
 
-    path('profile/', views.ProfileC.as_view(), name="profile.create"),
-    path('profile/<int:pk>', views.ProfileRUD.as_view(), name="profile.RUD"),
+    path('profile/',views.ProfileC.as_view(),name="profile.create"),
+    path('profile/<int:pk>',views.ProfileRUD.as_view(),name="profile.RUD"),
 ]
