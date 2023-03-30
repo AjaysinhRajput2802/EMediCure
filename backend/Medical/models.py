@@ -1,8 +1,15 @@
 from django.db import models
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 import datetime
 from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
+
+def get_superuser(): 
+    su_user = User.objects.filter(is_superuser=True).first() # if you have more than 1 superuser, this get the first in list. 
+    if su_user: 
+        return su_user 
+    raise ObjectDoesNotExist('Please add Super User') # or you can create SU here
 
 
 class Profile(models.Model):
@@ -11,12 +18,14 @@ class Profile(models.Model):
         blank=True, null=True, upload_to='profile/', default='../static/images/User-Icon.jpg')
     mobileNo = PhoneNumberField(blank=True, null=True, unique=True)
 
+    def __str__(self):
+        return self.user.username
 
 class MedicalShop(models.Model):
     shopName = models.CharField(max_length=50)
-    shopTelephoneNo = PhoneNumberField(blank=False, null=False, unique=True)
+    shopContactNo = PhoneNumberField(blank=False, null=False, unique=True)
     shopSupervisior = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='MedicalShops')
+        User, on_delete=models.SET(get_superuser), related_name='MedicalShops')
     shopAddress = models.TextField(max_length=128,blank=False,null=False)
 
     def __str__(self):
@@ -47,7 +56,7 @@ class Company(models.Model):
 class Medicine(models.Model):
     medName = models.CharField(max_length=100)
     medDes = models.TextField()
-    medPrice = models.DecimalField(decimal_places=2,max_digits=5)
+    medPrice = models.DecimalField(decimal_places=2,max_digits=10)
     Type_Choices = [
         ("TB", "Tablet"),
         ("CP", "Capsule"),
@@ -62,6 +71,8 @@ class Medicine(models.Model):
     medCompany = models.ForeignKey(Company,on_delete=models.DO_NOTHING)
     medImage = models.ImageField(blank=True, null=True, upload_to='medicineImages/',
                                  default='../static/images/defMedImage.jpg')
+    medExpDate = models.DateField()
+    medQuantity = models.IntegerField()
 
     def __str__(self):
         return self.medName
@@ -85,7 +96,7 @@ class StockItem(models.Model):
     medName = models.ForeignKey(
         Medicine, on_delete=models.SET_NULL, blank=False, null=True, related_name='StockItems')
     quantity = models.IntegerField()
-    price = models.DecimalField(decimal_places=2, max_digits=5)
+    price = models.DecimalField(decimal_places=2, max_digits=10)
     expiryDate = models.DateField(default=datetime.date.today)
 
     def __str__(self):
@@ -97,7 +108,7 @@ class Bill(models.Model):
     generatedDate = models.DateTimeField(default=datetime.datetime.now)
     medShop = models.ForeignKey(
         MedicalShop, on_delete=models.CASCADE, related_name="Bills")
-    totalAmount = models.DecimalField(decimal_places=2, max_digits=5)
+    totalAmount = models.DecimalField(decimal_places=2, max_digits=10)
 
     def __str__(self):
         return str(self.billId)
@@ -107,7 +118,7 @@ class BillItem(models.Model):
     medName = models.ForeignKey(
         Medicine, blank=False, null=True, on_delete=models.SET_NULL, related_name="Bills")
     quantity = models.IntegerField()
-    price = models.DecimalField(decimal_places=2, max_digits=5)
+    price = models.DecimalField(decimal_places=2, max_digits=10)
     relatedbill = models.ForeignKey(
         Bill,  on_delete=models.CASCADE, related_name="BillItems")
 
