@@ -48,7 +48,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profilePhoto = models.ImageField(
         blank=True, null=True, upload_to='profile/', default='../static/images/User-Icon.jpg')
-    mobileNo = PhoneNumberField(blank=True, null=True, unique=True)
+    mobileNo = PhoneNumberField(
+        blank=True, null=True, unique=True, help_text="Enter number with country code like +91")
 
     def __str__(self):
         return self.user.username
@@ -56,7 +57,8 @@ class Profile(models.Model):
 
 class MedicalShop(models.Model):
     shopName = models.CharField(max_length=50)
-    shopContactNo = PhoneNumberField(blank=False, null=False, unique=True)
+    shopContactNo = PhoneNumberField(
+        blank=False, null=False, unique=True, help_text="Enter number with country code like +91")
     shopSupervisior = models.ForeignKey(
         User, on_delete=models.SET(get_superuser), related_name='MedicalShops')
     shopAddress = models.TextField(max_length=128, blank=False, null=False)
@@ -67,7 +69,8 @@ class MedicalShop(models.Model):
 
 class StaffMember(models.Model):
     staffName = models.CharField(max_length=50)
-    mobileNo = PhoneNumberField(blank=False, null=False, unique=True)
+    mobileNo = PhoneNumberField(blank=False, null=False, unique=True,
+                                help_text="Enter number with country code like +91")
     salary = models.IntegerField()
     medShop = models.ForeignKey(
         MedicalShop, on_delete=models.CASCADE, related_name='StaffMembers')
@@ -79,7 +82,8 @@ class StaffMember(models.Model):
 class Company(models.Model):
     companyName = models.CharField(max_length=50)
     description = models.TextField()
-    contactNumber = PhoneNumberField(blank=False, null=False, unique=True)
+    contactNumber = PhoneNumberField(
+        blank=False, null=False, unique=True, help_text="Enter number with country code like +91")
 
     def __str__(self):
         return self.companyName
