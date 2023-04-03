@@ -3,13 +3,45 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 import datetime
 from phonenumber_field.modelfields import PhoneNumberField
-# Create your models here.
+from django.dispatch import receiver
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
-def get_superuser(): 
-    su_user = User.objects.filter(is_superuser=True).first() # if you have more than 1 superuser, this get the first in list. 
-    if su_user: 
-        return su_user 
-    raise ObjectDoesNotExist('Please add Super User') # or you can create SU here
+
+class NotDeleted(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_deleted=False)
+
+
+class SoftDelete(models.Model):
+    is_deleted = models.BooleanField(default=False)
+    data = models.Manager()
+    objects = NotDeleted()
+
+    def soft_delete(self):
+        if self.is_deleted == False:
+            self.is_deleted = True
+            self.medName += ' (deleted)'
+            self.save()
+
+    def restore(self):
+        if self.is_deleted == True:
+            self.is_deleted = False
+            self.medName = self.medName.replace(" (deleted)", "")
+            self.save()
+
+    # abstract will not create model in database
+    class Meta:
+        abstract = True
+
+
+def get_superuser():
+    # if you have more than 1 superuser, this get the first in list.
+    su_user = User.objects.filter(is_superuser=True).first()
+    if su_user:
+        return su_user
+    # or you can create SU here
+    raise ObjectDoesNotExist('Please add Super User')
 
 
 class Profile(models.Model):
@@ -21,12 +53,13 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+
 class MedicalShop(models.Model):
     shopName = models.CharField(max_length=50)
     shopContactNo = PhoneNumberField(blank=False, null=False, unique=True)
     shopSupervisior = models.ForeignKey(
         User, on_delete=models.SET(get_superuser), related_name='MedicalShops')
-    shopAddress = models.TextField(max_length=128,blank=False,null=False)
+    shopAddress = models.TextField(max_length=128, blank=False, null=False)
 
     def __str__(self):
         return self.shopName
@@ -43,7 +76,6 @@ class StaffMember(models.Model):
         return self.staffName
 
 
-
 class Company(models.Model):
     companyName = models.CharField(max_length=50)
     description = models.TextField()
@@ -53,10 +85,10 @@ class Company(models.Model):
         return self.companyName
 
 
-class Medicine(models.Model):
+class Medicine(SoftDelete):
     medName = models.CharField(max_length=100)
     medDes = models.TextField()
-    medPrice = models.DecimalField(decimal_places=2,max_digits=10)
+    medPrice = models.DecimalField(decimal_places=2, max_digits=10)
     Type_Choices = [
         ("TB", "Tablet"),
         ("CP", "Capsule"),
@@ -65,38 +97,29 @@ class Medicine(models.Model):
         ("PC", "Patche"),
         ("OT", "Other"),
     ]
-    medType = models.CharField(max_length=2,choices=Type_Choices,default="OT")
+    medType = models.CharField(
+        max_length=2, choices=Type_Choices, default="OT")
     minimumQty = models.IntegerField(default=10)
-    medShop = models.ForeignKey(MedicalShop,on_delete=models.CASCADE,related_name='Medicines')
-    medCompany = models.ForeignKey(Company,on_delete=models.DO_NOTHING)
+    medShop = models.ForeignKey(
+        MedicalShop, on_delete=models.CASCADE, related_name='Medicines')
+
     medImage = models.ImageField(blank=True, null=True, upload_to='medicineImages/',
                                  default='../static/images/defMedImage.jpg')
-    medExpDate = models.DateField()
-    medQuantity = models.IntegerField()
+    medCompany = models.ForeignKey(Company, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.medName
 
 
-class Stock(models.Model):
-    batchId = models.AutoField(primary_key=True, unique=True)
-    arrivalDate = models.DateTimeField(default=datetime.datetime.now)
-    medShop = models.ForeignKey(
-        MedicalShop, on_delete=models.CASCADE, related_name='Stock')
-    medCompany = models.ForeignKey(
-        Company, on_delete=models.DO_NOTHING, related_name="Stock")
-
-    def __str__(self):
-        return str(self.batchId)
-
-
 class StockItem(models.Model):
-    batchId = models.ForeignKey(
-        Stock, on_delete=models.CASCADE, related_name='StockItems')
     medName = models.ForeignKey(
-        Medicine, on_delete=models.SET_NULL, blank=False, null=True, related_name='StockItems')
-    quantity = models.IntegerField()
+        Medicine, on_delete=models.SET_NULL, blank=False, null=True, related_name='Stocks')
+    companyName = models.ForeignKey(
+        Company, on_delete=models.SET_NULL, blank=False, null=True, related_name="Stocks")
+    orderedQuantity = models.IntegerField()
+    currentQuantity = models.IntegerField()
     price = models.DecimalField(decimal_places=2, max_digits=10)
+    arrivalDate = models.DateTimeField(default=datetime.datetime.now)
     expiryDate = models.DateField(default=datetime.date.today)
 
     def __str__(self):

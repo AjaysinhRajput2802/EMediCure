@@ -1,10 +1,7 @@
-from django.shortcuts import render
 from . import views
 from . import serializers
 from . import models
 from rest_framework import generics
-from rest_framework import status
-from rest_framework.response import Response
 # Create your views here.
 
 
@@ -31,6 +28,16 @@ class MedicineRUD(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.MedicineSerializers
     # permission_classes = [IsAdminUser]
 
+    def perform_destroy(self, instance):
+
+        try:
+            if instance.StockItems.count or instance.billItems.count:
+                instance.soft_delete()
+            else:
+                return super().perform_destroy(instance)
+        except Exception as e:
+            print(e)
+
 
 class StaffMemberC(generics.CreateAPIView, generics.ListAPIView):
     queryset = models.StaffMember.objects.all()
@@ -56,21 +63,10 @@ class CompanyRUD(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = [IsAdminUser]
 
 
-class StockC(generics.CreateAPIView, generics.ListAPIView):
-    queryset = models.Stock.objects.all()
-    serializer_class = serializers.StockSerializers
-    # permission_classes = [IsAdminUser]
-
-
-class StockRUD(generics.RetrieveUpdateDestroyAPIView):
-    queryset = models.Stock.objects.all()
-    serializer_class = serializers.StockSerializers
-    # permission_classes = [IsAdminUser]
-
-
 class StockItemC(generics.CreateAPIView, generics.ListAPIView):
     queryset = models.StockItem.objects.all()
     serializer_class = serializers.StockItemSerializers
+
     # permission_classes = [IsAdminUser]
 
 

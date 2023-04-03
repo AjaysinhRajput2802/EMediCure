@@ -26,12 +26,6 @@ class CompanySerializers(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class StockSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = models.Stock
-        fields = '__all__'
-
-
 class StockItemSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.StockItem
@@ -48,6 +42,13 @@ class BillItemSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.BillItem
         fields = '__all__'
+
+    def validate(self, attrs):
+        medQ = models.Medicine.objects.filter(medName=attrs['medName']).first()
+        if (attrs['quantity'] > medQ.medQuantity):
+            raise serializers.ValidationError(
+                ('Availabe stock is %(x)',))
+        return attrs
 
 
 class ProfileSerializers(serializers.ModelSerializer):
