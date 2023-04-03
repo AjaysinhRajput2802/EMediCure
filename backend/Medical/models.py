@@ -114,6 +114,51 @@ class Medicine(SoftDelete):
     def __str__(self):
         return self.medName
 
+    def checkQuantity(self):
+
+        stocks = self.Stocks.filter(
+            expiryDate__gte=datetime.date.today()).order_by()
+        quantity = 0
+        for st in stocks:
+            quantity += int(st.currentQuantity)
+        return quantity
+
+    def addQuantity(self, quantity):
+        stocks = self.Stocks.filter(
+            expiryDate__gte=datetime.date.today()).order_by()
+        for st in stocks:
+            if quantity:
+                if quantity <= (st.orderedQuantity-st.currentQuantity):
+                    st.currentQuantity += quantity
+                    quantity = 0
+                    st.save()
+                    break
+                else:
+                    quantity -= (st.orderedQuantity-st.currentQuantity)
+                    st.currentQuantity = st.orderedQuantity
+                    st.save()
+            else:
+                break
+
+    def removeQuantity(self, quantity):
+        stocks = self.Stocks.filter(
+            expiryDate__gte=datetime.date.today()).order_by('arrivalDate')
+        count = 0
+        for st in stocks:
+            print(count, quantity, st.currentQuantity)
+            if quantity:
+                if quantity <= st.currentQuantity:
+                    st.currentQuantity -= quantity
+                    quantity = 0
+                    st.save()
+                    break
+                else:
+                    quantity -= st.currentQuantity
+                    st.currentQuantity = 0
+                    st.save()
+            else:
+                break
+
 
 class StockItem(models.Model):
     medName = models.ForeignKey(
@@ -135,7 +180,8 @@ class Bill(models.Model):
     generatedDate = models.DateTimeField(default=datetime.datetime.now)
     medShop = models.ForeignKey(
         MedicalShop, on_delete=models.CASCADE, related_name="Bills")
-    totalAmount = models.DecimalField(decimal_places=2, max_digits=10)
+    totalAmount = models.DecimalField(
+        decimal_places=2, max_digits=10, default=0.00)
 
     def __str__(self):
         return str(self.billId)

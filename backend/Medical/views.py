@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from . import views
 from . import serializers
 from . import models
@@ -97,6 +98,11 @@ class BillItemC(generics.CreateAPIView, generics.ListAPIView):
 class BillItemRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.BillItem.objects.all()
     serializer_class = serializers.BillItemSerializers
+
+    def perform_destroy(self, instance):
+        medName = instance.medName
+        medName.addQuantity(instance.quantity)
+        return super().perform_destroy(instance)
 
 
 class ProfileC(generics.CreateAPIView, generics.ListAPIView):
