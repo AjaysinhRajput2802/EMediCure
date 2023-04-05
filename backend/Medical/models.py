@@ -3,9 +3,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 import datetime
 from phonenumber_field.modelfields import PhoneNumberField
-from django.dispatch import receiver
-from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
 
 
 class NotDeleted(models.Manager):
@@ -115,7 +112,6 @@ class Medicine(SoftDelete):
         return self.medName
 
     def checkQuantity(self):
-
         stocks = self.Stocks.filter(
             expiryDate__gte=datetime.date.today()).order_by()
         quantity = 0
@@ -145,7 +141,6 @@ class Medicine(SoftDelete):
             expiryDate__gte=datetime.date.today()).order_by('arrivalDate')
         count = 0
         for st in stocks:
-            print(count, quantity, st.currentQuantity)
             if quantity:
                 if quantity <= st.currentQuantity:
                     st.currentQuantity -= quantity
@@ -185,6 +180,14 @@ class Bill(models.Model):
 
     def __str__(self):
         return str(self.billId)
+
+    def setTotalAmont(self):
+        billitems = self.BillItems.all()
+        amount = 0.00
+        for item in billitems:
+            amount += (item.quantity*item.price)
+        self.totalAmount = amount
+        self.save()
 
 
 class BillItem(models.Model):

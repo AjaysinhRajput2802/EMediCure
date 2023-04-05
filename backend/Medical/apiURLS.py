@@ -19,6 +19,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+
     path('medical/', views.MedicalShopC.as_view(), name="medicalShop.create"),
     path('medical/<int:pk>', views.MedicalShopRUD.as_view(), name="medicalShop.RUD"),
 
@@ -37,9 +38,9 @@ urlpatterns = [
     path('billItem/', views.BillItemC.as_view(), name="billItem.create"),
     path('billItem/<int:pk>', views.BillItemRUD.as_view(), name="billItem.RUD"),
 
-
     path('stockItem/', views.StockItemC.as_view(), name="stockItem.create"),
     path('stockItem/<int:pk>', views.StockItemRUD.as_view(), name="stockItem.RUD"),
+
 
     path('profile/', views.ProfileC.as_view(), name="profile.create"),
     path('profile/<int:pk>', views.ProfileRUD.as_view(), name="profile.RUD"),
