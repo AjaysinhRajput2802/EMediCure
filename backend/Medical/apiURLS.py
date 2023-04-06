@@ -18,6 +18,7 @@ Including another URLconf
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
 
     path('medical/', views.MedicalShopC.as_view(), name="medicalShop.create"),
@@ -44,4 +45,6 @@ urlpatterns = [
 
     path('profile/', views.ProfileC.as_view(), name="profile.create"),
     path('profile/<int:pk>', views.ProfileRUD.as_view(), name="profile.RUD"),
+
+
 ]

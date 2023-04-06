@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from . import models
-import datetime
 
 
 class MedicalShopSerializers(serializers.ModelSerializer):

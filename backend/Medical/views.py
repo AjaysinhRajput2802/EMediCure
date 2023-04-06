@@ -1,6 +1,5 @@
 from django.forms import ValidationError
-from . import serializers
-from . import models
+from . import serializers, models
 from rest_framework import generics
 
 

@@ -78,7 +78,7 @@ class StaffMember(models.Model):
 
 class Company(models.Model):
     companyName = models.CharField(max_length=50)
-    description = models.TextField()
+    address = models.TextField()
     contactNumber = PhoneNumberField(
         blank=False, null=False, unique=True, help_text="Enter number with country code like +91")
 

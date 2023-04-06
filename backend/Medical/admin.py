@@ -23,7 +23,7 @@ admin.site.register(models.Medicine, MedicineAdmin)
 
 class CompanyAdmin(admin.ModelAdmin):
     model = models.Company
-    list_display = ('companyName', 'description', 'contactNumber')
+    list_display = ('companyName', 'address', 'contactNumber')
 
 
 admin.site.register(models.Company, CompanyAdmin)
