@@ -31,13 +31,12 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email')
 
-
 class LoginUserSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
 
     def validate(self, data):
-        user = authenticate(**data)
-        if user and user.is_active:
-            return user
-        raise serializers.ValidationError("Invalid Details.")
+        user = authenticate(username = data['username'], password = data['password'])
+        if not user:
+            raise serializers.ValidationError("Invalid Details.")
+        return user
