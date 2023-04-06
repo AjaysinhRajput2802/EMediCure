@@ -44,9 +44,10 @@ def get_superuser():
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profilePhoto = models.ImageField(
-        blank=True, null=True, upload_to='profile/', default='../static/images/User-Icon.jpg')
+        blank=True, upload_to='profile/', default='../static/images/User-Icon.jpg')
     mobileNo = PhoneNumberField(
         blank=True, null=True, unique=True, help_text="Enter number with country code like +91")
+    role = models.CharField(max_length=15)
 
     def __str__(self):
         return self.user.username
@@ -104,7 +105,7 @@ class Medicine(SoftDelete):
     medShop = models.ForeignKey(
         MedicalShop, on_delete=models.CASCADE, related_name='Medicines')
 
-    medImage = models.ImageField(blank=True, null=True, upload_to='medicineImages/',
+    medImage = models.ImageField(blank=True, upload_to='medicineImages/',
                                  default='../static/images/defMedImage.jpg')
     medCompany = models.ForeignKey(Company, on_delete=models.DO_NOTHING)
 
