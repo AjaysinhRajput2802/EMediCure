@@ -1,25 +1,35 @@
+import React from "react";
+
 import { useState } from "react";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [Username, setUsername] = useState("");
-  const [Password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { user, pass } = document.forms[0];
-    setUsername(user.value);
-    setPassword(pass.value);
-    const response = await fetch("http://127.0.0.1:8000/api/register/", {
+    const response = await fetch("http://127.0.0.1:8000/auth/login/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        Username,
-        Password
+        username,
+        password,
       })
     });
+    if(response.status===200){
+      let data = await response.text();
+      console.log(data);
+      sessionStorage.setItem("UserData",data);
+      navigate("/");
+    }
+    else{
+      alert(response.statusText);
+    }
   };
 
   return (
@@ -37,12 +47,14 @@ const Login = () => {
                   <p className="text-white-50 mb-5">
                     Please enter your login and password!
                   </p>
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <div className="form-outline form-white mb-4">
                       <input
                         type="text"
                         name="user"
                         className="form-control form-control-lg"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         required
                       />
                       <label className="form-label">
@@ -55,6 +67,8 @@ const Login = () => {
                         type="password"
                         name="pass"
                         className="form-control form-control-lg"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                       />
                       <label className="form-label">
@@ -71,7 +85,6 @@ const Login = () => {
                     <button
                       className="btn btn-outline-light btn-lg px-5"
                       type="submit"
-                      onClick={handleSubmit}
                     >
                       Login
                     </button>
