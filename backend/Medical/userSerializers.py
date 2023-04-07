@@ -21,7 +21,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         profiledata = validated_data.pop('modelprofile')
         userdata = User.objects.create_user(**validated_data)
-            # validated_data['username'], validated_data['email'], validated_data['password']
         Profile.objects.create(user = userdata, **profiledata)
         return userdata
 
@@ -29,12 +28,14 @@ class CreateUserSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email')
+        fields = ('id','username','email','first_name','last_name')
+        
 
 class LoginUserSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
 
+    
     def validate(self, data):
         user = authenticate(username = data['username'], password = data['password'])
         if not user:

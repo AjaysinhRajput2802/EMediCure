@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'Medical',
     'rest_framework',
     'django_cleanup.apps.CleanupConfig',
-    'knox',
     'corsheaders',
 ]
 
@@ -140,5 +139,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
+    
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
 }
