@@ -47,7 +47,11 @@ class Profile(models.Model):
         blank=True, upload_to='profile/', default='../static/images/User-Icon.jpg')
     mobileNo = PhoneNumberField(
         blank=True, null=True, unique=True, help_text="Enter number with country code like +91")
-    role = models.CharField(max_length=15)
+    role_choices = [
+        ('Owner', 'Owner'),
+        ('Supervisor', 'Supervisor')
+    ]
+    role = models.CharField(max_length=11, choices=role_choices, default='Owner')
 
     def __str__(self):
         return self.user.username

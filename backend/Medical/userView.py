@@ -15,7 +15,7 @@ class RegistrationAPI(generics.GenericAPIView):
         if serializer.is_valid(raise_exception=True):
             user = serializer.save()
             userData = UserSerializer(user, context=self.get_serializer_context()).data,
-            return Response({'user':userData.data}, status=status.HTTP_200_OK)
+            return Response({'user':userData}, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -34,7 +34,7 @@ class LoginAPI(generics.GenericAPIView):
         # return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class LogoutAPI(APIView):
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
     
     def post(self, request):
         try:
