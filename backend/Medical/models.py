@@ -9,7 +9,6 @@ class NotDeleted(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_deleted=False)
 
-
 class SoftDelete(models.Model):
     is_deleted = models.BooleanField(default=False)
     data = models.Manager()
@@ -31,7 +30,6 @@ class SoftDelete(models.Model):
     class Meta:
         abstract = True
 
-
 def get_superuser():
     # if you have more than 1 superuser, this get the first in list.
     su_user = User.objects.filter(is_superuser=True).first()
@@ -39,7 +37,6 @@ def get_superuser():
         return su_user
     # or you can create SU here
     raise ObjectDoesNotExist('Please add Super User')
-
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -56,7 +53,6 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-
 class MedicalShop(models.Model):
     shopName = models.CharField(max_length=50)
     shopContactNo = PhoneNumberField(
@@ -67,7 +63,6 @@ class MedicalShop(models.Model):
 
     def __str__(self):
         return self.shopName
-
 
 class StaffMember(models.Model):
     staffName = models.CharField(max_length=50)
@@ -80,7 +75,6 @@ class StaffMember(models.Model):
     def __str__(self):
         return self.staffName
 
-
 class Company(models.Model):
     companyName = models.CharField(max_length=50)
     address = models.TextField()
@@ -89,7 +83,6 @@ class Company(models.Model):
 
     def __str__(self):
         return self.companyName
-
 
 class Medicine(SoftDelete):
     medName = models.CharField(max_length=100)
@@ -159,7 +152,6 @@ class Medicine(SoftDelete):
             else:
                 break
 
-
 class StockItem(models.Model):
     medName = models.ForeignKey(
         Medicine, on_delete=models.SET_NULL, blank=False, null=True, related_name='Stocks')
@@ -173,7 +165,6 @@ class StockItem(models.Model):
 
     def __str__(self):
         return str(self.id)
-
 
 class Bill(models.Model):
     billId = models.AutoField(primary_key=True)
@@ -193,7 +184,6 @@ class Bill(models.Model):
             amount += (item.quantity*item.price)
         self.totalAmount = amount
         self.save()
-
 
 class BillItem(models.Model):
     medName = models.ForeignKey(

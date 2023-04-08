@@ -21,4 +21,5 @@ from django.urls import include, path
 urlpatterns = [
     path('api/', include('Medical.apiURLS')),
     path('auth/', include('Medical.userURLS')),
+    path('new/',include('Medical.newSVU.urls')),
 ]
