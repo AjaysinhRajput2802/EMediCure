@@ -40,14 +40,11 @@ class BillItemCS(serializers.ModelSerializer):
     def validate(self, attrs):
         medName = attrs['medName']
         if (attrs['quantity'] > medName.checkQuantity()):
-            raise serializers.ValidationError(
-                'Avalilable stock is lower than requested')
+            error = str(medName.medName) +  ' : Avalilable stock is lower than requested'
+            raise serializers.ValidationError(error)
         return super().validate(attrs)
 
     def create(self, validated_data):
-        print("===================================")
-        print(validated_data)
-        print("===================================")
         medName = validated_data.get('medName', None)
         quantity = validated_data.get('quantity', None)
         medName.removeQuantity(quantity)
@@ -88,26 +85,22 @@ class BillSerilizers(serializers.ModelSerializer):
           'totalAmount': {'read_only': True},  
           'generatedDate':{'read_only':True}
         } 
+        
 
+    def create(self, validated_data):
 
-    # def validate_BillItems(self,value):
-    #     for item in value:
-    #         medName = item['medName']
-    #         if(item['quatity'] > medName.checkQuantity()):
-    #             error = medName.medName + "Avalilable stock is lower than requested"
-    #             raise serializers.ValidationError(error)
-    #     return value
+        billitems = validated_data.pop('BillItems')
+        validated_data['generatedDate'] = datetime.datetime.today()
+        bill_instance = Bill.objects.create(**validated_data)
     
+        for item in billitems:
+           
+            item['price'] = item['medName'].medPrice
+            item_instance=BillItem.objects.create(relatedbill = bill_instance,**item)
+            item_instance.medName.removeQuantity(item_instance.quantity)
+           
 
-    # def create(self, validated_data):
-    #     billitems = validated_data.pop('billitems')
-    #     bill_instance = Bill.objects.create(**validated_data)
-
-    #     for item in billitems:
-    #         item['price'] = item['medName'].medPrice
-
-
-    #     return super().create(validated_data)
+        return bill_instance
         
 
     

@@ -6,5 +6,4 @@ urlpatterns = [
     path('register/',RegistrationAPI.as_view(),name='auth-register'),
     path('refresh/',RefreshAPI.as_view(),name='auth-refresh'),
     path('logout/',TokenBlacklistView.as_view(),name='auth-logout'),
-    path('logoutall/',LogoutAllAPI.as_view(),name='auth-logout-all'),
 ]
