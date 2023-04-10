@@ -27,16 +27,15 @@ class StockCRUDS(serializers.ModelSerializer):
             validated_data['currentQuantity'] = validated_data['orderedQuantity']
         return super().update(instance,validated_data)
     
-class BillItemCS(serializers.ListSerializer):
-
-
-
+class BillItemCS(serializers.ModelSerializer):
     class Meta:
         model = BillItem
-        fields = '__all__'
+        fields = ('id','medName','quantity','price')
         extra_kwargs = {
           'price': {'read_only': True},
+          
         }
+        depth =0
 
     def validate(self, attrs):
         medName = attrs['medName']
@@ -46,6 +45,9 @@ class BillItemCS(serializers.ListSerializer):
         return super().validate(attrs)
 
     def create(self, validated_data):
+        print("===================================")
+        print(validated_data)
+        print("===================================")
         medName = validated_data.get('medName', None)
         quantity = validated_data.get('quantity', None)
         medName.removeQuantity(quantity)
@@ -63,15 +65,49 @@ class BillItemCS(serializers.ListSerializer):
             validated_data['price'] = newMedName.medPrice
         return super().update(instance, validated_data)
 
-        
+
+
+class BillItemSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = BillItem
+        fields = ['id','medName','price','quantity','relatedbill']
+        extra_kwargs = {
+          'price': {'read_only': True},  
+          'relatedbill': {'read_only': True}
+        }
+
+
+ 
+
 class BillSerilizers(serializers.ModelSerializer):
-    # BillItems = BillItemCS(many=True,read_only=False,queryset=BillItem.objects.all())
+    BillItems = BillItemCS(many=True)
     class Meta:
         model = Bill
-        fields = '__all__'
+        fields = ['pk','medShop','totalAmount','BillItems','generatedDate']
         extra_kwargs = {
-          'totalAmount': {'read_only': True},
-        }  
+          'totalAmount': {'read_only': True},  
+          'generatedDate':{'read_only':True}
+        } 
 
+
+    # def validate_BillItems(self,value):
+    #     for item in value:
+    #         medName = item['medName']
+    #         if(item['quatity'] > medName.checkQuantity()):
+    #             error = medName.medName + "Avalilable stock is lower than requested"
+    #             raise serializers.ValidationError(error)
+    #     return value
     
+
+    # def create(self, validated_data):
+    #     billitems = validated_data.pop('billitems')
+    #     bill_instance = Bill.objects.create(**validated_data)
+
+    #     for item in billitems:
+    #         item['price'] = item['medName'].medPrice
+
+
+    #     return super().create(validated_data)
+        
+
     

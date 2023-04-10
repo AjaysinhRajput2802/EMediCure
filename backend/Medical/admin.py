@@ -2,7 +2,6 @@ from django.contrib import admin
 from . import models
 # Register your models here.
 
-
 class MedicalShopAdmin(admin.ModelAdmin):
     model = models.MedicalShop
     list_display = ('shopName', 'shopContactNo',

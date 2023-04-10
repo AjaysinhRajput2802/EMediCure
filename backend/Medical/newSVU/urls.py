@@ -10,4 +10,7 @@ urlpatterns = [
     path('billItem/<int:pk>',BillItemRUDView.as_view(),name="billitem.stock.rud"),
 
     path('bill/',BillView.as_view(),name='bill.create'),
+    path('bill/<int:pk>',BillRUDView.as_view(),name='bill.rud'),
+    
+    
 ]
