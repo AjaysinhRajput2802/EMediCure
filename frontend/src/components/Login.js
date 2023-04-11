@@ -20,11 +20,13 @@ const Login = () => {
         username,
         password,
       })
-    });
+    }).catch(e => console.log(e));
     if(response.status===200){
-      let data = await response.text();
+      let data = await response.json();
       console.log(data);
-      sessionStorage.setItem("UserData",data);
+      localStorage.setItem('user',data.username);
+      localStorage.setItem('refresh_token',data.refresh);
+      localStorage.setItem('access_token',data.access);
       navigate("/");
     }
     else{

@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const [user, setUser] = useState(sessionStorage.getItem("UserData"));
-  console.log(user);
+  const navigate = useNavigate();
 
   const LogOut = async () => {
     const response = await fetch("http://127.0.0.1:8000/auth/logout/", {
@@ -11,13 +10,15 @@ const Navbar = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({}),
-    });
+      body: JSON.stringify({refresh:localStorage.getItem('refresh_token')}),
+    }).catch(e => console.log(e));
     if (response.status === 200) {
-      let data = await response.text();
+      let data = await response.json();
       console.log(data);
-      sessionStorage.removeItem("UserData");
-      setUser(null);
+      localStorage.removeItem('user');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('access_token');
+      navigate('/');
     } else {
       alert(response.statusText);
     }
@@ -80,12 +81,12 @@ const Navbar = () => {
             </li>
           </ul>
 
-          {user ? (
+          {localStorage.getItem('user') ? (
             <ul className="navbar-nav d-flex flex-row">
               <li className="btn btn-primary me-3" onClick={LogOut}>
-                <a className="nav-link" href="/">
+                <span className="nav-link">
                   Log Out
-                </a>
+                </span>
               </li>
             </ul>
           ) : (
