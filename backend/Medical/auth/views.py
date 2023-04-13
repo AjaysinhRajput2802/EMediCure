@@ -1,5 +1,6 @@
+from django.urls import reverse
 from .serializers import *
-
+from django.core.mail import send_mail,EmailMessage
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
@@ -116,15 +117,18 @@ class ResetPasswordRequestAPI(generics.GenericAPIView):
                 'site_name':'EMdeicure',
             }
             email_body = render_to_string("rept.txt",context)
-            data = {
-                'username':user.username,
-                'reset_url' : redirect_url,
-                'to_email': user.email,
-                'email_subject': 'Reset Password Request',
-                'site_name':'EMdeicure',
-                'email_body':email_body
-                }
-            Util.send_email(data)
+            to_email=user.email
+            email_subject='Reset Password Request' 
+            email = EmailMessage(
+                email_subject,
+                email_body,
+                EMAIL_HOST_USER,
+                [to_email]
+            )
+            try:
+                email.send(fail_silently=False)
+            except Exception as e:
+                return Response({'error':'try again after some time...'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             return Response({'success': 'We have sent you a link to reset your password'}, status=status.HTTP_200_OK)
         return Response({'email': 'There is not any account  related with this email'}, status=status.HTTP_404_NOT_FOUND)
 
