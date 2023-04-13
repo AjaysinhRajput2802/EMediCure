@@ -42,6 +42,14 @@ class BillRUDView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BillSerilizers
     queryset = Bill.objects.all()
 
+    def perform_destroy(self, instance):
+        bill = Bill.objects.get(pk=instance.pk)
+        billitems = bill.BillItems.all()
+        for item in billitems:
+            medName = item.medName
+            medName.addQuantity(item.quantity)
+        return super().perform_destroy(instance)
+
 
 # ============================================================================================================================================================
 

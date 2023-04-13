@@ -5,10 +5,12 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const LogOut = async () => {
+    const token = localStorage.getItem('access_token')
     const response = await fetch("http://127.0.0.1:8000/auth/logout/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorizatoin": `Bearer ${token}`
       },
       body: JSON.stringify({refresh:localStorage.getItem('refresh_token')}),
     }).catch(e => console.log(e));

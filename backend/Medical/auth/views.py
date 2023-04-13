@@ -64,7 +64,7 @@ class LogoutAPI(generics.CreateAPIView):
             message = str(user['username']) + " logout from the system... :)"
             return Response(data = {message},status=status.HTTP_200_OK)
         except TokenError  as e:
-                raise InvalidToken(e.args[0])
+            raise InvalidToken(e.args[0])
 
 class RefreshAPI(generics.CreateAPIView,TokenRefreshView):
     permission_classes = (permissions.AllowAny,)

@@ -43,7 +43,7 @@ class Profile(models.Model):
     profilePhoto = models.ImageField(
         blank=True, upload_to='profile/', default='../static/images/User-Icon.jpg')
     mobileNo = PhoneNumberField(
-        blank=True, null=True, unique=True, help_text="Enter number with country code like +91")
+        blank=True, null=True, unique=True, help_text="Enter number with country code like +91")   
     role_choices = [
         ('Owner', 'Owner'),
         ('Supervisor', 'Supervisor')
@@ -181,9 +181,8 @@ class Bill(models.Model):
         billitems = self.BillItems.all()
         amount = 0.00
         for item in billitems:
-            amount += (item.quantity*item.price)
-        self.totalAmount = amount
-        self.save()
+            amount= amount +  (item.quantity*item.price)
+        self.totalAmount= amount
 
 class BillItem(models.Model):
     medName = models.ForeignKey(
@@ -195,3 +194,5 @@ class BillItem(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+

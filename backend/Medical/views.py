@@ -3,7 +3,6 @@ from . import serializers, models
 from rest_framework import generics
 from rest_framework.permissions import *
 
-
 class MedicalShopC(generics.CreateAPIView, generics.ListAPIView):
     permission_classes = (AllowAny,)
     serializer_class = serializers.MedicalShopSerializers
@@ -112,3 +111,7 @@ class ProfileRUD(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (AllowAny,)
     queryset = models.Profile.objects.all()
     serializer_class = serializers.ProfileSerializers
+
+
+
+    
