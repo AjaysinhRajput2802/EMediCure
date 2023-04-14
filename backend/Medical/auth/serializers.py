@@ -65,10 +65,14 @@ class RegisterSerializer(UserSerializer):
     
 
     def validate(self, attrs):
+        errors = []
+        if User.objects.filter(email = attrs['email']):
+            errors.append({'email_error' : "A user with same email address already exists."})
         if attrs['confirm_password'] != attrs['password']:
-            error = ({"confirm_password":"Password and Confirm Password are not matching..."})
-            raise serializers.ValidationError(error)
+            errors.append({'confirm_password error':"password and confirm password are not matching."})
         del attrs['confirm_password']
+        if errors:
+            raise serializers.ValidationError(errors)
         return attrs
     
     def create(self, validated_data):
@@ -77,9 +81,16 @@ class RegisterSerializer(UserSerializer):
         try:
             user = User.objects.get(username=validated_data['username'])
         except ObjectDoesNotExist:
-            user = User.objects.create_user(**validated_data)
-            profile_instance = Profile.objects.create(user = user,**profile)
-        return user
+            user_instance = User.objects.create_user(**validated_data)
+            profile_instance = Profile.objects.create(user = user_instance,**profile)
+            if profile_instance.role == "Owner":
+                user_instance.is_superuser = True
+                user_instance.is_staff = True
+                user_instance.save()
+            else:
+                user_instance.is_staff = True
+                user_instance.save()
+        return user_instance
     
 
 class ResetPasswordRequestSerializers(serializers.Serializer):
