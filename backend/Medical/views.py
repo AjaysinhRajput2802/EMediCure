@@ -2,6 +2,7 @@ from django.forms import ValidationError
 from . import serializers, models
 from rest_framework import generics
 from rest_framework.permissions import *
+from django_filters.rest_framework import DjangoFilterBackend
 
 class MedicalShopC(generics.CreateAPIView, generics.ListAPIView):
     permission_classes = (AllowAny,)
@@ -105,6 +106,8 @@ class ProfileC(generics.CreateAPIView, generics.ListAPIView):
     permission_classes = (AllowAny,)
     queryset = models.Profile.objects.all()
     serializer_class = serializers.ProfileSerializers
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['user']
 
 
 class ProfileRUD(generics.RetrieveUpdateDestroyAPIView):

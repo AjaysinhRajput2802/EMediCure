@@ -8,6 +8,10 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 
+/* All Pages
+ Home, Dashboard, Profile, Register, Login, About, Inventory, Billing
+*/
+
 function App() {
   return (
     <Router>

@@ -42,10 +42,9 @@ class LoginSerializer(TokenObtainPairSerializer):
 
         refresh = self.get_token(self.user)
 
-        data['username'] = str(self.user.username)
         data['refresh'] = str(refresh)
         data['access'] = str(refresh.access_token)
-        
+        data['user'] = UserSerializer(self.user).data        
 
         if api_settings.UPDATE_LAST_LOGIN:
             update_last_login(None, self.user)
@@ -65,14 +64,10 @@ class RegisterSerializer(UserSerializer):
     
 
     def validate(self, attrs):
-        errors = []
-        if User.objects.filter(email = attrs['email']):
-            errors.append({'email_error' : "A user with same email address already exists."})
         if attrs['confirm_password'] != attrs['password']:
-            errors.append({'confirm_password error':"password and confirm password are not matching."})
+            error = ({"confirm_password":"Password and Confirm Password are not matching..."})
+            raise serializers.ValidationError(error)
         del attrs['confirm_password']
-        if errors:
-            raise serializers.ValidationError(errors)
         return attrs
     
     def create(self, validated_data):
@@ -81,16 +76,9 @@ class RegisterSerializer(UserSerializer):
         try:
             user = User.objects.get(username=validated_data['username'])
         except ObjectDoesNotExist:
-            user_instance = User.objects.create_user(**validated_data)
-            profile_instance = Profile.objects.create(user = user_instance,**profile)
-            if profile_instance.role == "Owner":
-                user_instance.is_superuser = True
-                user_instance.is_staff = True
-                user_instance.save()
-            else:
-                user_instance.is_staff = True
-                user_instance.save()
-        return user_instance
+            user = User.objects.create_user(**validated_data)
+            profile_instance = Profile.objects.create(user = user,**profile)
+        return user
     
 
 class ResetPasswordRequestSerializers(serializers.Serializer):

@@ -24,7 +24,7 @@ const Login = () => {
     if(response.status===200){
       let data = await response.json();
       console.log(data);
-      localStorage.setItem('user',data.username);
+      localStorage.setItem('user',data.user);
       localStorage.setItem('refresh_token',data.refresh);
       localStorage.setItem('access_token',data.access);
       navigate("/");
