@@ -8,6 +8,8 @@ class MedicalShopC(generics.CreateAPIView, generics.ListAPIView):
     permission_classes = (AllowAny,)
     serializer_class = serializers.MedicalShopSerializers
     queryset = models.MedicalShop.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['shopOwner', 'shopSupervisor']
 
 
 class MedicalShopRUD(generics.RetrieveUpdateDestroyAPIView):
@@ -111,7 +113,7 @@ class ProfileC(generics.CreateAPIView, generics.ListAPIView):
 
 
 class ProfileRUD(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     queryset = models.Profile.objects.all()
     serializer_class = serializers.ProfileSerializers
 

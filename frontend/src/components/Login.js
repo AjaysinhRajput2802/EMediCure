@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({userData, updateUserData}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -24,10 +24,8 @@ const Login = () => {
     if(response.status===200){
       let data = await response.json();
       console.log(data);
-      localStorage.setItem('user',data.user);
-      localStorage.setItem('refresh_token',data.refresh);
-      localStorage.setItem('access_token',data.access);
-      navigate("/");
+      updateUserData(data.user, data.refresh, data.access);
+      navigate("/dashboard");
     }
     else{
       alert(response.statusText);

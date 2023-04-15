@@ -5,7 +5,7 @@ from . import models
 class MedicalShopAdmin(admin.ModelAdmin):
     model = models.MedicalShop
     list_display = ('shopName', 'shopContactNo',
-                    'shopSupervisior', 'shopAddress')
+                    'shopSupervisor', 'shopAddress')
 
 
 admin.site.register(models.MedicalShop, MedicalShopAdmin)

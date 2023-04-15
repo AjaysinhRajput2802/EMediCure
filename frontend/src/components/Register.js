@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = ({userData, updateUserData}) => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [firstname, setFirstname] = useState();

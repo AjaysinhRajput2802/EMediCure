@@ -38,6 +38,18 @@ def get_superuser():
     # or you can create SU here
     raise ObjectDoesNotExist('Please add Super User')
 
+class MedicalShop(models.Model):
+    shopName = models.CharField(max_length=50)
+    shopContactNo = PhoneNumberField(
+        blank=False, null=False, unique=True, help_text="Enter number with country code like +91")
+    shopOwner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='MedicalShop')
+    shopSupervisor = models.OneToOneField(
+        User, on_delete=models.SET(shopOwner), related_name='MedicalShops')
+    shopAddress = models.TextField(max_length=128, blank=False, null=False)
+    
+    def __str__(self):
+        return self.shopName
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profilePhoto = models.ImageField(
@@ -49,20 +61,9 @@ class Profile(models.Model):
         ('Supervisor', 'Supervisor')
     ]
     role = models.CharField(max_length=11, choices=role_choices, default='Owner')
-
+   
     def __str__(self):
         return self.user.username
-
-class MedicalShop(models.Model):
-    shopName = models.CharField(max_length=50)
-    shopContactNo = PhoneNumberField(
-        blank=False, null=False, unique=True, help_text="Enter number with country code like +91")
-    shopSupervisior = models.ForeignKey(
-        User, on_delete=models.SET(get_superuser), related_name='MedicalShops')
-    shopAddress = models.TextField(max_length=128, blank=False, null=False)
-
-    def __str__(self):
-        return self.shopName
 
 class StaffMember(models.Model):
     staffName = models.CharField(max_length=50)

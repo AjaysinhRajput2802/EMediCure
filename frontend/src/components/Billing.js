@@ -1,6 +1,6 @@
 import React from "react";
 
-const Billing = () => {
+const Billing = ({userData, updateUserData}) => {
     return (
         <div>
         <h1>To make Bill payment</h1>

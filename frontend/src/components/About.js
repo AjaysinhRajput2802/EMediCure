@@ -1,6 +1,6 @@
 import React from "react";
 
-const About = () => {
+const About = ({userData, updateUserData}) => {
     return (
         <div>
         <h1>This is About page.</h1>

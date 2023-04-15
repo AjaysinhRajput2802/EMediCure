@@ -1,15 +1,14 @@
 import React from "react";
 
-const Home = () => {
+const Home = ({userData, updateUserData}) => {
   return (
     <header>
       <section>
         <div
           id="intro"
-          className="bg-image vh-100"
           style={{
             backgroundImage:
-              "url('https://mdbootstrap.com/img/Photos/new-templates/psychologist/img1.jpg')",
+              "url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg')",
           }}
         >
           <div

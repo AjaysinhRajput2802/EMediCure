@@ -1,6 +1,6 @@
 import React from "react";
 
-const Inventory = () => {
+const Inventory = ({userData, updateUserData}) => {
     return (
         <div>
             <h1>Medicine | Stock</h1>
