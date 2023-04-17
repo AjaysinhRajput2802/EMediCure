@@ -1,9 +1,8 @@
-import { useEffect } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = ({ userData, updateUserData }) => {
+const Navbar = ({ userData, updateUserData, updateShopList }) => {
   const navigate = useNavigate();
 
   const LogOut = async () => {
@@ -20,6 +19,7 @@ const Navbar = ({ userData, updateUserData }) => {
       let data = await response.json();
       console.log(data);
       updateUserData(null, "", "");
+      updateShopList(null);
       navigate("/");
     } else {
       alert(response.statusText);
@@ -70,6 +70,7 @@ const Navbar = ({ userData, updateUserData }) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto">
+          {userData && userData.user ? <>
             <li className="nav-item">
               <a className="nav-link" id="dashboard" href="/dashboard">
                 Dashboard
@@ -90,6 +91,9 @@ const Navbar = ({ userData, updateUserData }) => {
                 Billing
               </a>
             </li>
+            </>
+            :<></>
+          }
             <li className="nav-item">
               <a className="nav-link" href="/about">
                 About

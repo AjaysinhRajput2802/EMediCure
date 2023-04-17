@@ -21,23 +21,34 @@ import Navbar from "./components/Navbar";
 
 function App() {
   const [userData, setUserData] = useState(localStorage.getItem("userData"));
+  const [shopList, setShopList] = useState([]);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("userData"));
-    if (data !== null) setUserData(data);
+    const data1 = JSON.parse(localStorage.getItem("userData"));
+    const data2 = JSON.parse(localStorage.getItem("shopList"));
+    if (data1 !== null) setUserData(data1);
+    if (data2 !== null) setShopList(data2);
   }, []);
 
   useEffect(() => {
     localStorage.setItem("userData", JSON.stringify(userData));
   }, [userData]);
 
+  useEffect(() => {
+    localStorage.setItem("shopList", JSON.stringify(shopList));
+  }, [shopList]);
+
   const updateUserData = (user, refresh, access) => {
     setUserData({ user, refresh, access });
   };
 
+  const updateShopList = (shops) => {
+    setShopList(shops);
+  };
+
   return (
     <Router>
-      <Navbar userData={userData} updateUserData={updateUserData} />
+      <Navbar userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} />
       <Routes>
         <Route
           exact
@@ -48,7 +59,7 @@ function App() {
           exact
           path="/dashboard"
           element={
-            <Dashboard userData={userData} updateUserData={updateUserData} />
+            <Dashboard userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} />
           }
         />
         <Route
@@ -69,21 +80,21 @@ function App() {
           exact
           path="/inventory"
           element={
-            <Inventory userData={userData} updateUserData={updateUserData} />
+            <Inventory userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} />
           }
         />
         <Route
           exact
           path="/billing"
           element={
-            <Billing userData={userData} updateUserData={updateUserData} />
+            <Billing userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} />
           }
         />
         <Route
           exact
           path="/alerts"
           element={
-            <Alerts userData={userData} updateUserData={updateUserData} />
+            <Alerts userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} />
           }
         />
         <Route

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './Profile.css';
+import { useNavigate } from "react-router-dom";
 
 const Profile = ({ userData, updateUserData }) => {
+  const navigate = useNavigate();
 
-  const updateProfile = async (e) => {
+  /*const updateProfile = async (e) => {
     e.preventDefault();
     console.log(e.target);
     const first_name = e.target[0].value;
@@ -12,7 +14,7 @@ const Profile = ({ userData, updateUserData }) => {
     const mobileNo = e.target[3].value;
     console.log(first_name, last_name, email, mobileNo);
 
-    /*const response = await fetch(
+    const response = await fetch(
       `http://127.0.0.1:8000/api/profile?user=${userData.user.id}`,
       {
         method: "POST",
@@ -31,8 +33,16 @@ const Profile = ({ userData, updateUserData }) => {
       console.log(data);
     } else {
       alert(response.statusText);
-    }*/
-  };
+    }
+  };*/
+
+  useEffect(() => {
+    if (userData === null || userData.user === null){
+      console.log('navigating');
+      navigate("/login");
+      return;
+    }
+  },[]);
 
   return (
     <div className="container rounded bg-white mt-5 mb-5">
@@ -113,7 +123,7 @@ const Profile = ({ userData, updateUserData }) => {
             <br />
           </div>
         </div>
-      </div> : <div>Loading...</div>}
+      </div> : <div></div>}
       
     </div>
   );

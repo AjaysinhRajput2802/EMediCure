@@ -90,15 +90,14 @@ class Medicine(SoftDelete):
     medDes = models.TextField()
     medPrice = models.DecimalField(decimal_places=2, max_digits=10)
     Type_Choices = [
-        ("TB", "Tablet"),
-        ("CP", "Capsule"),
-        ("LQ", "Liquid"),
-        ("CR", "Cream"),
-        ("PC", "Patche"),
-        ("OT", "Other"),
+        ("Tablet", "Tablet"),
+        ("Capsule", "Capsule"),
+        ("Liquid", "Liquid"),
+        ("Cream", "Cream"),
+        ("Patche", "Patche"),
+        ("Other", "Other"),
     ]
-    medType = models.CharField(
-        max_length=2, choices=Type_Choices, default="OT")
+    medType = models.CharField(choices=Type_Choices, max_length=7, default="Other")
     minimumQty = models.IntegerField(default=10)
     medShop = models.ForeignKey(
         MedicalShop, on_delete=models.CASCADE, related_name='Medicines')

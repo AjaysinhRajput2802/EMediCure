@@ -22,6 +22,8 @@ class MedicineC(generics.CreateAPIView, generics.ListAPIView):
     permission_classes = (AllowAny,)
     queryset = models.Medicine.objects.all()
     serializer_class = serializers.MedicineSerializers
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['medShop']
 
 
 class MedicineRUD(generics.RetrieveUpdateDestroyAPIView):
