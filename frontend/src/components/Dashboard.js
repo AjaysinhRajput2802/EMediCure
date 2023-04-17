@@ -42,7 +42,7 @@ const Dashboard = ({ userData, updateUserData }) => {
                 <p className="card-text">
                   {shop.shopAddress}
                 </p>
-                <a href="#" className="btn btn-primary">
+                <a href="/" className="btn btn-primary">
                   Goto Shop
                 </a>
                 <span className="ms-5">{shop.shopContactNo}</span>

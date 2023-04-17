@@ -27,3 +27,13 @@
   font-size: 1.75rem;
   letter-spacing: 3px;
 }
+
+.profileIcon {
+  border-radius: 50%;
+  display: block;
+  margin: 0px;
+  position: relative;
+  height: 32px;
+  width: 32px;
+  z-index: 0;
+}

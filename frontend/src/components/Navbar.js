@@ -1,26 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import './Navbar.css';
+import "./Navbar.css";
 
-const Navbar = ({userData, updateUserData}) => {
+const Navbar = ({ userData, updateUserData }) => {
   const navigate = useNavigate();
-
-  /*var user = localStorage.getItem("user");
-  alert(user);
-  if (user === null) return;
-  const response = fetch(`http://127.0.0.1:8000/api/profile?user=${user.id}`, {
-    method: "GET",
-  }).catch((e) => console.log(e));
-  if (response.status === 200) {
-    let data = response.json();
-    console.log(data);
-    setProfile(data);
-  } else {
-    alert(response.statusText);
-  }*/
-
-  
 
   const LogOut = async () => {
     const token = userData.access;
@@ -35,12 +19,36 @@ const Navbar = ({userData, updateUserData}) => {
     if (response.status === 200) {
       let data = await response.json();
       console.log(data);
-      updateUserData(null,'','');
-      navigate('/');
+      updateUserData(null, "", "");
+      navigate("/");
     } else {
       alert(response.statusText);
     }
   };
+
+  /*useEffect(() => {
+    const fetchProfile = async () => {
+      if (userData === null || userData.user === undefined) return;
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/profile?user=${userData.user.id}`,
+        {
+          method: "GET",
+        }
+      ).catch((e) => console.log(e));
+      if (response.status === 200) {
+        let data = await response.json();
+        console.log(data);
+        updateUserData(
+          { ...userData.user, profile: data[0] },
+          userData.refresh,
+          userData.access
+        );
+      } else {
+        alert(response.statusText);
+      }
+    };
+    fetchProfile();
+  }, []);*/
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
@@ -63,7 +71,7 @@ const Navbar = ({userData, updateUserData}) => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <a className="nav-link" id='dashboard' href="/dashboard">
+              <a className="nav-link" id="dashboard" href="/dashboard">
                 Dashboard
               </a>
             </li>
@@ -89,13 +97,25 @@ const Navbar = ({userData, updateUserData}) => {
             </li>
           </ul>
 
-          {(userData && userData.user) ? (
+          {userData && userData.user ? (
             <ul className="navbar-nav d-flex flex-row">
               <li className="btn btn-primary me-3" onClick={LogOut}>
                 <span className="nav-link">Log Out</span>
               </li>
-              <li>
-
+              <li
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <a href="/profile">
+                  <img
+                    className="profileIcon"
+                    src={'http://127.0.0.1:8000'+userData.user.profile.profilePhoto}
+                    alt="profilePhoto"
+                  />
+                </a>
               </li>
             </ul>
           ) : (

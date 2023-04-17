@@ -18,7 +18,7 @@ from backend.settings import EMAIL_HOST_USER
 class ProfileSerializers(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['mobileNo','role']
+        fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializers()

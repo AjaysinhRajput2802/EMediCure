@@ -23,8 +23,8 @@ function App() {
   const [userData, setUserData] = useState(localStorage.getItem("userData"));
 
   useEffect(() => {
-    const data = localStorage.getItem("userData");
-    if (data !== null) setUserData(JSON.parse(userData));
+    const data = JSON.parse(localStorage.getItem("userData"));
+    if (data !== null) setUserData(data);
   }, []);
 
   useEffect(() => {
