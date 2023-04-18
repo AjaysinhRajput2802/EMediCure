@@ -42,9 +42,10 @@ urlpatterns = [
     path('stockItem/', views.StockItemC.as_view(), name="stockItem.create"),
     path('stockItem/<int:pk>', views.StockItemRUD.as_view(), name="stockItem.RUD"),
 
-
     path('profile/', views.ProfileC.as_view(), name="profile.create"),
     path('profile/<int:pk>', views.ProfileRUD.as_view(), name="profile.RUD"),
+
+    path('user/<int:pk>', views.UserRUD.as_view(), name='user.RUD')
 
 
 ]

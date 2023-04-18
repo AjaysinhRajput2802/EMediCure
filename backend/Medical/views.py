@@ -113,12 +113,15 @@ class ProfileC(generics.CreateAPIView, generics.ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['user']
 
-
 class ProfileRUD(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = models.Profile.objects.all()
     serializer_class = serializers.ProfileSerializers
 
+class UserRUD(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = models.User.objects.all()
+    serializer_class = serializers.UserSerializers
 
 
     

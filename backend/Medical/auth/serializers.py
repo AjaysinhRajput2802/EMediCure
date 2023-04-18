@@ -18,13 +18,50 @@ from backend.settings import EMAIL_HOST_USER
 class ProfileSerializers(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ['id', 'mobileNo', 'profilePhoto', 'role']
+
+    def update(self, instance, validated_data):
+        instance.mobileNo = validated_data.get('mobileNo', instance.mobileNo)
+        instance.profilePhoto = validated_data.get('profilePhoto', instance.profilePhoto)
+        if instance.role != validated_data.get('role', instance.role) :
+            instance.role = validated_data.get('role', instance.role)
+            if validated_data['role'] == 'Owner':
+                instance.user.is_staff = False
+                instance.user.is_superuser = True
+            else:
+                instance.user.is_staff = True
+                instance.user.is_superuser = False
+        instance.save()
+        return instance
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializers()
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'first_name','last_name','profile']
+
+    def validate_email(self, value):
+        user = self.context['request'].user
+        if User.objects.exclude(pk=user.pk).filter(email=value).exists():
+            raise serializers.ValidationError({"email": "This email is already in use."})
+        return value
+
+    def validate_username(self, value):
+        user = self.context['request'].user
+        if User.objects.exclude(pk=user.pk).filter(username=value).exists():
+            raise serializers.ValidationError({"username": "This username is already in use."})
+        return value
+
+    def update(self, instance, validated_data):
+        profiles_data = validated_data.pop('profile')
+        ProfileSerializers.update(self, instance.profile, profiles_data)
+        # instance.username = validated_data.get('username', instance.username)
+        instance.email = validated_data.get('email', instance.email)
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        
+        instance.save()
+        return instance
 
 class LoginSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -78,6 +115,11 @@ class RegisterSerializer(UserSerializer):
         except ObjectDoesNotExist:
             user = User.objects.create_user(**validated_data)
             profile_instance = Profile.objects.create(user = user,**profile)
+            if profile.role == 'Owner':
+                user.is_superuser = True
+            else: 
+                user.is_staff = True
+            user.save()
         return user
     
 

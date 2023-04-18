@@ -5,8 +5,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
-from rest_framework import generics,permissions
-from rest_framework import status
+from rest_framework import generics, permissions, status
 
 from django.utils.encoding import smart_bytes,DjangoUnicodeDecodeError,smart_str
 from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
@@ -79,8 +78,10 @@ class RefreshAPI(generics.CreateAPIView,TokenRefreshView):
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
-class UserAPI(generics.RetrieveAPIView):
+class UserAPI(generics.RetrieveUpdateDestroyAPIView):
     permission_classes =(permissions.IsAuthenticated,)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
     def get(self, request, *args, **kwargs):
         access_token = str(request.headers['Authorization'].split(' ')[1])
