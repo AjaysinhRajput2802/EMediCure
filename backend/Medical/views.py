@@ -3,6 +3,7 @@ from . import serializers, models
 from rest_framework import generics
 from rest_framework.permissions import *
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 class MedicalShopC(generics.CreateAPIView, generics.ListAPIView):
     permission_classes = (AllowAny,)
@@ -22,8 +23,9 @@ class MedicineC(generics.CreateAPIView, generics.ListAPIView):
     permission_classes = (AllowAny,)
     queryset = models.Medicine.objects.all()
     serializer_class = serializers.MedicineSerializers
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['medShop']
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    filterset_fields = ['medShop','medName','medDes']
+    search_fields = ['medName']
 
 
 class MedicineRUD(generics.RetrieveUpdateDestroyAPIView):

@@ -9,9 +9,14 @@ class MedicalShopSerializers(serializers.ModelSerializer):
 
 
 class MedicineSerializers(serializers.ModelSerializer):
+    currentQuantity = serializers.SerializerMethodField()
     class Meta:
         model = models.Medicine
         fields = '__all__'
+        read_only_fileds = ['currentQuantity',]
+    
+    def get_currentQuantity(self,obj):
+        return obj.checkQuantity()
 
 
 class StaffMemberSerializers(serializers.ModelSerializer):
