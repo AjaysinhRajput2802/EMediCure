@@ -20,6 +20,12 @@ class ProfileSerializers(serializers.ModelSerializer):
         model = Profile
         fields = ['id', 'mobileNo', 'profilePhoto', 'role']
 
+    def validate_mobileNo(self, value):
+        profile = self.context['request'].user.profile
+        if Profile.objects.exclude(pk=profile.pk).filter(mobileNo=value).exists():
+            raise serializers.ValidationError("This mobile number is already in use.")
+        return value
+
     def update(self, instance, validated_data):
         instance.mobileNo = validated_data.get('mobileNo', instance.mobileNo)
         instance.profilePhoto = validated_data.get('profilePhoto', instance.profilePhoto)
@@ -43,13 +49,13 @@ class UserSerializer(serializers.ModelSerializer):
     def validate_email(self, value):
         user = self.context['request'].user
         if User.objects.exclude(pk=user.pk).filter(email=value).exists():
-            raise serializers.ValidationError({"email": "This email is already in use."})
+            raise serializers.ValidationError("This email is already in use.")
         return value
 
     def validate_username(self, value):
         user = self.context['request'].user
         if User.objects.exclude(pk=user.pk).filter(username=value).exists():
-            raise serializers.ValidationError({"username": "This username is already in use."})
+            raise serializers.ValidationError("This username is already in use.")
         return value
 
     def update(self, instance, validated_data):

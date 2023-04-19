@@ -6,17 +6,32 @@ const Navbar = ({ userData, updateUserData, updateShopList }) => {
   const navigate = useNavigate();
 
   const LogOut = async () => {
-    const token = userData.access;
-    const response = await fetch("http://127.0.0.1:8000/auth/logout/", {
+    let data;
+    let response = await fetch("http://127.0.0.1:8000/auth/refresh/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ refresh: userData.refresh }),
+    }).catch((e) => console.log(e));
+    if (response.status === 200) {
+      data = await response.json();
+      console.log(data);
+      updateUserData(userData.user, data.refresh, data.access);
+    } else {
+      alert(response.statusText);
+    }
+    const token = data.access;
+    response = await fetch("http://127.0.0.1:8000/auth/logout/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ refresh: userData.refresh }),
+      body: JSON.stringify({ refresh: data.refresh }),
     }).catch((e) => console.log(e));
     if (response.status === 200) {
-      let data = await response.json();
+      data = await response.json();
       console.log(data);
       updateUserData(null, "", "");
       updateShopList(null);
@@ -25,30 +40,6 @@ const Navbar = ({ userData, updateUserData, updateShopList }) => {
       alert(response.statusText);
     }
   };
-
-  /*useEffect(() => {
-    const fetchProfile = async () => {
-      if (userData === null || userData.user === undefined) return;
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/profile?user=${userData.user.id}`,
-        {
-          method: "GET",
-        }
-      ).catch((e) => console.log(e));
-      if (response.status === 200) {
-        let data = await response.json();
-        console.log(data);
-        updateUserData(
-          { ...userData.user, profile: data[0] },
-          userData.refresh,
-          userData.access
-        );
-      } else {
-        alert(response.statusText);
-      }
-    };
-    fetchProfile();
-  }, []);*/
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
