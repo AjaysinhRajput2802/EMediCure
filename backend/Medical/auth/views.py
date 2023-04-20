@@ -83,13 +83,13 @@ class UserAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def get(self, request, *args, **kwargs):
-        access_token = str(request.headers['Authorization'].split(' ')[1])
-        access_token_obj = AccessToken(access_token)
-        user_data = access_token_obj['user']
-        print(user_data)
+    # def get(self, request, *args, **kwargs):
+    #     access_token = str(request.headers['Authorization'].split(' ')[1])
+    #     access_token_obj = AccessToken(access_token)
+    #     user_data = access_token_obj['user']
+    #     print(user_data)
 
-        return Response(user_data,status=status.HTTP_200_OK)
+    #     return Response(user_data,status=status.HTTP_200_OK)
 
 class ResetPasswordRequestAPI(generics.GenericAPIView):
 

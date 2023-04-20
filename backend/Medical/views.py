@@ -79,16 +79,16 @@ class StockItemRUD(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.StockItemSerializers
 
 
-class BillC(generics.CreateAPIView, generics.ListAPIView):
-    permission_classes = (AllowAny,)
-    queryset = models.Bill.objects.all()
-    serializer_class = serializers.BillSerializers
+# class BillC(generics.CreateAPIView, generics.ListAPIView):
+#     permission_classes = (AllowAny,)
+#     queryset = models.Bill.objects.all()
+#     serializer_class = serializers.BillSerializers
 
 
-class BillRUD(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (AllowAny,)
-    queryset = models.Bill.objects.all()
-    serializer_class = serializers.BillSerializers
+# class BillRUD(generics.RetrieveUpdateDestroyAPIView):
+#     permission_classes = (AllowAny,)
+#     queryset = models.Bill.objects.all()
+#     serializer_class = serializers.BillSerializers
 
 
 class BillItemC(generics.CreateAPIView, generics.ListAPIView):
@@ -125,5 +125,25 @@ class UserRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializers
 
+
+class BillView(generics.ListCreateAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = serializers.BillSerilizers
+    queryset = models.Bill.objects.all().order_by('-pk')
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['medShop']
+
+class BillRUDView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = serializers.BillSerilizers
+    queryset = models.Bill.objects.all()
+
+    def perform_destroy(self, instance):
+        bill = models.Bill.objects.get(pk=instance.pk)
+        billitems = bill.BillItems.all()
+        for item in billitems:
+            medName = item.medName
+            medName.addQuantity(item.quantity)
+        return super().perform_destroy(instance)
 
     

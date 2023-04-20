@@ -33,11 +33,11 @@ urlpatterns = [
     path('company/', views.CompanyC.as_view(), name="com.create"),
     path('company/<int:pk>', views.CompanyRUD.as_view(), name="com.RUD"),
 
-    path('bill/', views.BillC.as_view(), name="bill.create"),
-    path('bill/<int:pk>', views.BillRUD.as_view(), name="bill.RUD"),
+    # path('bill/', views.BillC.as_view(), name="bill.create"),
+    # path('bill/<int:pk>', views.BillRUD.as_view(), name="bill.RUD"),
 
-    path('billItem/', views.BillItemC.as_view(), name="billItem.create"),
-    path('billItem/<int:pk>', views.BillItemRUD.as_view(), name="billItem.RUD"),
+    # path('billItem/', views.BillItemC.as_view(), name="billItem.create"),
+    # path('billItem/<int:pk>', views.BillItemRUD.as_view(), name="billItem.RUD"),
 
     path('stockItem/', views.StockItemC.as_view(), name="stockItem.create"),
     path('stockItem/<int:pk>', views.StockItemRUD.as_view(), name="stockItem.RUD"),
@@ -45,7 +45,10 @@ urlpatterns = [
     path('profile/', views.ProfileC.as_view(), name="profile.create"),
     path('profile/<int:pk>', views.ProfileRUD.as_view(), name="profile.RUD"),
 
-    path('user/<int:pk>', views.UserRUD.as_view(), name='user.RUD')
+    path('user/<int:pk>', views.UserRUD.as_view(), name='user.RUD'),
+
+    path('bill/',views.BillView.as_view(),name='bill.create'),
+    path('bill/<int:pk>',views.BillRUDView.as_view(),name='bill.rud'),
 
 
 ]

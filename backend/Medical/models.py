@@ -168,6 +168,7 @@ class StockItem(models.Model):
 
 class Bill(models.Model):
     billId = models.AutoField(primary_key=True)
+    custName = models.CharField(max_length=100)
     generatedDate = models.DateTimeField(default=datetime.datetime.now)
     medShop = models.ForeignKey(
         MedicalShop, on_delete=models.CASCADE, related_name="Bills")
