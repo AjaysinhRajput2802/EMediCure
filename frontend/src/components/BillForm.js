@@ -7,6 +7,7 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
   const [Allbillitem, setAllbillitem] = useState([
     { medName: "", quantity: "" },
   ]);
+  const [customer, setcustomer] = useState();
   const [currentMed, setCurrentMed] = useState([]);
 
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
     }
   };
 
-  const postBill = async (e) => {
+  const postBill = async (input_billitem, input_custName) => {
     const shopId = 1;
     // if (shopId === "none") {
     //   setCurrentBill([]);
@@ -52,22 +53,21 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
       },
       body: JSON.stringify({
         medShop: shopId,
-        BillItems: e,
+        custName: input_custName,
+        BillItems: input_billitem,
       }),
     }).catch((e) => console.log(e));
 
     let data = await response.json();
 
     if (response.status >= 200 && response.status < 300) {
-      let data = await response.json();
       console.log(data);
       alert("Bill Created SuccessFully.");
     } else {
-      console.log(data)
-      if(data.Outofstock_error){
-
-        let ind=[]
-        for(let i=0; i<Allbillitem.length; i++){
+      console.log(data);
+      if (data.Outofstock_error) {
+        let ind = [];
+        for (let i = 0; i < Allbillitem.length; i++) {
           ind.push(true);
         }
 
@@ -75,15 +75,14 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
           Object.keys(field).map((key, i) => {
             ind[key] = false;
             document.getElementById(key).innerHTML = field[key];
-          })
-        })
+          });
+        });
 
-        for(let i=0; i<Allbillitem.length; i++){
-          if(ind[i]){
+        for (let i = 0; i < Allbillitem.length; i++) {
+          if (ind[i]) {
             document.getElementById(i).innerHTML = "";
           }
         }
-
       }
     }
   };
@@ -106,9 +105,8 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
   const handleInput = (index, event) => {
     const values = [...Allbillitem];
     const updatedValue = event.target.name;
-    
+
     document.getElementById(index).innerHTML = "";
-    
 
     values[index][updatedValue] = event.target.value;
     setAllbillitem(values);
@@ -116,8 +114,9 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    postBill(Allbillitem);
+    postBill(Allbillitem, customer);
     fetchBills();
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -133,8 +132,18 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
             Add New Bill Item
           </Button>
         </Col>
-        <Col xs="12">
-          <Form onSubmit={(event) => handleSubmit(event)}>
+        <Form onSubmit={(event) => handleSubmit(event)}>
+          <Form.Group>
+            <Form.Control
+              type="text"
+              name="custName"
+              placeholder="Customer Name"
+              value={customer}
+              onChange={(e) => setcustomer(e.target.value)}
+              required="true"
+            />
+          </Form.Group>
+          <Col xs="12">
             <Row className="justify-content-center">
               {Allbillitem.length > 0 && (
                 <>
@@ -171,14 +180,14 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
                             required="true"
                           />
                         </Form.Group>
-                        
+
                         <Button
                           variant="secondary"
                           onClick={() => handleRemovebillItems(index)}
                         >
                           Cancel
                         </Button>
-                        
+
                         <div id={index}></div>
                       </div>
                     </Col>
@@ -197,8 +206,8 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
                 </>
               )}
             </Row>
-          </Form>
-        </Col>
+          </Col>
+        </Form>
       </Row>
     </Container>
   );
