@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from 'react'
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
+
 import Paginations from './Paginations';
 
 let pagination_size = 5;
@@ -15,13 +16,29 @@ const Billtable = ({ currentBill }) => {
   const currentRecords = currentBill.slice(indexOfFirstRecord, indexOfLastRecord);
   const nPages = Math.ceil(currentBill.length / recordsPerPage)
 
+  const HandleDelete = async (event, id) => {
+    let res = window.confirm("Are You sure want to delete this Bill : " + id);
+    if(res === true){
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/bill/`+id,
+        {
+          method: "DELETE",
+        }
+      ).catch((e) => console.log(e));
+
+      alert("Bill Id : " + id + " Deleted Successfully.")
+      window.location.reload();
+    }
+
+  };
+
   return (
      <Container>
       <Row className="justify-content-center">
         <Col className="dynamic-form-headings">
           <h3>All Bill Details</h3>
         </Col>
-
+      
         <Paginations
                 nPages={nPages}
                 currentPage={currentPage}
@@ -29,7 +46,7 @@ const Billtable = ({ currentBill }) => {
         />
         <br/>
 
-        {currentRecords.map((bill) => {
+        {currentRecords.map((bill, index1) => {
           const billItem = bill.BillItems;
           return (
             <div className="accordion" id="accordionExample">
@@ -49,9 +66,8 @@ const Billtable = ({ currentBill }) => {
                           <th scope="col">Bill Id : {bill.pk}</th>
                           <th scope="col">Customer Name : {bill.custName}</th>
                           <th scope="col">Bill Date : {bill.generatedDate}</th>
-                          <th scope="col">
-                            Total Payable Amount : {bill.totalAmount}
-                          </th>
+                          <th scope="col">Total Payable Amount : {bill.totalAmount}</th>
+                          <th><Button className="float-end" variant="danger" onClick={(e)=>{HandleDelete(e, bill.pk)}}>Delete</Button></th>
                         </tr>
                       </tbody>
                     </table>

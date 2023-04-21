@@ -63,6 +63,7 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
     if (response.status >= 200 && response.status < 300) {
       console.log(data);
       alert("Bill Created SuccessFully.");
+      window.location.reload();
     } else {
       console.log(data);
       if (data.Outofstock_error) {
@@ -116,7 +117,6 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
     event.preventDefault();
     postBill(Allbillitem, customer);
     fetchBills();
-    window.location.reload();
   };
 
   useEffect(() => {
@@ -172,12 +172,13 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
                         </Form.Group>
                         <Form.Group>
                           <Form.Control
-                            type="text"
+                            type="Number"
                             name="quantity"
                             placeholder="Quantity"
                             value={field.quantity}
                             onChange={(event) => handleInput(index, event)}
                             required="true"
+                            min="1"
                           />
                         </Form.Group>
 
