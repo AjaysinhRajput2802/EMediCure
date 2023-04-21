@@ -1,9 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Form,
+  Tab,
+  FormGroup,
+} from "react-bootstrap";
+import InputGroup from "react-bootstrap/InputGroup";
 
 const BillForm = ({ userData, updateUserData, fetchBills }) => {
+  //  STATE FOR BILL FORM
   const [Allbillitem, setAllbillitem] = useState([
     { medName: "", quantity: "" },
   ]);
@@ -11,11 +21,12 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
   const [currentMed, setCurrentMed] = useState([]);
 
   const navigate = useNavigate();
-
+  // LOGIN REQUIRED
   useEffect(() => {
     if (userData === null || userData.user === null) navigate("/login");
   }, []);
 
+  // GET MEDICINE API CALL
   const fetchMedicine = async (e) => {
     const shopId = 1;
     // if (shopId === "none") {
@@ -39,6 +50,7 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
     }
   };
 
+  // POST BILL API CALL
   const postBill = async (input_billitem, input_custName) => {
     const shopId = 1;
     // if (shopId === "none") {
@@ -124,93 +136,107 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
   }, [userData]);
 
   return (
-    <Container>
-      <Row className="justify-content-center">
-        <Col className="dynamic-form-headings">
-          <h3>Create New Bill</h3>
-          <Button variant="primary" onClick={() => handleAddbillitem()}>
-            Add New Bill Item
-          </Button>
-        </Col>
+    <>
+      <Container>
+        <h3>Create New Bill</h3>
+
         <Form onSubmit={(event) => handleSubmit(event)}>
-          <Form.Group>
-            <Form.Control
-              type="text"
-              name="custName"
-              placeholder="Customer Name"
-              value={customer}
-              onChange={(e) => setcustomer(e.target.value)}
-              required="true"
-            />
-          </Form.Group>
-          <Col xs="12">
-            <Row className="justify-content-center">
-              {Allbillitem.length > 0 && (
-                <>
-                  {Allbillitem.map((field, index) => (
-                    <Col xs="4">
-                      <div>
-                        <h4> Bill Item {index + 1}</h4>
-                        <Form.Group>
-                          <Form.Control
-                            required
-                            as="select"
-                            type="select"
-                            name="medName"
-                            id={"med" + index}
-                            onChange={(event) => handleInput(index, event)}
-                          >
-                            <option value="">Select Medicine</option>
-                            {currentMed.map((m) => {
-                              return (
-                                <option key={m.id} value={m.id}>
-                                  {m.medName}
-                                </option>
-                              );
-                            })}
-                          </Form.Control>
-                        </Form.Group>
-                        <Form.Group>
-                          <Form.Control
-                            type="Number"
-                            name="quantity"
-                            placeholder="Quantity"
-                            value={field.quantity}
-                            onChange={(event) => handleInput(index, event)}
-                            required="true"
-                            min="1"
-                          />
-                        </Form.Group>
+          <Container>
+            <Row>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  type="text"
+                  name="custName"
+                  placeholder="Customer Name"
+                  value={customer}
+                  onChange={(e) => setcustomer(e.target.value)}
+                  required="true"
+                />
+              </Form.Group>
+            </Row>
+          </Container>
 
-                        <Button
-                          variant="secondary"
-                          onClick={() => handleRemovebillItems(index)}
+          <Container>
+            {Allbillitem.length > 0 && (
+              <>
+                {Allbillitem.map((field, index) => (
+                  <Row key={index}>
+                    <Col>
+                      <Form.Group>
+                        <Form.Control
+                          required
+                          as="select"
+                          type="select"
+                          name="medName"
+                          id={"med" + index}
+                          onChange={(event) => handleInput(index, event)}
                         >
-                          Cancel
-                        </Button>
-
-                        <div id={index}></div>
-                      </div>
+                          <option value="">Select Medicine</option>
+                          {currentMed.map((m) => {
+                            return (
+                              <option key={m.id} value={m.id}>
+                                {m.medName}
+                              </option>
+                            );
+                          })}
+                        </Form.Control>
+                      </Form.Group>
                     </Col>
-                  ))}
-                  <Row xs="6">
+                    <Col>
+                      <Form.Group>
+                        <Form.Control
+                          type="text"
+                          name="quantity"
+                          placeholder="Quantity"
+                          value={field.quantity}
+                          onChange={(event) => handleInput(index, event)}
+                          required="true"
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Button
+                        className="mb-3"
+                        variant="secondary"
+                        onClick={() => handleRemovebillItems(index)}
+                      >
+                        Cancel
+                      </Button>
+                    </Col>
+                    <div id={index}></div>
+                  </Row>
+                ))}
+                <Row>
+                  <Col>
                     <Button
                       variant="primary"
                       type="submit"
                       alignment="center"
                       id="submitbutton"
+                      className="justify-content-md-center"
                     >
                       Submit
                     </Button>
-                  </Row>{" "}
+                  </Col>
+                  <Col>
+                    <Button
+                      variant="primary"
+                      onClick={() => handleAddbillitem()}
+                      className="justify-content-md-center"
+                    >
+                      Add New Bill Item
+                    </Button>
+                  </Col>
+                </Row>
+                <Row>
                   <div id="form_error"> </div>
-                </>
-              )}
-            </Row>
-          </Col>
+                </Row>
+              </>
+            )}
+          </Container>
         </Form>
-      </Row>
-    </Container>
+      </Container>
+    </>
   );
 };
 
