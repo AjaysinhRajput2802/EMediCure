@@ -5,7 +5,7 @@ import BillForm from "./BillForm";
 import Billtable from "./Billtable";
 
 
-const Billing = ({ userData, updateUserData }) => {
+const Billing = ({ userData, updateUserData, shopList, updateShopList }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,17 +13,19 @@ const Billing = ({ userData, updateUserData }) => {
   }, []);
 
   const [currentBill, setCurrentBill] = useState([]);
+  const [shopId, setShopId] = useState(0);
 
   const fetchBills = async (e) => {
-    const shopId = 1;
-    // if (shopId === "none") {
-    // setCurrentBill([]);
-    // return;
-    // }
-    // console.log(shopId);
+    const Id = document.getElementById('shops').value;
+    if (Id === "none") {
+    setCurrentBill([]);
+    setShopId(0);
+    return;
+    }
+    console.log(Id);
 
     const response = await fetch(
-      `http://127.0.0.1:8000/api/bill/?medShop=${shopId}`,
+      `http://127.0.0.1:8000/api/bill/?medShop=${Id}`,
       {
         method: "GET",
       }
@@ -35,6 +37,7 @@ const Billing = ({ userData, updateUserData }) => {
     } else {
       alert(response.statusText);
     }
+    setShopId(Id);
   };
 
   useEffect(() => {
@@ -43,7 +46,20 @@ const Billing = ({ userData, updateUserData }) => {
   
   return (
     <div>
-      <BillForm userData={userData} updateUserData={updateUserData} fetchBills={fetchBills}/>
+    <div>
+    <label htmlFor="shops">List of Medical Shops:</label>
+    <select name="" id="shops" onChange={(e) => fetchBills(e)}>
+      <option value="none">Select Shop</option>
+      {shopList.map((shop) => {
+        return (
+          <option key={shop.id} value={shop.id}>
+            {shop.shopName}
+          </option>
+        );
+      })}
+    </select>
+  </div>
+      <BillForm userData={userData} updateUserData={updateUserData} shopId={shopId} fetchBills={fetchBills}/>
       <br />
       <br />
       <Billtable currentBill={currentBill} />

@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import React from "react";
+import React, { Fragment } from "react";
 import Table from "react-bootstrap/Table";
 
 function BillModal({ handleClose, show }) {
@@ -41,15 +41,15 @@ function BillModal({ handleClose, show }) {
             <tbody>
               {bill.BillItems?.map((item, index) => {
                 return (
-                  <>
-                    <tr key={index + 1}>
+                  <Fragment key={index + 1}>
+                    <tr>
                       <th scope="row">{index + 1}</th>
                       <td>{item.medName}</td>
                       <td>{item.quantity}</td>
                       <td>{item.price}</td>
                       <td>{item.price * item.quantity}</td>
                     </tr>
-                  </>
+                  </Fragment>
                 );
               })}
             </tbody>

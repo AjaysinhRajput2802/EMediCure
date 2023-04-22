@@ -12,12 +12,13 @@ import {
 } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 
-const BillForm = ({ userData, updateUserData, fetchBills }) => {
+const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
+  
   //  STATE FOR BILL FORM
   const [Allbillitem, setAllbillitem] = useState([
     { medName: "", quantity: "" },
   ]);
-  const [customer, setcustomer] = useState();
+  const [customer, setcustomer] = useState('');
   const [currentMed, setCurrentMed] = useState([]);
 
   const navigate = useNavigate();
@@ -28,12 +29,12 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
 
   // GET MEDICINE API CALL
   const fetchMedicine = async (e) => {
-    const shopId = 1;
-    // if (shopId === "none") {
-    // setCurrentBill([]);
-    // return;
-    // }
-    // console.log(shopId);
+    //const shopId = 1;
+    if (shopId === 0) {
+      setCurrentMed([]);
+      return;
+    }
+    console.log("Here ",shopId);
     const response = await fetch(
       `http://127.0.0.1:8000/api/medicine/?medShop=${shopId}`,
       {
@@ -52,12 +53,9 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
 
   // POST BILL API CALL
   const postBill = async (input_billitem, input_custName) => {
-    const shopId = 1;
-    // if (shopId === "none") {
-    //   setCurrentBill([]);
-    //   return;
-    //   }
-    // console.log(shopId);
+    if (shopId === 0) {
+       return;
+    }
     const response = await fetch("http://127.0.0.1:8000/api/bill/", {
       method: "POST",
       headers: {
@@ -133,7 +131,7 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
 
   useEffect(() => {
     fetchMedicine();
-  }, [userData]);
+  }, [userData,shopId]);
 
   return (
     <>
@@ -150,7 +148,7 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
                   placeholder="Customer Name"
                   value={customer}
                   onChange={(e) => setcustomer(e.target.value)}
-                  required="true"
+                  required={true}
                 />
               </Form.Group>
             </Row>
@@ -164,7 +162,7 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
                     <Col>
                       <Form.Group>
                         <Form.Control
-                          required
+                          required={true}
                           as="select"
                           type="select"
                           name="medName"
@@ -190,7 +188,7 @@ const BillForm = ({ userData, updateUserData, fetchBills }) => {
                           placeholder="Quantity"
                           value={field.quantity}
                           onChange={(event) => handleInput(index, event)}
-                          required="true"
+                          required={true}
                         />
                       </Form.Group>
                     </Col>
