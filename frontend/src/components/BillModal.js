@@ -39,7 +39,8 @@ function BillModal({ handleClose, show }) {
               </tr>
             </thead>
             <tbody>
-              {bill.BillItems?.map((item, index) => {
+              {bill.BillItems && 
+              bill.BillItems.map((item, index) => {
                 return (
                   <Fragment key={index + 1}>
                     <tr>

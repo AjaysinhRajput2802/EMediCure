@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import BillForm from "./BillForm";
 import Billtable from "./Billtable";
 
@@ -44,7 +44,6 @@ const Billing = ({ userData, updateUserData, shopList, updateShopList }) => {
     fetchBills();
   }, [userData]);
   
-
   return (
     <div>
     <div>
@@ -63,8 +62,8 @@ const Billing = ({ userData, updateUserData, shopList, updateShopList }) => {
       <BillForm userData={userData} updateUserData={updateUserData} shopId={shopId} fetchBills={fetchBills}/>
       <br />
       <br />
-      <Billtable userData={userData}/>
-    </>
+      <Billtable currentBill={currentBill} />
+    </div>
   );
 };
 

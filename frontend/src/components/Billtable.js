@@ -14,30 +14,6 @@ const Billtable = ({ currentBill }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(pagination_size);
-  const [currentBill, setCurrentBill] = useState([]);
-
-  const fetchBills = async (e) => {
-    const shopId = 1;
-    // if (shopId === "none") {
-    // setCurrentBill([]);
-    // return;
-    // }
-    // console.log(shopId);
-
-    const response = await fetch(
-      `http://127.0.0.1:8000/api/bill/?medShop=${shopId}`,
-      {
-        method: "GET",
-      }
-    ).catch((e) => console.log(e));
-    if (response.status === 200) {
-      let data = await response.json();
-      // console.log(data)
-      setCurrentBill(data);
-    } else {
-      alert(response.statusText);
-    }
-  };
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
