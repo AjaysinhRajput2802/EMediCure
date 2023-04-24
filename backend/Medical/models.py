@@ -44,7 +44,7 @@ class MedicalShop(models.Model):
         blank=False, null=False, unique=True, help_text="Enter number with country code like +91")
     shopOwner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='MedicalShop')
     shopSupervisor = models.OneToOneField(
-        User, on_delete=models.SET(shopOwner), related_name='MedicalShops')
+        User, on_delete=models.SET_NULL, related_name='MedicalShops',null=True)
     shopAddress = models.TextField(max_length=128, blank=False, null=False)
     
     def __str__(self):

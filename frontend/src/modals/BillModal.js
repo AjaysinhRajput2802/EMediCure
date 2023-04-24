@@ -39,20 +39,20 @@ function BillModal({ handleClose, show }) {
               </tr>
             </thead>
             <tbody>
-              {bill.BillItems &&
-                bill.BillItems.map((item, index) => {
-                  return (
-                    <Fragment key={index + 1}>
-                      <tr>
-                        <th scope="row">{index + 1}</th>
-                        <td>{item.medName}</td>
-                        <td>{item.quantity}</td>
-                        <td>{item.price}</td>
-                        <td>{item.price * item.quantity}</td>
-                      </tr>
-                    </Fragment>
-                  );
-                })}
+              {bill.BillItems && 
+              bill.BillItems.map((item, index) => {
+                return (
+                  <Fragment key={index + 1}>
+                    <tr>
+                      <th scope="row">{index + 1}</th>
+                      <td>{item.medName}</td>
+                      <td>{item.quantity}</td>
+                      <td>{item.price}</td>
+                      <td>{item.price * item.quantity}</td>
+                    </tr>
+                  </Fragment>
+                );
+              })}
             </tbody>
           </Table>
         </Modal.Body>

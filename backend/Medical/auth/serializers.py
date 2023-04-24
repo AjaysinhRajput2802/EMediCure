@@ -20,11 +20,11 @@ class ProfileSerializers(serializers.ModelSerializer):
         model = Profile
         fields = ['id', 'mobileNo', 'profilePhoto', 'role']
 
-    def validate_mobileNo(self, value):
-        profile = self.context['request'].user.profile
-        if Profile.objects.exclude(pk=profile.pk).filter(mobileNo=value).exists():
-            raise serializers.ValidationError("This mobile number is already in use.")
-        return value
+    # def validate_mobileNo(self, value):
+    #     profile = self.context['request'].user.profile
+    #     if Profile.objects.exclude(pk=profile.pk).filter(mobileNo=value).exists():
+    #         raise serializers.ValidationError("This mobile number is already in use.")
+    #     return value
 
     def update(self, instance, validated_data):
         instance.mobileNo = validated_data.get('mobileNo', instance.mobileNo)
@@ -107,21 +107,23 @@ class RegisterSerializer(UserSerializer):
     
 
     def validate(self, attrs):
+        profile = attrs['profile']
         if attrs['confirm_password'] != attrs['password']:
             error = ({"confirm_password":"Password and Confirm Password are not matching..."})
             raise serializers.ValidationError(error)
+        if Profile.objects.filter(mobileNo=profile['mobileNo']).exists():
+            raise serializers.ValidationError({"profile.mobileNo":"This mobile number is already in use.."})
         del attrs['confirm_password']
         return attrs
     
     def create(self, validated_data):
         profile = validated_data.pop('profile')
-        
         try:
             user = User.objects.get(username=validated_data['username'])
         except ObjectDoesNotExist:
             user = User.objects.create_user(**validated_data)
             profile_instance = Profile.objects.create(user = user,**profile)
-            if profile.role == 'Owner':
+            if profile_instance.role == 'Owner':
                 user.is_superuser = True
             else: 
                 user.is_staff = True

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Register = ({userData, updateUserData}) => {
+const Register = ({ userData, updateUserData }) => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [firstname, setFirstname] = useState();
@@ -49,14 +49,15 @@ const Register = ({userData, updateUserData}) => {
     }).catch((e) => console.log(e));
     let data = await response.json();
     console.log(data);
-    if (response.status === 200) {
+    if (response.status === 201) {
       localStorage.setItem("user", data.username);
       localStorage.setItem("refresh_token", data.refresh);
       localStorage.setItem("access_token", data.access);
       navigate("/");
     } else {
       if (data.username)
-        document.getElementById("usernameError").innerHTML = "*" + data.username[0];
+        document.getElementById("usernameError").innerHTML =
+          "*" + data.username[0];
       else document.getElementById("usernameError").innerHTML = "";
       if (data.email)
         document.getElementById("emailError").innerHTML = "*" + data.email[0];
@@ -95,8 +96,8 @@ const Register = ({userData, updateUserData}) => {
                     Please enter your details!
                   </p>
                   <form onSubmit={handleSubmit}>
-                      <label className="form-label">Username</label>
-                      <div className="form-outline form-white mb-4">
+                    <label className="form-label">Username</label>
+                    <div className="form-outline form-white mb-4">
                       <input
                         type="text"
                         name="user"
@@ -105,7 +106,7 @@ const Register = ({userData, updateUserData}) => {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                       />
-                      <span id="usernameError" style={{color:'red'}}></span>
+                      <span id="usernameError" style={{ color: "red" }}></span>
                     </div>
 
                     <div className="form-outline form-white mb-4">
@@ -119,7 +120,7 @@ const Register = ({userData, updateUserData}) => {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                       />
-                      <span id="emailError" style={{color:'red'}}></span>
+                      <span id="emailError" style={{ color: "red" }}></span>
                     </div>
 
                     <div className="form-outline form-white mb-4">
@@ -157,7 +158,7 @@ const Register = ({userData, updateUserData}) => {
                         onChange={(e) => setMobile(e.target.value)}
                         required
                       />
-                      <span id="mobileError" style={{color:'red'}}></span>
+                      <span id="mobileError" style={{ color: "red" }}></span>
                     </div>
 
                     <div className="form-outline form-white mb-4">
@@ -170,18 +171,20 @@ const Register = ({userData, updateUserData}) => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                       />
-                      <span id="passwordError" style={{color:'red'}}>*password must be atleast 8 characters.</span>
+                      <span id="passwordError" style={{ color: "red" }}>
+                        *password must be atleast 8 characters.
+                      </span>
                     </div>
 
                     <div className="form-outline form-white mb-4">
-                    <label className="form-label">Confirm Password</label>
-                    <input
+                      <label className="form-label">Confirm Password</label>
+                      <input
                         type="password"
                         name="conPass"
                         className="form-control form-control-lg"
                         required
                       />
-                      <span id="confpassError" style={{color:'red'}}></span>
+                      <span id="confpassError" style={{ color: "red" }}></span>
                     </div>
 
                     <div className="form-outline form-white mb-4">
