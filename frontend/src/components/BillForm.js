@@ -134,107 +134,99 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
   }, [userData,shopId]);
 
   return (
-    <>
       <Container>
-        <h3>Create New Bill</h3>
+        <Row className="justify-content-center">
+        <Col className="dynamic-form-headings">
+          <h3>Create New Bill</h3>
+          <Button variant="primary" onClick={() => handleAddbillitem()}>
+            Add New Bill Item
+          </Button>
+        </Col>
 
         <Form onSubmit={(event) => handleSubmit(event)}>
-          <Container>
-            <Row>
-              <Form.Group className="mb-3">
-                <Form.Control
-                  type="text"
-                  name="custName"
-                  placeholder="Customer Name"
-                  value={customer}
-                  onChange={(e) => setcustomer(e.target.value)}
-                  required={true}
-                />
-              </Form.Group>
-            </Row>
-          </Container>
-
-          <Container>
-            {Allbillitem.length > 0 && (
-              <>
-                {Allbillitem.map((field, index) => (
-                  <Row key={index}>
-                    <Col>
-                      <Form.Group>
-                        <Form.Control
-                          required={true}
-                          as="select"
-                          type="select"
-                          name="medName"
-                          id={"med" + index}
-                          onChange={(event) => handleInput(index, event)}
-                        >
-                          <option value="">Select Medicine</option>
-                          {currentMed.map((m) => {
-                            return (
-                              <option key={m.id} value={m.id}>
-                                {m.medName}
-                              </option>
-                            );
-                          })}
-                        </Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col>
-                      <Form.Group>
-                        <Form.Control
+          <Col xs="12">
+            <Row className="justify-content-center">
+              {Allbillitem.length > 0 && (
+                <>
+                  <Form.Group>
+                    <Row className="justify-content-center">
+                        <Form.Label column sm="2">Customer Name :</Form.Label>
+                        <Col xs="6">
+                          <Form.Control
                           type="text"
-                          name="quantity"
-                          placeholder="Quantity"
-                          value={field.quantity}
-                          onChange={(event) => handleInput(index, event)}
-                          required={true}
+                          name="custName"
+                          placeholder="Customer Full Name"
+                          value={customer}
+                          onChange={(e) => setcustomer(e.target.value)}
+                          required
                         />
-                      </Form.Group>
+                      </Col>
+                    </Row>
+                  </Form.Group>
+                  {Allbillitem.map((field, index) => (
+                    <Col xs="4" key={index}>
+                      <div>
+                        <h4> Bill Item {index + 1}</h4>
+                        <Form.Group>
+                          <Form.Control
+                            required
+                            as="select"
+                            type="select"
+                            name="medName"
+                            id={"med" + index}
+                            onChange={(event) => handleInput(index, event)}
+                          >
+                            <option value="">Select Medicine</option>
+                            {currentMed.map((m, index2) => {
+                              return (
+                                <option key={m.id} value={m.id}>
+                                  {m.medName}
+                                </option>
+                              );
+                            })}
+                          </Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Control
+                            type="Number"
+                            name="quantity"
+                            placeholder="Quantity"
+                            value={field.quantity}
+                            onChange={(event) => handleInput(index, event)}
+                            required
+                            min="1"
+                          />
+                        </Form.Group>
+
+                        <Button
+                          variant="secondary"
+                          onClick={() => handleRemovebillItems(index)}
+                        >
+                          Cancel
+                        </Button>
+
+                        <div id={index}></div>
+                      </div>
                     </Col>
-                    <Col>
-                      <Button
-                        className="mb-3"
-                        variant="secondary"
-                        onClick={() => handleRemovebillItems(index)}
-                      >
-                        Cancel
-                      </Button>
-                    </Col>
-                    <div id={index}></div>
-                  </Row>
-                ))}
-                <Row>
-                  <Col>
+                  ))}
+                  <Row xs="6" className="justify-content-center">
                     <Button
                       variant="primary"
                       type="submit"
                       alignment="center"
                       id="submitbutton"
-                      className="justify-content-md-center"
                     >
                       Submit
                     </Button>
-                  </Col>
-                  <Col>
-                    <Button
-                      variant="primary"
-                      onClick={() => handleAddbillitem()}
-                      className="justify-content-md-center"
-                    >
-                      Add New Bill Item
-                    </Button>
-                  </Col>
-                </Row>
-                <Row>
+                  </Row>{" "}
                   <div id="form_error"> </div>
-                </Row>
               </>
             )}
-          </Container>
+          </Row>
+          </Col>
         </Form>
+        </Row>
       </Container>
-    </>
   );
 };
 

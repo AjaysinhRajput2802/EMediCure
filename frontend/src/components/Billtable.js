@@ -1,10 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import Paginations from "./Paginations";
 import Table from "react-bootstrap/Table";
 import BillModal from "./BillModal";
-import Button from "react-bootstrap/Button";
 
 let pagination_size = 5;
 
@@ -36,58 +35,80 @@ const Billtable = ({ currentBill }) => {
     }
   };
 
+  const [Clicked, setClicked] = useState(false);
+
   return (
     <Container>
       <BillModal show={show} setshow={setShow} handleClose={handleClose} />
-      <Table borderless striped>
-        <thead>
-          <tr>
-            <th scope="col">Bill Id</th>
-            <th scope="col">Customer Name </th>
-            <th scope="col">Bill Date </th>
-            <th scope="col">Total Payable Amount</th>
-            <th scope="col">View</th>
-            <th scope="col">Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentRecords.map((bill) => {
-            console.log(bill.BillItems);
-            return (
-              <tr key={bill.pk}>
-                <td>{bill.pk}</td>
-                <td> {bill.custName}</td>
-                <td> {bill.generatedDate}</td>
-                <td>{bill.totalAmount}</td>
-                <td>
-                  <Button
-                    variant="primary"
-                    onClick={() => handleShow(true, bill)}
-                  >
-                    view
-                  </Button>
-                </td>
-                <td>
-                  <Button
-                    variant="danger"
-                    onClick={(e) => {
-                      HandleDelete(e, bill.pk);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+      <Row className="justify-content-center">
+        <Col className="dynamic-form-headings">
+          <h3>All Bill Details</h3>
+          <Button
+            onClick={() => {
+              setClicked(!Clicked);
+            }}
+          >
+            {Clicked ? <>Hide </> : <>Show </>}
+            Data
+          </Button>
+        </Col>
 
-      <Paginations
-        nPages={nPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+        {Clicked ? (
+          <>
+            <Table borderless striped>
+              <thead>
+                <tr>
+                  <th scope="col">Bill Id</th>
+                  <th scope="col">Customer Name </th>
+                  <th scope="col">Bill Date </th>
+                  <th scope="col">Total Payable Amount</th>
+                  <th scope="col">View</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentRecords.map((bill) => {
+                  console.log(bill.BillItems);
+                  return (
+                    <tr key={bill.pk}>
+                      <td>{bill.pk}</td>
+                      <td> {bill.custName}</td>
+                      <td> {bill.generatedDate}</td>
+                      <td>{bill.totalAmount}</td>
+                      <td>
+                        <Button
+                          variant="primary"
+                          onClick={() => handleShow(true, bill)}
+                        >
+                          view
+                        </Button>
+                      </td>
+                      <td>
+                        <Button
+                          variant="danger"
+                          onClick={(e) => {
+                            HandleDelete(e, bill.pk);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+
+            <Paginations
+              nPages={nPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </>
+        ) : (
+          <></>
+        )}
+      </Row>
     </Container>
   );
 };
