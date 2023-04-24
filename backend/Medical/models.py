@@ -81,6 +81,7 @@ class Company(models.Model):
     address = models.TextField()
     contactNumber = PhoneNumberField(
         blank=False, null=False, unique=True, help_text="Enter number with country code like +91")
+    medShop = models.ForeignKey(MedicalShop, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.companyName
@@ -162,6 +163,7 @@ class StockItem(models.Model):
     price = models.DecimalField(decimal_places=2, max_digits=10)
     arrivalDate = models.DateTimeField(default=datetime.datetime.now)
     expiryDate = models.DateField(default=datetime.date.today)
+    medShop = models.ForeignKey(MedicalShop, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)

@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
@@ -126,7 +125,6 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     postBill(Allbillitem, customer);
-    fetchBills();
   };
 
   useEffect(() => {

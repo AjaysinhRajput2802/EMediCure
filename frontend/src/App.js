@@ -14,6 +14,7 @@ import Alerts from "./components/Alerts";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
+import Stock from "./components/Stock";
 
 /* All Pages
  Home, Dashboard, Profile, Register, Login, About, Inventory, Billing
@@ -95,6 +96,13 @@ function App() {
           path="/alerts"
           element={
             <Alerts userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} />
+          }
+        />
+        <Route
+          exact
+          path="/stock"
+          element={
+            <Stock userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} />
           }
         />
         <Route

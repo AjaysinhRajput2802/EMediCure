@@ -22,7 +22,8 @@ const Navbar = ({ userData, updateUserData, updateShopList }) => {
       alert(response.statusText);
     }
     const token = data.access;
-    response = await fetch("http://127.0.0.1:8000/auth/logout/", {
+    
+      response = await fetch("http://127.0.0.1:8000/auth/logout/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,6 +81,11 @@ const Navbar = ({ userData, updateUserData, updateShopList }) => {
             <li className="nav-item">
               <a className="nav-link" href="/billing">
                 Billing
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/stock">
+                Stock
               </a>
             </li>
             </>

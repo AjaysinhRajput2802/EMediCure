@@ -59,6 +59,8 @@ class CompanyC(generics.CreateAPIView, generics.ListAPIView):
     permission_classes = (AllowAny,)
     queryset = models.Company.objects.all()
     serializer_class = serializers.CompanySerializers
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['medShop']
 
 
 class CompanyRUD(generics.RetrieveUpdateDestroyAPIView):
@@ -69,8 +71,10 @@ class CompanyRUD(generics.RetrieveUpdateDestroyAPIView):
 
 class StockItemC(generics.CreateAPIView, generics.ListAPIView):
     permission_classes = (AllowAny,)
-    queryset = models.StockItem.objects.all()
+    queryset = models.StockItem.objects.all().order_by('-arrivalDate')
     serializer_class = serializers.StockItemSerializers
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['medShop']
 
 
 class StockItemRUD(generics.RetrieveUpdateDestroyAPIView):
