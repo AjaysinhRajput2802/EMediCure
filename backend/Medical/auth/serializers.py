@@ -113,11 +113,13 @@ class RegisterSerializer(UserSerializer):
             raise serializers.ValidationError(error)
         if Profile.objects.filter(mobileNo=profile['mobileNo']).exists():
             raise serializers.ValidationError({"profile.mobileNo":"This mobile number is already in use.."})
+
         del attrs['confirm_password']
         return attrs
     
     def create(self, validated_data):
         profile = validated_data.pop('profile')
+        
         try:
             user = User.objects.get(username=validated_data['username'])
         except ObjectDoesNotExist:
