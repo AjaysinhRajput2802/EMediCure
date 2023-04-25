@@ -1,10 +1,17 @@
 import React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import CreateMedShop from "./CreateMedShop";
 import "./Dashboard.css";
+import createMedShop from "./CreateMedShop";
+import CreateMedShop from "./CreateMedShop";
 
-const Dashboard = ({ userData, updateUserData, shopList, updateShopList }) => {
+const Dashboard = ({
+  userData,
+  updateUserData,
+  shopList,
+  updateShopList,
+  updateShopId,
+}) => {
   const navigate = useNavigate();
 
   const fetchShopList = async () => {
@@ -37,13 +44,22 @@ const Dashboard = ({ userData, updateUserData, shopList, updateShopList }) => {
     }
   };
 
+  const gotoShop = (id) => {
+    let shopId = id;
+    console.log(shopId);
+    updateShopId(shopId);
+    navigate(`/inventory/${shopId}`);
+  };
+
   useEffect(() => {
     fetchShopList();
   }, [userData]);
 
   return (
     <>
-      <CreateMedShop userData={userData} />
+      {/* <div>
+        <CreateMedShop userData={userData} />
+      </div> */}
       <div className="row">
         {shopList.map((shop) => {
           return (
@@ -52,9 +68,12 @@ const Dashboard = ({ userData, updateUserData, shopList, updateShopList }) => {
                 <div className="card-body">
                   <h5 className="card-title">{shop.shopName}</h5>
                   <p className="card-text">{shop.shopAddress}</p>
-                  <a href="/" className="btn btn-primary">
+                  <button
+                    onClick={() => gotoShop(shop.id)}
+                    className="btn btn-primary"
+                  >
                     Goto Shop
-                  </a>
+                  </button>
                   <span className="ms-5">{shop.shopContactNo}</span>
                 </div>
               </div>

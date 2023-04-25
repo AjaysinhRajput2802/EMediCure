@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Form, FormGroup } from "react-bootstrap";
 
-const StockForm = ({ userData }) => {
+const StockForm = ({ userData, shopId }) => {
   const [currentMed, setCurrentMed] = useState([]);
   const [currentCompany, setCurrentCompany] = useState([]);
   const [Stock, setStock] = useState(
@@ -17,13 +17,7 @@ const StockForm = ({ userData }) => {
     },
   );
 
-  const shopId = 1;
   const fetchMedicine = async (e) => {
-    // if (shopId === "none") {
-    // setCurrentBill([]);
-    // return;
-    // }
-    // console.log(shopId);
     const response = await fetch(
       `http://127.0.0.1:8000/api/medicine/?medShop=${shopId}`,
       {
@@ -40,11 +34,6 @@ const StockForm = ({ userData }) => {
   };
 
   const fetchCompany = async (e) => {
-    // if (shopId === "none") {
-    // setCurrentBill([]);
-    // return;
-    // }
-    // console.log(shopId);
     const response = await fetch(
       `http://127.0.0.1:8000/api/company/?medShop=${shopId}`,
       {

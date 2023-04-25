@@ -5,7 +5,7 @@ import Paginations from "./Paginations";
 
 let pagination_size = 5;
 
-const Stocktable = ({ userData }) => {
+const Stocktable = ({ userData, shopId }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(pagination_size);
   const [currentStock, setCurrentStock] = useState([]);
@@ -19,8 +19,6 @@ const Stocktable = ({ userData }) => {
   const nPages = Math.ceil(currentStock.length / recordsPerPage);
 
   const FetchStock = async () => {
-    const shopId = 1; ///   CHECK THIS OUT LATER ON !!!!!!!!!!!
-
     const response = await fetch(
       `http://127.0.0.1:8000/api/stockItem/?medShop=${shopId}`,
       { method: "GET" }

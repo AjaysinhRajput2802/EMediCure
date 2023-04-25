@@ -1,17 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Alerts = ({userData, updateUserData, shopList, updateShopList}) => {
     const [currentShopStock, setCurrentShopStock] = useState([]);
     const navigate = useNavigate();
+    const { shopId } = useParams();
   
     const fetchInventory = async (e) => {
-      const shopId = e.target.value;
-      if (shopId === "none") {
-        setCurrentShopStock([]);
-        return;
-      }
       console.log(shopId);
   
       const response = await fetch(
@@ -38,21 +34,8 @@ const Alerts = ({userData, updateUserData, shopList, updateShopList}) => {
   
     return (
       <div>
-        <div>
-          <label htmlFor="shops">List of Medical Shops:</label>
-          <select name="" id="shops" onChange={(e) => fetchInventory(e)}>
-          <option value="none">Select Shop</option>
-            {shopList.map((shop) => {
-              return (
-                <option key={shop.id} value={shop.id}>
-                  {shop.shopName}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="container">
-          <div className="row" id="data">
+        <div className="container d-flex align-items-center justify-content-center">
+          <div className="row">
             {currentShopStock.length?(currentShopStock.map((medicine) => {
               return (
                 <div

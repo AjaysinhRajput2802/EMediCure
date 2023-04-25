@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({userData, updateUserData}) => {
+const Login = ({userData, updateUserData, updateShopId }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -25,7 +25,28 @@ const Login = ({userData, updateUserData}) => {
       let data = await response.json();
       console.log(data);
       updateUserData(data.user, data.refresh, data.access);
-      navigate("/dashboard");
+      if(data.user.profile.role==="Owner"){
+        //console.log("owner");
+        navigate("/dashboard");
+      }
+      else{
+        const response = await fetch(
+          `http://127.0.0.1:8000/api/medical/?shopSupervisor=${data.user.id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        ).catch((e) => console.log(e));
+        if (response.status === 200) {
+          let data = await response.json();
+          updateShopId(data[0].id);
+          navigate(`/inventory/${data[0].id}`);
+        } else {
+          alert(response.statusText);
+        }
+      }
     }
     else{
       alert(response.statusText);

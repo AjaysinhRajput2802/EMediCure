@@ -18,7 +18,7 @@ const Paginations = ({ nPages, currentPage, setCurrentPage }) => {
                 <li className="page-item">
                     <a className="page-link" 
                         onClick={prevPage} 
-                        href='/'>
+                        href='#'>
                         
                         Previous
                     </a>
@@ -29,7 +29,7 @@ const Paginations = ({ nPages, currentPage, setCurrentPage }) => {
 
                         <a onClick={() => setCurrentPage(pgNumber)}  
                             className='page-link' 
-                            href='/'>
+                            href='#'>
                             
                             {pgNumber}
                         </a>
@@ -38,7 +38,7 @@ const Paginations = ({ nPages, currentPage, setCurrentPage }) => {
                 <li className="page-item">
                     <a className="page-link" 
                         onClick={nextPage}
-                        href='/'>
+                        href='#'>
                         
                         Next
                     </a>
