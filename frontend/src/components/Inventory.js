@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import "./Inventory.css";
 import searchIcon from "../images/search-icon.svg";
+import CreateMedicine from "./CreateMedicine";
 
 const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   const [currentShopStock, setCurrentShopStock] = useState([]);
@@ -53,10 +54,13 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
 
   useEffect(() => {
     filterMedicine();
-  },[searchTerm]);
+  }, [searchTerm]);
 
   return (
     <div>
+      <div>
+        <CreateMedicine shopId={shopId} userData={userData} />
+      </div>
       <div className="Wrapper">
         <div className="Content">
           <img src={searchIcon} alt="search-icon" />

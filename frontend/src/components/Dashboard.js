@@ -3,7 +3,15 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
-const Dashboard = ({ userData, updateUserData, shopList, updateShopList, updateShopId }) => {
+import CreateMedShop from "./CreateMedShop";
+
+const Dashboard = ({
+  userData,
+  updateUserData,
+  shopList,
+  updateShopList,
+  updateShopId,
+}) => {
   const navigate = useNavigate();
 
   const fetchShopList = async () => {
@@ -48,24 +56,32 @@ const Dashboard = ({ userData, updateUserData, shopList, updateShopList, updateS
   }, [userData]);
 
   return (
-    <div className="row">
-      {shopList.map((shop) => {
-        return (
-          <div className="col-sm-6" key={shop.id}>
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">{shop.shopName}</h5>
-                <p className="card-text">{shop.shopAddress}</p>
-                <button onClick={()=>gotoShop(shop.id)} className="btn btn-primary">
-                  Goto Shop
-                </button>
-                <span className="ms-5">{shop.shopContactNo}</span>
+    <>
+      {/* <div>
+        <CreateMedShop userData={userData} />
+      </div> */}
+      <div className="row">
+        {shopList.map((shop) => {
+          return (
+            <div className="col-sm-6" key={shop.id}>
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">{shop.shopName}</h5>
+                  <p className="card-text">{shop.shopAddress}</p>
+                  <button
+                    onClick={() => gotoShop(shop.id)}
+                    className="btn btn-primary"
+                  >
+                    Goto Shop
+                  </button>
+                  <span className="ms-5">{shop.shopContactNo}</span>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 
