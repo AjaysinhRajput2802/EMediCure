@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import "./Inventory.css";
 import searchIcon from "../images/search-icon.svg";
@@ -9,13 +9,9 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   const [currentShopStock, setCurrentShopStock] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const { shopId } = useParams();
 
   const fetchInventory = async (e) => {
-    const shopId = e.target.value;
-    if (shopId === "none") {
-      setCurrentShopStock([]);
-      return;
-    }
     console.log(shopId);
     const response = await fetch(
       `http://127.0.0.1:8000/api/medicine/?medShop=${shopId}`,
@@ -34,14 +30,10 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
 
   useEffect(() => {
     if (userData === null || userData.user === null) navigate("/login");
-  }, []);
+    console.log(userData);
+  }, [shopId]);
 
   const filterMedicine = async () => {
-    const shopId = document.getElementById('shops').value;
-    if (shopId === "none") {
-      setCurrentShopStock([]);
-      return;
-    }
     console.log(shopId);
 
     const response = await fetch(
@@ -65,19 +57,6 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
 
   return (
     <div>
-      <div>
-        <label htmlFor="shops">List of Medical Shops:</label>
-        <select name="" id="shops" onChange={(e) => fetchInventory(e)}>
-          <option value="none">Select Shop</option>
-          {shopList.map((shop) => {
-            return (
-              <option key={shop.id} value={shop.id}>
-                {shop.shopName}
-              </option>
-            );
-          })}
-        </select>
-      </div>
       <div className="Wrapper">
         <div className="Content">
           <img src={searchIcon} alt="search-icon" />

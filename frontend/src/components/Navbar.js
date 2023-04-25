@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = ({ userData, updateUserData, updateShopList }) => {
+const Navbar = ({ userData, updateUserData, updateShopList, shopId, updateShopId }) => {
   const navigate = useNavigate();
 
   const LogOut = async () => {
@@ -22,8 +22,8 @@ const Navbar = ({ userData, updateUserData, updateShopList }) => {
       alert(response.statusText);
     }
     const token = data.access;
-    
-      response = await fetch("http://127.0.0.1:8000/auth/logout/", {
+
+    response = await fetch("http://127.0.0.1:8000/auth/logout/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,6 +36,7 @@ const Navbar = ({ userData, updateUserData, updateShopList }) => {
       console.log(data);
       updateUserData(null, "", "");
       updateShopList(null);
+      updateShopId(0);
       navigate("/");
     } else {
       alert(response.statusText);
@@ -62,35 +63,70 @@ const Navbar = ({ userData, updateUserData, updateShopList }) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto">
-          {userData && userData.user ? <>
-            <li className="nav-item">
-              <a className="nav-link" id="dashboard" href="/dashboard">
-                Dashboard
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/inventory">
-                Inventory
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/alerts">
-                Alerts
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/billing">
-                Billing
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/stock">
-                Stock
-              </a>
-            </li>
-            </>
-            :<></>
-          }
+            {userData && userData.user ? (
+              userData.user.profile.role === "Owner" ? (
+                shopId ? (
+                  <>
+                    <li className="nav-item">
+                      <a className="nav-link" id="dashboard" href="/dashboard">
+                        Dashboard
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href={`/inventory/${shopId}`}>
+                        Inventory
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href={`/alerts/${shopId}`}>
+                        Alerts
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href={`/billing/${shopId}`}>
+                        Billing
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href={`/stock/${shopId}`}>
+                        Stock
+                      </a>
+                    </li>
+                  </>
+                ) : (
+                  <li className="nav-item">
+                    <a className="nav-link" id="dashboard" href="/dashboard">
+                      Dashboard
+                    </a>
+                  </li>
+                )
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <a className="nav-link" href={`/inventory/${shopId}`}>
+                      Inventory
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href={`/alerts/${shopId}`}>
+                      Alerts
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href={`/billing/${shopId}`}>
+                      Billing
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href={`/stock/${shopId}`}>
+                      Stock
+                    </a>
+                  </li>
+                </>
+              )
+            ) : (
+              <></>
+            )}
             <li className="nav-item">
               <a className="nav-link" href="/about">
                 About
@@ -113,7 +149,10 @@ const Navbar = ({ userData, updateUserData, updateShopList }) => {
                 <a href="/profile">
                   <img
                     className="profileIcon"
-                    src={'http://127.0.0.1:8000'+userData.user.profile.profilePhoto}
+                    src={
+                      "http://127.0.0.1:8000" +
+                      userData.user.profile.profilePhoto
+                    }
                     alt="profilePhoto"
                   />
                 </a>
