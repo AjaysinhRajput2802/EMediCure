@@ -2,16 +2,8 @@ import React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
-import createMedShop from "./CreateMedShop";
-import CreateMedShop from "./CreateMedShop";
 
-const Dashboard = ({
-  userData,
-  updateUserData,
-  shopList,
-  updateShopList,
-  updateShopId,
-}) => {
+const Dashboard = ({ userData, updateUserData, shopList, updateShopList, updateShopId }) => {
   const navigate = useNavigate();
 
   const fetchShopList = async () => {
@@ -56,32 +48,24 @@ const Dashboard = ({
   }, [userData]);
 
   return (
-    <>
-      {/* <div>
-        <CreateMedShop userData={userData} />
-      </div> */}
-      <div className="row">
-        {shopList.map((shop) => {
-          return (
-            <div className="col-sm-6" key={shop.id}>
-              <div className="card">
-                <div className="card-body">
-                  <h5 className="card-title">{shop.shopName}</h5>
-                  <p className="card-text">{shop.shopAddress}</p>
-                  <button
-                    onClick={() => gotoShop(shop.id)}
-                    className="btn btn-primary"
-                  >
-                    Goto Shop
-                  </button>
-                  <span className="ms-5">{shop.shopContactNo}</span>
-                </div>
+    <div className="row">
+      {shopList.map((shop) => {
+        return (
+          <div className="col-sm-6" key={shop.id}>
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">{shop.shopName}</h5>
+                <p className="card-text">{shop.shopAddress}</p>
+                <button onClick={()=>gotoShop(shop.id)} className="btn btn-primary">
+                  Goto Shop
+                </button>
+                <span className="ms-5">{shop.shopContactNo}</span>
               </div>
             </div>
-          );
-        })}
-      </div>
-    </>
+          </div>
+        );
+      })}
+    </div>
   );
 };
 
