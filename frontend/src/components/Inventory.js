@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import "./Inventory.css";
 import searchIcon from "../images/search-icon.svg";
+import CreateMedicine from "./CreateMedicine";
 
 const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   const [currentShopStock, setCurrentShopStock] = useState([]);
@@ -37,7 +38,7 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   }, []);
 
   const filterMedicine = async () => {
-    const shopId = document.getElementById('shops').value;
+    const shopId = document.getElementById("shops").value;
     if (shopId === "none") {
       setCurrentShopStock([]);
       return;
@@ -61,10 +62,11 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
 
   useEffect(() => {
     filterMedicine();
-  },[searchTerm]);
+  }, [searchTerm]);
 
   return (
     <div>
+      <CreateMedicine userData={userData} shopId={1} />
       <div>
         <label htmlFor="shops">List of Medical Shops:</label>
         <select name="" id="shops" onChange={(e) => fetchInventory(e)}>

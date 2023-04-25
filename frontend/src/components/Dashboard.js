@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import CreateMedShop from "./CreateMedShop";
 import "./Dashboard.css";
 
 const Dashboard = ({ userData, updateUserData, shopList, updateShopList }) => {
@@ -41,24 +42,27 @@ const Dashboard = ({ userData, updateUserData, shopList, updateShopList }) => {
   }, [userData]);
 
   return (
-    <div className="row">
-      {shopList.map((shop) => {
-        return (
-          <div className="col-sm-6" key={shop.id}>
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">{shop.shopName}</h5>
-                <p className="card-text">{shop.shopAddress}</p>
-                <a href="/" className="btn btn-primary">
-                  Goto Shop
-                </a>
-                <span className="ms-5">{shop.shopContactNo}</span>
+    <>
+      <CreateMedShop userData={userData} />
+      <div className="row">
+        {shopList.map((shop) => {
+          return (
+            <div className="col-sm-6" key={shop.id}>
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">{shop.shopName}</h5>
+                  <p className="card-text">{shop.shopAddress}</p>
+                  <a href="/" className="btn btn-primary">
+                    Goto Shop
+                  </a>
+                  <span className="ms-5">{shop.shopContactNo}</span>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 
