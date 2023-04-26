@@ -60,7 +60,14 @@ function App() {
 
   return (
     <Router>
-      <Navbar userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} shopId={shopId} updateShopId={updateShopId} />
+      <Navbar
+        userData={userData}
+        updateUserData={updateUserData}
+        shopList={shopList}
+        updateShopList={updateShopList}
+        shopId={shopId}
+        updateShopId={updateShopId}
+      />
       <Routes>
         <Route
           exact
@@ -71,7 +78,13 @@ function App() {
           exact
           path="/dashboard"
           element={
-            <Dashboard userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} updateShopId={updateShopId} />
+            <Dashboard
+              userData={userData}
+              updateUserData={updateUserData}
+              shopList={shopList}
+              updateShopList={updateShopList}
+              updateShopId={updateShopId}
+            />
           }
         />
         <Route
@@ -92,28 +105,48 @@ function App() {
           exact
           path="/inventory/:shopId"
           element={
-            <Inventory userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} />
+            <Inventory
+              userData={userData}
+              updateUserData={updateUserData}
+              shopList={shopList}
+              updateShopList={updateShopList}
+            />
           }
         />
         <Route
           exact
           path="/billing/:shopId"
           element={
-            <Billing userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} />
+            <Billing
+              userData={userData}
+              updateUserData={updateUserData}
+              shopList={shopList}
+              updateShopList={updateShopList}
+            />
           }
         />
         <Route
           exact
           path="/alerts/:shopId"
           element={
-            <Alerts userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} />
+            <Alerts
+              userData={userData}
+              updateUserData={updateUserData}
+              shopList={shopList}
+              updateShopList={updateShopList}
+            />
           }
         />
         <Route
           exact
           path="/stock/:shopId"
           element={
-            <Stock userData={userData} updateUserData={updateUserData} shopList={shopList} updateShopList={updateShopList} />
+            <Stock
+              userData={userData}
+              updateUserData={updateUserData}
+              shopList={shopList}
+              updateShopList={updateShopList}
+            />
           }
         />
         <Route
@@ -127,7 +160,11 @@ function App() {
           exact
           path="/login"
           element={
-            <Login userData={userData} updateUserData={updateUserData} updateShopId={updateShopId} />
+            <Login
+              userData={userData}
+              updateUserData={updateUserData}
+              updateShopId={updateShopId}
+            />
           }
         />
       </Routes>

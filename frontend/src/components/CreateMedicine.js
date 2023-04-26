@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 
 import React from "react";
 import { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 const CreateMedicine = ({ userData, shopId }) => {
   // MedShop State
@@ -43,7 +43,7 @@ const CreateMedicine = ({ userData, shopId }) => {
 
   // Handle Input
   const handleInput = (e) => {
-    if ([e.target.name] == "medImage") {
+    if ([e.target.name] === "medImage") {
       SetMedicine((prev) => ({
         ...prev,
         [e.target.name]: e.target.files[0],

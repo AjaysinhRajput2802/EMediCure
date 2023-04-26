@@ -1,6 +1,6 @@
 import React from "react";
 
-const Home = ({userData, updateUserData}) => {
+const Home = ({ userData, updateUserData }) => {
   return (
     <header>
       <section>

@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Form, FormGroup } from "react-bootstrap";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 
 const StockForm = ({ userData, shopId }) => {
   const [currentMed, setCurrentMed] = useState([]);
   const [currentCompany, setCurrentCompany] = useState([]);
-  const [Stock, setStock] = useState(
-    {
-      orderedQuantity: "",
-      currentQuantity: "",
-      price: "",
-      arrivalDate: "",
-      expiryDate: "",
-      medName: "",
-      companyName: "",
-      medShop: "",
-    },
-  );
+  const [Stock, setStock] = useState({
+    orderedQuantity: "",
+    currentQuantity: "",
+    price: "",
+    arrivalDate: "",
+    expiryDate: "",
+    medName: "",
+    companyName: "",
+    medShop: "",
+  });
 
   const fetchMedicine = async (e) => {
     const response = await fetch(
@@ -51,27 +49,25 @@ const StockForm = ({ userData, shopId }) => {
 
   const postStock = async (input_stock) => {
     const response = await fetch("http://127.0.0.1:8000/api/stockItem/", {
-      method:"POST",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(
-        input_stock
-      ),
-    }).catch((e)=>{console.log(e)});
+      body: JSON.stringify(input_stock),
+    }).catch((e) => {
+      console.log(e);
+    });
 
     let data = await response.json();
     if (response.status >= 200 && response.status < 300) {
       console.log(data);
       alert("Stock Added SuccessFully.");
       // window.location.reload();
-    }
-    else{
+    } else {
       alert(response.statusText);
       console.log(data);
     }
-  } ;
-
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,27 +78,29 @@ const StockForm = ({ userData, shopId }) => {
   const handleInput = (e) => {
     let stockdata = Stock;
     stockdata[e.target.name] = e.target.value;
-    
-    stockdata['medShop'] = shopId
-    
-    if(e.target.name === 'medName'){
-      const chosenMedicine = currentMed.find((med)=>{return (med.id === Number(e.target.value))});
-      stockdata['price'] = chosenMedicine.medPrice;
-      stockdata['medName'] = Number(e.target.value);
+
+    stockdata["medShop"] = shopId;
+
+    if (e.target.name === "medName") {
+      const chosenMedicine = currentMed.find((med) => {
+        return med.id === Number(e.target.value);
+      });
+      stockdata["price"] = chosenMedicine.medPrice;
+      stockdata["medName"] = Number(e.target.value);
     }
 
-    if(e.target.name === 'orderedQuantity'){
-      stockdata['currentQuantity'] = Number(e.target.value);
-      stockdata['orderedQuantity'] = Number(e.target.value);
-    }
-    
-    if(e.target.name === 'companyName'){
-      stockdata['companyName'] = Number(e.target.value);
+    if (e.target.name === "orderedQuantity") {
+      stockdata["currentQuantity"] = Number(e.target.value);
+      stockdata["orderedQuantity"] = Number(e.target.value);
     }
 
-    setStock(prevStock => ({
+    if (e.target.name === "companyName") {
+      stockdata["companyName"] = Number(e.target.value);
+    }
+
+    setStock((prevStock) => ({
       ...prevStock,
-      [e.target.name]:e.target.value
+      [e.target.name]: e.target.value,
     }));
     // console.log(Stock);
   };
@@ -117,18 +115,6 @@ const StockForm = ({ userData, shopId }) => {
       <Row className="justify-content-center">
         <h3>Add New Stock</h3>
       </Row>
-
-      REMAINING TASK : <br/>
-       medname in table should be a link to relevant medicine detail<br/>
-       add medname bubtton<br/>
-       add supplier bubtton<br/>
-       add medicine functionality <br/>
-       add Supplier functionality <br/>
-       add Medical Shop functionality <br/>
-       Supervisor detail page <br/>
-       staff detail page <br/>
-       go to shop link<br/>
-
       <Form onSubmit={(event) => handleSubmit(event)}>
         <Row className="justify-content-center">
           <Col xs="6">
@@ -187,8 +173,7 @@ const StockForm = ({ userData, shopId }) => {
                   onChange={(e) => {
                     handleInput(e);
                   }}
-                >
-                </Form.Control>
+                ></Form.Control>
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
