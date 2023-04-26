@@ -6,7 +6,8 @@ urlpatterns = [
     path('register/',RegistrationAPI.as_view(),name='auth-register'),
     path('refresh/',RefreshAPI.as_view(),name='auth-refresh'),
     path('logout/',LogoutAPI.as_view(),name='auth-logout'),
-    path('user/<int:pk>',UserAPI.as_view(),name='auth-user'),
+    path('user/<int:pk>',UserRUDAPI.as_view(),name='auth-user'),
+    path('user',UserAPI.as_view(),name='auth-user-list'),
 
     path('password_reset/', 
          ResetPasswordRequestAPI.as_view(),

@@ -124,10 +124,10 @@ class ProfileRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Profile.objects.all()
     serializer_class = serializers.ProfileSerializers
 
-class UserRUD(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
-    queryset = models.User.objects.all()
-    serializer_class = serializers.UserSerializers
+# class UserRUD(generics.RetrieveUpdateDestroyAPIView):
+#     permission_classes = (IsAuthenticated,)
+#     queryset = models.User.objects.all()
+#     serializer_class = serializers.UserSerializers
 
 
 class BillView(generics.ListCreateAPIView):

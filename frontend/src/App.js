@@ -148,7 +148,7 @@ function App() {
               updateShopList={updateShopList}
             />
           }
-        />
+        /> 
         <Route
           exact
           path="/register"

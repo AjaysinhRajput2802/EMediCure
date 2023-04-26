@@ -122,6 +122,7 @@ const Navbar = ({ userData, updateUserData, updateShopList, shopId, updateShopId
                       Stock
                     </a>
                   </li>
+                  
                 </>
               )
             ) : (

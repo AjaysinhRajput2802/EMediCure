@@ -63,7 +63,7 @@ admin.site.register(models.StaffMember, StaffMemberAdmin)
 
 class ProfileAdmin(admin.ModelAdmin):
     model = models.Profile
-    list_display = ('user', 'profilePhoto', 'mobileNo')
+    list_display = ('user', 'profilePhoto', 'mobileNo', 'role')
 
 
 admin.site.register(models.Profile, ProfileAdmin)

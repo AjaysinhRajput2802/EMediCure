@@ -21,8 +21,9 @@ const Login = ({userData, updateUserData, updateShopId }) => {
         password,
       })
     }).catch(e => console.log(e));
+    let data = await response.json();
     if(response.status===200){
-      let data = await response.json();
+      
       console.log(data);
       updateUserData(data.user, data.refresh, data.access);
       if(data.user.profile.role==="Owner"){
@@ -49,7 +50,7 @@ const Login = ({userData, updateUserData, updateShopId }) => {
       }
     }
     else{
-      alert(response.statusText);
+      alert(data.detail);
     }
   };
 

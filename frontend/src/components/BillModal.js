@@ -21,7 +21,7 @@ function BillModal({ handleClose, show }) {
                 <tr>
                   <th scope="col">Bill Id: {bill.pk}</th>
                   <th scope="col">Customer Name : {bill.custName} </th>
-                  <th scope="col">Bill Date:{bill.generatedDate} </th>
+                  <th scope="col">Bill Date:{(bill.generatedDate)} </th>
                 </tr>
               </thead>
             </Table>
@@ -31,11 +31,11 @@ function BillModal({ handleClose, show }) {
           <Table borderless>
             <thead>
               <tr>
-                <th scope="col">#</th>
+                <th scope="col"></th>
                 <th scope="col">Medicine Name</th>
                 <th scope="col">Quantity </th>
                 <th scope="col">Price </th>
-                <th scope="col">Total Amount</th>
+                <th scope="col">Amount</th>
               </tr>
             </thead>
             <tbody>
@@ -48,7 +48,7 @@ function BillModal({ handleClose, show }) {
                         <td>{item.medName}</td>
                         <td>{item.quantity}</td>
                         <td>{item.price}</td>
-                        <td>{item.price * item.quantity}</td>
+                        <td>{(item.price * item.quantity).toLocaleString('us-US', { style: 'currency', currency: 'IND' })}</td>
                       </tr>
                     </Fragment>
                   );
@@ -57,7 +57,7 @@ function BillModal({ handleClose, show }) {
           </Table>
         </Modal.Body>
         <Modal.Footer>
-          <p>Total Payable Amount : {bill.totalAmount}</p>
+          <p>Total Payable Amount : <b>{Number(bill.totalAmount).toLocaleString('us-US', { style: 'currency', currency: 'IND' })}</b></p>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>

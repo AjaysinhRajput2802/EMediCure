@@ -45,7 +45,7 @@ urlpatterns = [
     path('profile/', views.ProfileC.as_view(), name="profile.create"),
     path('profile/<int:pk>', views.ProfileRUD.as_view(), name="profile.RUD"),
 
-    path('user/<int:pk>', views.UserRUD.as_view(), name='user.RUD'),
+    # path('user/<int:pk>', views.UserRUD.as_view(), name='user.RUD'),
 
     path('bill/',views.BillView.as_view(),name='bill.create'),
     path('bill/<int:pk>',views.BillRUDView.as_view(),name='bill.rud'),

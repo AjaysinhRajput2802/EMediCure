@@ -45,7 +45,7 @@ class MedicalShop(models.Model):
     shopOwner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='MedicalShop')
     shopSupervisor = models.OneToOneField(
         User, on_delete=models.SET_NULL, related_name='MedicalShops',null=True)
-    shopAddress = models.TextField(max_length=128, blank=False, null=False)
+    shopAddress = models.TextField(blank=False, null=False)
     
     def __str__(self):
         return self.shopName

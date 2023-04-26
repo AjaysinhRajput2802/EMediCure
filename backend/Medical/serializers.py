@@ -8,6 +8,12 @@ class MedicalShopSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.MedicalShop
         fields = '__all__'
+    
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep['shopOwner'] = instance.shopOwner.first_name + " " + instance.shopOwner.last_name 
+        rep['shopSupervisor'] = instance.shopSupervisor.first_name + " " + instance.shopSupervisor.last_name 
+        return rep
 
 
 class MedicineSerializers(serializers.ModelSerializer):

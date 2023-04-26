@@ -100,7 +100,7 @@ const StockForm = ({ userData, shopId }) => {
 
     setStock((prevStock) => ({
       ...prevStock,
-      [e.target.name]: e.target.value,
+      stockdata
     }));
     // console.log(Stock);
   };

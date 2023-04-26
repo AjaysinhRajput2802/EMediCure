@@ -7,6 +7,8 @@ from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from rest_framework import generics, permissions, status
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 from django.utils.encoding import smart_bytes,DjangoUnicodeDecodeError,smart_str
 from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 
@@ -78,7 +80,14 @@ class RefreshAPI(generics.CreateAPIView,TokenRefreshView):
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
-class UserAPI(generics.RetrieveUpdateDestroyAPIView):
+class UserAPI(generics.ListAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['email']
+
+class UserRUDAPI(generics.RetrieveUpdateDestroyAPIView):
     permission_classes =(permissions.IsAuthenticated,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
