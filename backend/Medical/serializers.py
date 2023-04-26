@@ -11,8 +11,17 @@ class MedicalShopSerializers(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        rep['shopOwner'] = instance.shopOwner.first_name + " " + instance.shopOwner.last_name 
-        rep['shopSupervisor'] = instance.shopSupervisor.first_name + " " + instance.shopSupervisor.last_name 
+        ownername = instance.shopOwner.first_name + " " + instance.shopOwner.last_name
+        if ownername == " ":
+            rep['shopOwner'] = instance.shopOwner.username
+        else:
+            rep['shopOwner'] = ownername
+
+        supname =  instance.shopSupervisor.first_name + " " + instance.shopSupervisor.last_name
+        if supname == " ":
+            rep['shopSupervisor'] = instance.shopSupervisor.username
+        else:
+            rep['shopSupervisor'] = supname
         return rep
 
 

@@ -24,8 +24,7 @@ const Dashboard = ({
 
   const [inputData, setinputData] = useState({
     email: "",
-    medshopid: "",
-    medshopname: "",
+    medshopid: ""
   });
 
   const [postData, setpostData] = useState({
@@ -98,8 +97,9 @@ const Dashboard = ({
         body: JSON.stringify(postData),
       }
     ).catch((e) => console.log(e));
+
     let data = await response.json();
-    console.log(data);
+
     if (response.status >= 200 && response.status < 300) {
       const response2 = await fetch(
         `http://127.0.0.1:8000/api/medical/${inputData.medshopid}`,
@@ -121,7 +121,11 @@ const Dashboard = ({
         );
       } else {
         console.log(data2);
-        alert(response2.statusText);
+        if(data2.shopSupervisor){
+          alert("This User is already a supervisor of a shop");
+        }else{
+          alert(response2.statusText);
+        }
       }
     } else {
       console.log(data);
@@ -166,6 +170,9 @@ const Dashboard = ({
 
   // -------- HELPER FUNCTIONS ------
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const gotoShop = (id) => {
     let shopId = id;
     console.log(shopId);
@@ -173,13 +180,19 @@ const Dashboard = ({
     navigate(`/inventory/${shopId}`);
   };
 
+  const assignButton = (shopid) => {
+    setinputData((prevData) => ({
+      ...prevData,
+      medshopid:shopid
+    }));
+    handleShow();
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     assignsupervisor_getUserId();
-  };
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  };
 
   // -------- RETURN STATEMENTS ------
   return (
@@ -209,7 +222,7 @@ const Dashboard = ({
 
                   {userData.user.profile.role === "Owner" ? (
                     <div>
-                      <Button variant="primary" onClick={handleShow}>
+                      <Button variant="primary" onClick={() => {assignButton(shop.id)}}>
                         Assign new Supervisor
                       </Button>
 
@@ -234,7 +247,6 @@ const Dashboard = ({
                                 name="superemail"
                                 type="email"
                                 placeholder="name@example.com"
-                                id="idsuperemail"
                                 onChange={(e) => {
                                   setinputData((prevData) => ({
                                     ...prevData,
@@ -242,41 +254,6 @@ const Dashboard = ({
                                   }));
                                 }}
                               />
-                            </Form.Group>
-                            <Form.Group>
-                              <Form.Control
-                                required
-                                as="select"
-                                type="select"
-                                name="medshop"
-                                id="idmedshop"
-                                onChange={(e) => {
-                                  setinputData((prevData) => ({
-                                    ...prevData,
-                                    medshopid: Number(
-                                      e.target.value.substring(
-                                        0,
-                                        e.target.value.indexOf(" ")
-                                      )
-                                    ),
-                                    medshopname: e.target.value.substring(
-                                      e.target.value.indexOf(" ") + 1
-                                    ),
-                                  }));
-                                }}
-                              >
-                                <option value="">Select Shop</option>
-                                {shopList.map((s, index2) => {
-                                  return (
-                                    <option
-                                      key={s.id}
-                                      value={s.id + " " + s.shopName}
-                                    >
-                                      {s.shopName}
-                                    </option>
-                                  );
-                                })}
-                              </Form.Control>
                             </Form.Group>
                           </Modal.Body>
                           <Modal.Footer>
