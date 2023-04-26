@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
-import CreateMedShop from "./CreateMedShop";
+import CreateMedShopModal from "./CreateMedShopModal";
 
 const Dashboard = ({
   userData,
@@ -24,7 +24,7 @@ const Dashboard = ({
 
   const [inputData, setinputData] = useState({
     email: "",
-    medshopid: ""
+    medshopid: "",
   });
 
   const [postData, setpostData] = useState({
@@ -34,6 +34,8 @@ const Dashboard = ({
       role: "",
     },
   });
+
+  const [createMedShop, setMedShop] = useState(false);
 
   // -------- USE EFFECTS ------
 
@@ -121,9 +123,9 @@ const Dashboard = ({
         );
       } else {
         console.log(data2);
-        if(data2.shopSupervisor){
+        if (data2.shopSupervisor) {
           alert("This User is already a supervisor of a shop");
-        }else{
+        } else {
           alert(response2.statusText);
         }
       }
@@ -173,6 +175,9 @@ const Dashboard = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleMedShopClose = () => setMedShop(false);
+  const handleMedShopShow = () => setMedShop(true);
+
   const gotoShop = (id) => {
     let shopId = id;
     console.log(shopId);
@@ -183,23 +188,35 @@ const Dashboard = ({
   const assignButton = (shopid) => {
     setinputData((prevData) => ({
       ...prevData,
-      medshopid:shopid
+      medshopid: shopid,
     }));
     handleShow();
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     assignsupervisor_getUserId();
-
   };
 
   // -------- RETURN STATEMENTS ------
   return (
     <>
-      {/* <div>
-        <CreateMedShop userData={userData} />
-      </div> */}
+      <div>
+        <CreateMedShopModal
+          userData={userData}
+          setMedShop={setMedShop}
+          createMedShop={createMedShop}
+          handleMedShopClose={handleMedShopClose}
+        />
+        <Button
+          variant="primary"
+          onClick={() => {
+            handleMedShopShow(true);
+          }}
+        >
+          Create New Store
+        </Button>
+      </div>
       <div className="row">
         {shopList.map((shop) => {
           return (
@@ -222,7 +239,12 @@ const Dashboard = ({
 
                   {userData.user.profile.role === "Owner" ? (
                     <div>
-                      <Button variant="primary" onClick={() => {assignButton(shop.id)}}>
+                      <Button
+                        variant="primary"
+                        onClick={() => {
+                          assignButton(shop.id);
+                        }}
+                      >
                         Assign new Supervisor
                       </Button>
 

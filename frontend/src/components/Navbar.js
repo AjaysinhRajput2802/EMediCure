@@ -2,7 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = ({ userData, updateUserData, updateShopList, shopId, updateShopId }) => {
+const Navbar = ({
+  userData,
+  updateUserData,
+  updateShopList,
+  shopId,
+  updateShopId,
+}) => {
   const navigate = useNavigate();
 
   const LogOut = async () => {
@@ -122,17 +128,16 @@ const Navbar = ({ userData, updateUserData, updateShopList, shopId, updateShopId
                       Stock
                     </a>
                   </li>
-                  
                 </>
               )
             ) : (
               <></>
             )}
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link" href="/about">
                 About
               </a>
-            </li>
+            </li> */}
           </ul>
 
           {userData && userData.user ? (

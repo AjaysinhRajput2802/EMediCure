@@ -17,11 +17,12 @@ class MedicalShopSerializers(serializers.ModelSerializer):
         else:
             rep['shopOwner'] = ownername
 
-        supname =  instance.shopSupervisor.first_name + " " + instance.shopSupervisor.last_name
-        if supname == " ":
-            rep['shopSupervisor'] = instance.shopSupervisor.username
+        supname = "";
+        if(instance.shopSupervisor is None):
+            supname = "Not Assigned"
         else:
-            rep['shopSupervisor'] = supname
+            supname =  instance.shopSupervisor.first_name + " " + instance.shopSupervisor.last_name
+        rep['shopSupervisor'] = supname
         return rep
 
 

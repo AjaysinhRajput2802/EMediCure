@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
-import About from "./components/About";
 import Inventory from "./components/Inventory";
 import Billing from "./components/Billing";
 import Alerts from "./components/Alerts";
@@ -15,6 +14,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Stock from "./components/Stock";
+// import About from "./components/About";
 
 /* All Pages
  Home, Dashboard, Profile, Register, Login, About, Inventory, Billing
@@ -94,13 +94,13 @@ function App() {
             <Profile userData={userData} updateUserData={updateUserData} />
           }
         />
-        <Route
+        {/* <Route
           exact
           path="/about"
           element={
             <About userData={userData} updateUserData={updateUserData} />
           }
-        />
+        /> */}
         <Route
           exact
           path="/inventory/:shopId"
@@ -148,7 +148,7 @@ function App() {
               updateShopList={updateShopList}
             />
           }
-        /> 
+        />
         <Route
           exact
           path="/register"
