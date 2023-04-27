@@ -57,17 +57,15 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   return (
     <div>
       <StaffMember userData={userData} shopId={shopId} />
-      <div className="Wrapper">
-        <div className="Content">
-          <img src={searchIcon} alt="search-icon" />
-          <input
-            type="text"
-            placeholder="Search Medicine"
-            id="searchbar"
-            onChange={(e) => setSearchTerm(e.target.value)}
-            value={searchTerm}
-          />
-        </div>
+      <div className="Content">
+        <img src={searchIcon} alt="search-icon" />
+        <input
+          type="text"
+          placeholder="Search Medicine"
+          id="searchbar"
+          onChange={(e) => setSearchTerm(e.target.value)}
+          value={searchTerm}
+        />
       </div>
       <div className="container">
         <div className="row">

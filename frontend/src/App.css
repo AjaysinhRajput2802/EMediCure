@@ -1,4 +1,5 @@
 body{
   margin-top: 70px;
-  background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+  background-image: url('./images/background_image.jpg');
+  background-size: cover;
 }

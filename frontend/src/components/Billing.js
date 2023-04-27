@@ -33,6 +33,10 @@ const Billing = ({ userData, updateUserData, shopList, updateShopList }) => {
     }
   };
 
+  const updateCurrentBill = (data) => {
+    setCurrentBill(data);
+  };
+
   useEffect(() => {
     fetchBills();
   }, [userData]);
@@ -42,7 +46,7 @@ const Billing = ({ userData, updateUserData, shopList, updateShopList }) => {
       <BillForm userData={userData} updateUserData={updateUserData} shopId={shopId} fetchBills={fetchBills}/>
       <br />
       <br />
-      <Billtable currentBill={currentBill} />
+      <Billtable currentBill={currentBill} updateCurrentBill={updateCurrentBill} shopId={shopId} />
     </div>
   );
 };

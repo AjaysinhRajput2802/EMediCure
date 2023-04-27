@@ -1,21 +1,9 @@
 /* Color of the links BEFORE scroll */
-.navbar-scroll .nav-link,
-.navbar-scroll .navbar-toggler-icon,
-.navbar-scroll .navbar-brand {
-  color: #fff;
-}
-
-/* Color of the links AFTER scroll */
-.navbar-scrolled .nav-link,
-.navbar-scrolled .navbar-toggler-icon,
-.navbar-scrolled .navbar-brand {
-  color: #fff;
-}
-
-/* Color of the navbar AFTER scroll */
-.navbar-scroll,
-.navbar-scrolled {
-  background-color: #cbbcb1;
+.nav-link{
+  color: #023535;
+  font-family: 'Dongle', sans-serif;
+font-family: 'Kanit', sans-serif;
+font-family: 'Poppins', sans-serif;
 }
 
 .mask-custom {

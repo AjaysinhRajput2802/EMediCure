@@ -134,8 +134,9 @@ class BillView(generics.ListCreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = serializers.BillSerilizers
     queryset = models.Bill.objects.all().order_by('-pk')
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
     filterset_fields = ['medShop']
+    search_fields = ['custName']
 
 class BillRUDView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (AllowAny,)

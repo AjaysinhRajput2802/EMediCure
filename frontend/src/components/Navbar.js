@@ -53,7 +53,7 @@ const Navbar = ({
     <nav className="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
       <div className="container">
         <a className="navbar-brand" href="/">
-          <span style={{ color: "#5e9693" }}>EMedi</span>
+          <span style={{ color: "#023535" }}>EMedi</span>
           <span style={{ color: "#fff" }}>Cure</span>
         </a>
         <button
@@ -142,7 +142,7 @@ const Navbar = ({
 
           {userData && userData.user ? (
             <ul className="navbar-nav d-flex flex-row">
-              <li className="btn btn-primary me-3" onClick={LogOut}>
+              <li className="btn btn-primary me-3" onClick={LogOut} style={{backgroundColor:"#fff",height:"40px"}}>
                 <span className="nav-link">Log Out</span>
               </li>
               <li
