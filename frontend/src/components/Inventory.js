@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Inventory.css";
 import searchIcon from "../images/search-icon.svg";
-
+import StaffMember from "./StaffMember";
 const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   const [currentShopStock, setCurrentShopStock] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -56,6 +56,7 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
 
   return (
     <div>
+      <StaffMember userData={userData} shopId={shopId} />
       <div className="Wrapper">
         <div className="Content">
           <img src={searchIcon} alt="search-icon" />
