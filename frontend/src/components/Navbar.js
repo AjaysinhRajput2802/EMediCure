@@ -98,6 +98,11 @@ const Navbar = ({
                         Stock
                       </a>
                     </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href={`/staffMember/${shopId}`}>
+                        Staff Member
+                      </a>
+                    </li>
                   </>
                 ) : (
                   <li className="nav-item">
@@ -128,21 +133,25 @@ const Navbar = ({
                       Stock
                     </a>
                   </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href={`/staffMember/${shopId}`}>
+                      Staff Member
+                    </a>
+                  </li>
                 </>
               )
             ) : (
               <></>
             )}
-            {/* <li className="nav-item">
-              <a className="nav-link" href="/about">
-                About
-              </a>
-            </li> */}
           </ul>
 
           {userData && userData.user ? (
             <ul className="navbar-nav d-flex flex-row">
-              <li className="btn btn-primary me-3" onClick={LogOut} style={{backgroundColor:"#fff",height:"40px"}}>
+              <li
+                className="btn btn-primary me-3"
+                onClick={LogOut}
+                style={{ backgroundColor: "#fff", height: "40px" }}
+              >
                 <span className="nav-link">Log Out</span>
               </li>
               <li

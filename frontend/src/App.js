@@ -15,6 +15,7 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Stock from "./components/Stock";
 // import About from "./components/About";
+import StaffMember from "./components/StaffMember";
 
 /* All Pages
  Home, Dashboard, Profile, Register, Login, About, Inventory, Billing
@@ -142,6 +143,18 @@ function App() {
           path="/stock/:shopId"
           element={
             <Stock
+              userData={userData}
+              updateUserData={updateUserData}
+              shopList={shopList}
+              updateShopList={updateShopList}
+            />
+          }
+        />
+        <Route
+          exact
+          path="/staffMember/:shopId"
+          element={
+            <StaffMember
               userData={userData}
               updateUserData={updateUserData}
               shopList={shopList}

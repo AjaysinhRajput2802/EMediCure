@@ -47,7 +47,8 @@ class StaffMemberC(generics.CreateAPIView, generics.ListAPIView):
     permission_classes = (AllowAny,)
     queryset = models.StaffMember.objects.all()
     serializer_class = serializers.StaffMemberSerializers
-
+    filter_backends = [DjangoFilterBackend,]
+    filterset_fields = ['medShop']
 
 class StaffMemberRUD(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (AllowAny,)
