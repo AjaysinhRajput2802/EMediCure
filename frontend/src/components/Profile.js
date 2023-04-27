@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Profile.css";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +9,8 @@ const Profile = ({ userData, updateUserData }) => {
   const [lastname, setLastname] = useState("");
   const [mobile, setMobile] = useState("");
   const [initialMobile, setInitialMobile] = useState("");
+  const [image, setImage] = useState(null);
+  const hiddenFileInput = useRef(null);
 
   const LoadData = () => {
     setEmail(userData.user.email);
@@ -24,6 +26,7 @@ const Profile = ({ userData, updateUserData }) => {
     if (lastname !== userData.user.last_name) return;
     if (email !== userData.user.email) return;
     if (mobile !== userData.user.profile.mobileNo) return;
+    if (image !== null) return; 
     document.getElementById("saveButton").disabled = false;
   };
 
@@ -50,7 +53,7 @@ const Profile = ({ userData, updateUserData }) => {
       }
     ).catch((e) => console.log(e));
     let data = await response1.json();
-    //console.log(data);
+    console.log(data);
     if (response1.status === 200) {
       updateUserData(
         {
@@ -63,47 +66,59 @@ const Profile = ({ userData, updateUserData }) => {
         userData.access
       );
     }
-    if (data.email && response1.status !== 200) {
+    if (data.email && response1.status!==200) {
       document.getElementById("emailError").innerHTML = "*" + data.email[0];
       console.log("email error");
-    } else {
+    } else{
       document.getElementById("emailError").innerHTML = "";
     }
-    if (initialMobile !== mobile) {
+    if (initialMobile !== mobile || image !== null) {
+      //console.log(userData);
+      const form_data = new FormData();
+      form_data.append("id", userData.user.profile.id);
+      if(initialMobile !== mobile){
+        form_data.append("mobileNo", mobile);
+      }
+      if (image !== null) {
+        form_data.append("profilePhoto", image, image.name);
+      }
+      form_data.append("role",userData.user.profile.role);
       const response2 = await fetch(
-        `http://127.0.0.1:8000/auth/user/${userData.user.id}`,
+        `http://127.0.0.1:8000/api/profile/${userData.user.profile.id}`,
         {
           method: "PATCH",
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
             Authorization: `Bearer ${userData.access}`,
           },
-          body: JSON.stringify({
-            profile: {
-              id: userData.user.profile.id,
-              mobileNo: mobile,
-            },
-          }),
+          body: form_data,
         }
       ).catch((e) => console.log(e));
       let data = await response2.json();
       //console.log(data);
       if (response2.status === 200) {
+        const temp = data.profilePhoto.split("/");
+        data.profilePhoto = "";
+        for(var i=3;i<temp.length;i++)
+        {
+          data.profilePhoto += "/" + temp[i];
+        }
         updateUserData(
           {
             ...userData.user,
             profile: {
-              mobileNo: mobile,
+              id: data.id,
+              mobileNo: data.mobileNo,
+              profilePhoto: data.profilePhoto,
+              role: data.role,
             },
           },
           userData.refresh,
           userData.access
         );
       }
-      if (data.profile && response2.status !== 200) {
+      if (data.mobileNo && response2.status!==200) {
         document.getElementById("mobileError").innerHTML =
-          "*" + data.profile.mobileNo[0];
+          "*" + data.mobileNo[0];
         console.log("mobile error");
       } else {
         document.getElementById("mobileError").innerHTML = "";
@@ -138,16 +153,21 @@ const Profile = ({ userData, updateUserData }) => {
       {userData && userData.user ? (
         <div className="row">
           <div className="col-md-3 border-right">
-            <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-              <img
-                className="rounded-circle mt-5"
-                width="150px"
-                src={
-                  "http://127.0.0.1:8000" + userData.user.profile.profilePhoto
-                }
-                alt="profilePhoto"
-              />
-              <span className="font-weight-bold">{userData.user.username}</span>
+            <div className="d-flex flex-column align-items-center text-center p-3 py-5 mt-3">
+            <div className="img" onClick={(e) => hiddenFileInput.current.click()} style={{ position:"relative"}}>
+            <button id="middle">Change Photo</button>
+            <img className="rounded-circle" id="image" src={image ? URL.createObjectURL(image) :
+                `http://127.0.0.1:8000${userData.user.profile.profilePhoto}`
+              } alt="profilePhoto"/>
+            <input
+              id="image-upload-input"
+              type="file"
+              onChange={(e) => {const file = e.target.files[0]; setImage(file); IsChanged();}}
+              ref={hiddenFileInput}
+              style={{ display: "none" }}
+            />
+          </div>
+              <span className="font-weight-bold" style={{display:"block"}}>{userData.user.username}</span>
               <span className="text-black-50">{userData.user.email}</span>
               <span> </span>
             </div>
