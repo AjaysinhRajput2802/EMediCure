@@ -1,9 +1,35 @@
 /* Color of the links BEFORE scroll */
+
 .nav-link{
-  color: #023535;
   font-family: 'Dongle', sans-serif;
-font-family: 'Kanit', sans-serif;
-font-family: 'Poppins', sans-serif;
+  font-family: 'Kanit', sans-serif;
+  font-family: 'Poppins', sans-serif;
+
+/* .navbar a{ */
+  color:silver;
+}
+
+.navbar a:hover{
+  color: #5e9693;
+}
+
+.navbar-scroll .nav-link,
+.navbar-scroll .navbar-toggler-icon,
+.navbar-scroll .navbar-brand {
+  color: #fff;
+}
+
+/* Color of the links AFTER scroll */
+.navbar-scrolled .nav-link,
+.navbar-scrolled .navbar-toggler-icon,
+.navbar-scrolled .navbar-brand {
+  color: #fff;
+}
+
+/* Color of the navbar AFTER scroll */
+.navbar-scroll,
+.navbar-scrolled {
+  background-color: #cbbcb1;
 }
 
 .mask-custom {
@@ -25,3 +51,45 @@ font-family: 'Poppins', sans-serif;
   width: 32px;
   z-index: 0;
 }
+
+
+.navigation i {
+  color: red;
+  font-size: 1.5em;
+  width: 15px;
+  border-radius: 50px;
+  float: left;
+}
+
+.logout {
+  font-size: .9em;
+  font-family: 'Oswald', sans-serif;
+	position: relative;
+  right: -10px;
+  bottom: -6px;
+  overflow: hidden;
+  letter-spacing: 3px;
+  opacity: 0;
+  transition: opacity .45s;
+  -webkit-transition: opacity .35s;
+  
+}
+
+.navigation .btt {
+	float: right;
+  margin: 5px;
+  color: white;
+  width: 40px;
+  transition: width .35s;
+  -webkit-transition: width .35s;
+  overflow: hidden
+}
+
+.navigation button:hover {
+  width: 150px;
+}
+
+.navigation button:hover .logout{
+  opacity: .9;
+}
+

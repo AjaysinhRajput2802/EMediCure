@@ -1,5 +1,9 @@
 body{
   margin-top: 70px;
-  background-image: url('./images/background_image.jpg');
-  background-size: cover;
+  /* background-size: cover; */
+  background-image: url(./images/vecteezy_molecules-or-dna-medical-structure-background-vector-design_9731262.jpg);
+  
+  font-family: 'Dongle', sans-serif;
+  font-family: 'Kanit', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }

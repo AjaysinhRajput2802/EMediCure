@@ -147,13 +147,20 @@ const Navbar = ({
 
           {userData && userData.user ? (
             <ul className="navbar-nav d-flex flex-row">
-              <li
-                className="btn btn-primary me-3"
-                onClick={LogOut}
-                style={{ backgroundColor: "#fff", height: "40px" }}
-              >
+              <div className="navigation">
+                <button
+                  className="btt btn btn-sm bg-transparent"
+                  onClick={LogOut}
+                >
+                  <i className="bi bi-power"></i>
+
+                  <div className="logout">LOGOUT</div>
+                </button>
+              </div>
+              {/* </li>
+              <li className="btn btn-danger me-3" onClick={LogOut}>
                 <span className="nav-link">Log Out</span>
-              </li>
+              </li> */}
               <li
                 style={{
                   display: "flex",
