@@ -85,7 +85,7 @@ const Alerts = ({ userData, updateUserData, shopList, updateShopList }) => {
               );
             })
           ) : (
-            <h1>No Alerts Found</h1>
+            <h1 style={{color:"white"}}>No Alerts Found</h1>
           )}
         </div>
       </div>

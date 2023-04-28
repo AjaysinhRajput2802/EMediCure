@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import { useParams } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container} from "react-bootstrap";
+
+import StaffMemberModal from "./StaffMemberModal";
 
 const StaffMember = ({
   userData,
@@ -14,13 +15,8 @@ const StaffMember = ({
   const { shopId } = useParams();
 
   // USE STATES
-  const [staffMember, setStaffMember] = useState({
-    staffName: "",
-    mobileNo: "",
-    salary: null,
-    medShop: shopId,
-  });
   const [staffMemberList, setStaffMemberList] = useState([]);
+  const [show, setShow] = useState(false);
 
   // List API CALL
   const fetchStaffMemberList = async () => {
@@ -43,6 +39,7 @@ const StaffMember = ({
       alert(response.statusText);
     }
   };
+
   // DELETE API CALL
   const deleteStaffMember = async (staffMemberId) => {
     const response = await fetch(
@@ -66,122 +63,32 @@ const StaffMember = ({
       console.log(data);
     }
   };
-  // ADD API CALL
-  const postStaffMember = async (newStaffMember) => {
-    const response = await fetch("http://127.0.0.1:8000/api/staffMember/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Authorization: `Bearer ${userData.access}`,
-      },
-      body: JSON.stringify(newStaffMember),
-    }).catch((e) => {
-      console.log(e);
-    });
-
-    if (response.status >= 200 && response.status < 300) {
-      alert("stafff Added SuccessFully.");
-    } else {
-      let data = await response.json();
-
-      if (data.staffName) {
-        document.getElementById("staffName-error").innerHTML =
-          data["staffName"];
-      }
-      if (data.mobileNo) {
-        document.getElementById("mobileNo-error").innerHTML = data["mobileNo"];
-      }
-      if (data.salary) {
-        document.getElementById("salary-error").innerHTML = data["salary"];
-      }
-    }
-  };
-
-  // FORM HANDLE
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(staffMember);
-    postStaffMember(staffMember);
-  };
-  // INPUT HANDLE
-  const handleInput = (e) => {
-    setStaffMember((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  
   // DELETE HANDLE
   const handleDelete = (id) => {
     deleteStaffMember(id);
   };
 
-  useEffect(
-    () => {
+  useEffect(() => {
       fetchStaffMemberList();
-    },
-    [staffMemberList],
-    [userData]
-  );
-  return (
-    <>
-      <Container>
-        <Row>
-          <Col>
-            <Form onSubmit={(event) => handleSubmit(event)}>
-              <Row>
-                <Form.Group>
-                  <Form.Label></Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Employee Name"
-                    name="staffName"
-                    value={staffMember.staffName}
-                    onChange={(event) => handleInput(event)}
-                    id="staffName"
-                    required
-                  />
-                  <Form.Text id="staffName-error"></Form.Text>
-                </Form.Group>
-              </Row>
-              <Row>
-                <Form.Group>
-                  <Form.Label></Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Employee Contact Number"
-                    name="mobileNo"
-                    value={staffMember.mobileNo}
-                    onChange={(event) => handleInput(event)}
-                    id="mobileNo"
-                    required
-                  />
-                  <Form.Text id="mobileNo-error"></Form.Text>
-                </Form.Group>
-              </Row>
-              <Row>
-                <Form.Group>
-                  <Form.Label></Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="Employee Salary"
-                    name="salary"
-                    value={staffMember.salary}
-                    onChange={(event) => handleInput(event)}
-                    id="salary"
-                    min={0}
-                  />
-                  <Form.Text id="salary-error"></Form.Text>
-                </Form.Group>
-              </Row>
-              <Row className="text-center p-3">
-                <Button type="submit">Create StaffMember</Button>
-              </Row>
-            </Form>
-          </Col>
+    },[staffMemberList, userData]);
 
-          <Col>
+    
+   //HELPER FUNCTION
+   const handleClose = () => {setShow(false)};
+   const handleShow = () => setShow(true);
+    
+  return (
+      <Container>
+        <h3 style={{ color: "#5e9693" }}>Staff </h3>
+        <h3 style={{ color: "#fff" }}>Details</h3>
+        
+        <StaffMemberModal show={show} handleClose={handleClose} shopId={shopId} />  
+          <button className="btn btn-warning" onClick={handleShow} style={{marginTop:"-50px", float:"right"}}>
+          <i class="bi bi-person-plus-fill"></i> New StaffMember
+          </button>
             <Table>
-              <thead>
+              <thead style={{ color:"lightblue"}}>
                 <tr>
                   <th scope="col">Name</th>
                   <th scope="col">Contact Details</th>
@@ -190,7 +97,7 @@ const StaffMember = ({
                 </tr>
               </thead>
 
-              <tbody>
+              <tbody style={{color:"lightgrey"}}>
                 {staffMemberList.map((item, index) => {
                   return (
                     <tr key={item.id}>
@@ -213,10 +120,7 @@ const StaffMember = ({
                 })}
               </tbody>
             </Table>
-          </Col>
-        </Row>
       </Container>
-    </>
   );
 };
 

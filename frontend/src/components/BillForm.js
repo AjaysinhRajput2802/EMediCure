@@ -12,6 +12,7 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
   const [currentMed, setCurrentMed] = useState([]);
 
   const navigate = useNavigate();
+
   // LOGIN REQUIRED
   useEffect(() => {
     if (userData === null || userData.user === null) navigate("/login");
@@ -124,10 +125,11 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
   useEffect(() => {
     fetchMedicine();
   }, [userData, shopId]);
-
+ 
   return (
     <Container>
-      <h3>Create New Bill</h3>
+      <h3 style={{ color: "#5e9693" }}>Create </h3>
+      <h3 style={{ color: "#fff" }}> New Bill</h3>
 
       <Form onSubmit={(event) => handleSubmit(event)}>
         {Allbillitem.length > 0 && (

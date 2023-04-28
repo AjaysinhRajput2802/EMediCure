@@ -9,10 +9,10 @@ import searchIcon from "../images/search-icon.svg";
 let pagination_size = 5;
 
 const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
-  const [show, setShow] = useState({ show: false, data: [] });
-  const handleClose = () => setShow({ show: false, data: [] });
-  const handleShow = (show, data) => setShow({ show: show, data: data });
 
+  // USE STATES AND VARIABLE DEFINITION
+  const [show, setShow] = useState({ show: false, data: [] });
+  const [Clicked, setClicked] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(pagination_size);
   const [searchTerm, setSearchTerm] = useState("");
@@ -25,6 +25,12 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
   );
   const nPages = Math.ceil(currentBill.length / recordsPerPage);
 
+  // USE EFFECTS 
+  useEffect(() => {
+    filterBills();
+  }, [searchTerm]);
+
+  // API CALLS
   const HandleDelete = async (event, id) => {
     let res = window.confirm("Are You sure want to delete this Bill : " + id);
     if (res === true) {
@@ -55,18 +61,17 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
     }
   };
 
-  useEffect(() => {
-    filterBills();
-  }, [searchTerm]);
-
-  const [Clicked, setClicked] = useState(false);
+  // HELPER FUNCTIONS
+  const handleClose = () => {setShow({ show: false, data: [] })};
+  const handleShow = (show, data) => setShow({ show: show, data: data });
 
   return (
     <Container>
-      <BillModal show={show} setshow={setShow} handleClose={handleClose} />
+      <BillModal show={show} handleClose={handleClose} />
       <Row className="justify-content-center">
         <Col className="dynamic-form-headings">
-          <h3>All Bill Details</h3>
+          <h3 style={{ color: "#5e9693" }}>Old </h3>
+          <h3 style={{ color: "#fff" }}>Bill Details</h3>
           <Button
             onClick={() => {
               setClicked(!Clicked);
@@ -89,8 +94,10 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
               value={searchTerm}
             />
           </div>
-            <Table borderless striped>
-              <thead>
+          
+          <div className="container" style={{padding:"10px"}}>
+            <Table borderless striped hover variant="light">
+              <thead className="table bg-secondary">
                 <tr>
                   <th scope="col">Bill Id</th>
                   <th scope="col">Customer Name </th>
@@ -107,7 +114,7 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
                     <tr key={bill.pk}>
                       <td>{bill.pk}</td>
                       <td> {bill.custName}</td>
-                      <td> {bill.generatedDate}</td>
+                      <td> {(bill.generatedDate).slice(0,10)} {" "} {(bill.generatedDate).slice(11,16)} </td>
                       <td>{bill.totalAmount}</td>
                       <td>
                         <Button
@@ -138,6 +145,7 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />
+            </div>
           </>
         ) : (
           <></>

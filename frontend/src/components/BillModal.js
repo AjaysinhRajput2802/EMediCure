@@ -6,7 +6,8 @@ import Table from "react-bootstrap/Table";
 function BillModal({ handleClose, show }) {
   const bill = show.data;
   return (
-    <>
+      <>
+    { (bill.generatedDate !== undefined) ? (
       <Modal
         show={show.show}
         onHide={handleClose}
@@ -19,9 +20,9 @@ function BillModal({ handleClose, show }) {
             <Table borderless>
               <thead>
                 <tr>
-                  <th scope="col">Bill Id: {bill.pk}</th>
-                  <th scope="col">Customer Name : {bill.custName} </th>
-                  <th scope="col">Bill Date:{(bill.generatedDate)} </th>
+                  <th scope="col">Bill No: {bill.pk}</th>
+                  <th scope="col">Customer : {bill.custName} </th>
+                  <th scope="col">Bill Date : {(bill.generatedDate).slice(0,10)} , {(bill.generatedDate).slice(11,16)}  </th>
                 </tr>
               </thead>
             </Table>
@@ -63,7 +64,8 @@ function BillModal({ handleClose, show }) {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+      ) : <> </>}
+    </> 
   );
 }
 export default BillModal;

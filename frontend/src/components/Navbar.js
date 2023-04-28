@@ -48,12 +48,12 @@ const Navbar = ({
       alert(response.statusText);
     }
   };
-
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
       <div className="container">
         <a className="navbar-brand" href="/">
-          <span style={{ color: "#023535" }}>EMedi</span>
+          <span style={{ color: "#5e9693" }}>EMedi</span>
           <span style={{ color: "#fff" }}>Cure</span>
         </a>
         <button
@@ -84,18 +84,18 @@ const Navbar = ({
                       </a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href={`/alerts/${shopId}`}>
-                        Alerts
-                      </a>
-                    </li>
-                    <li className="nav-item">
                       <a className="nav-link" href={`/billing/${shopId}`}>
                         Billing
                       </a>
                     </li>
                     <li className="nav-item">
                       <a className="nav-link" href={`/stock/${shopId}`}>
-                        Stock
+                        New Stock
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href={`/alerts/${shopId}`}>
+                        Alerts
                       </a>
                     </li>
                     <li className="nav-item">
@@ -119,11 +119,6 @@ const Navbar = ({
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href={`/alerts/${shopId}`}>
-                      Alerts
-                    </a>
-                  </li>
-                  <li className="nav-item">
                     <a className="nav-link" href={`/billing/${shopId}`}>
                       Billing
                     </a>
@@ -131,6 +126,11 @@ const Navbar = ({
                   <li className="nav-item">
                     <a className="nav-link" href={`/stock/${shopId}`}>
                       Stock
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href={`/alerts/${shopId}`}>
+                      Alerts
                     </a>
                   </li>
                   <li className="nav-item">

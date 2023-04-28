@@ -54,15 +54,16 @@
 
 
 .navigation i {
-  color: red;
+  color:tomato;
   font-size: 1.5em;
-  width: 15px;
+  width: 10px;
   border-radius: 50px;
   float: left;
 }
 
 .logout {
-  font-size: .9em;
+  font-size: 1em;
+  color:salmon;
   font-family: 'Oswald', sans-serif;
 	position: relative;
   right: -10px;

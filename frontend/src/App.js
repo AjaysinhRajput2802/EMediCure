@@ -12,6 +12,7 @@ import Billing from "./components/Billing";
 import Alerts from "./components/Alerts";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Login_Register from "./components/Login_Register";
 import Navbar from "./components/Navbar";
 import Stock from "./components/Stock";
 // import About from "./components/About";
@@ -174,6 +175,17 @@ function App() {
           path="/login"
           element={
             <Login
+              userData={userData}
+              updateUserData={updateUserData}
+              updateShopId={updateShopId}
+            />
+          }
+        />
+        <Route
+          exact
+          path="/login-register"
+          element={
+            <Login_Register
               userData={userData}
               updateUserData={updateUserData}
               updateShopId={updateShopId}

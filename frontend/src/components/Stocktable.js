@@ -44,7 +44,8 @@ const Stocktable = ({ userData, shopId }) => {
     <Container>
       <Row className="justify-content-center">
         <Col className="dynamic-form-headings">
-          <h3>All Stock Details</h3>
+        <h3 style={{ color: "#5e9693" }}>Old </h3>
+        <h3 style={{ color: "#fff" }}> Stock Details</h3>
           <Button
             onClick={() => {
               setClicked(!Clicked);
@@ -56,34 +57,27 @@ const Stocktable = ({ userData, shopId }) => {
         </Col>
 
         {Clicked ? (
-          <>
-            <Paginations
-              nPages={nPages}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
-            <br />
-
+          <div style={{padding:"10px"}}>
             {currentRecords.map((stockitem, index1) => {
               return (
-                <div className="accordion" id="accordionExample">
+                <div className="accordion accordion-flush" id="accordionFlushExample">
                   <div className="accordion-item">
                     <h2
                       className="accordion-header"
-                      id={"heading" + stockitem.id}
+                      id={"flush-heading" + index1}
                     >
                       <button
-                        className="accordion-button"
+                        className="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
-                        data-bs-target={"#collapse" + stockitem.id}
-                        aria-expanded="true"
-                        aria-controls={"collapse" + stockitem.id}
+                        data-bs-target={"#flush-collapse" + index1}
+                        aria-expanded="false"
+                        aria-controls={"flush-collapse" + index1}
                       >
                         <table className="table table-striped">
                           <tbody>
                             <tr>
-                              <th scope="col">Stock Id : {stockitem.id}</th>
+                              <th scope="col">Id : {stockitem.id}</th>
                               <th scope="col">
                                 Arrival Date :{" "}
                                 {stockitem.arrivalDate.slice(0, 10)}
@@ -113,10 +107,10 @@ const Stocktable = ({ userData, shopId }) => {
                       </button>
                     </h2>
                     <div
-                      id={"collapse" + stockitem.id}
+                      id={"flush-collapse" + index1}
                       className="accordion-collapse collapse hide"
-                      aria-labelledby={"heading" + stockitem.id}
-                      data-bs-parent="#accordionExample"
+                      aria-labelledby={"flush-heading" + index1}
+                      data-bs-parent="#accordionFlushExample"
                     >
                       <div className="accordion-body">
                         <table className="table table-striped">
@@ -164,7 +158,14 @@ const Stocktable = ({ userData, shopId }) => {
                 </div>
               );
             })}
-          </>
+            <div className="content" style={{padding:"10px"}}>
+            <Paginations
+              nPages={nPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+            </div>
+          </div>
         ) : (
           <></>
         )}

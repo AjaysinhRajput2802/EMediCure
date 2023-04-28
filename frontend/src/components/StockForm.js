@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 
+import "./StockForm.css";
+
 const StockForm = ({ userData, shopId }) => {
   const [currentMed, setCurrentMed] = useState([]);
   const [currentCompany, setCurrentCompany] = useState([]);
@@ -113,13 +115,14 @@ const StockForm = ({ userData, shopId }) => {
   return (
     <Container>
       <Row className="justify-content-center">
-        <h3>Add New Stock</h3>
+        <h3 style={{ color: "#5e9693" }}>Add </h3>
+        <h3 style={{ color: "#fff" }}> New Stock</h3>
       </Row>
-      <Form onSubmit={(event) => handleSubmit(event)}>
+      <Form className="stockform" style={{color:"aquamarine"}} onSubmit={(event) => handleSubmit(event)}>
         <Row className="justify-content-center">
           <Col xs="6">
             <Form.Group as={Row} className="mb-3">
-              <Form.Label column sm={4}>
+              <Form.Label className="filter" column sm={4}>
                 Medicine
               </Form.Label>
               <Col sm={8}>
@@ -142,6 +145,9 @@ const StockForm = ({ userData, shopId }) => {
                 </Form.Control>
               </Col>
             </Form.Group>
+            
+            <h3><i class="bi bi-plus-circle-fill"></i></h3>
+            
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm={5}>
                 Ordered Quantity
@@ -200,6 +206,9 @@ const StockForm = ({ userData, shopId }) => {
                 </Form.Control>
               </Col>
             </Form.Group>
+            
+            <h3><i class="bi bi-plus-square-fill"></i></h3>
+            
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm={5}>
                 Stock Arrival Date

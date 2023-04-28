@@ -1,9 +1,7 @@
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import React from "react";
 import { useState, useEffect, useNavigate } from "react";
-import Form from "react-bootstrap/Form";
-import { Row, Col } from "react-bootstrap";
+
+import { Row, Modal, Form, Button} from "react-bootstrap";
 
 function CreateMedShopModal({
   handleMedShopClose,
