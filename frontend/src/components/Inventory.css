@@ -1,3 +1,20 @@
+
+
+
+
+
+.medCard{
+    width: 23rem;
+    transition: transform .5s;
+    background-color: rgb(167, 245, 213);
+    color:white;
+}
+
+.medCard:hover{
+   transform:scale(1.1);
+}
+
+
 .product-content {
     border: 2px solid #dfe5e9;
     margin-bottom: 20px;

@@ -3,8 +3,12 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Inventory.css";
 import searchIcon from "../images/search-icon.svg";
-
+import MedicineDetailsModal from "./MedicineDetailsModal";
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import { Button, Row, Col } from "react-bootstrap";
 const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
+  const [detailsShow, setdetailsShow] = useState({ show: false, data: [] });
   const [currentShopStock, setCurrentShopStock] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
@@ -26,6 +30,12 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
       alert(response.statusText);
     }
   };
+
+  const handleDetailsClose = () => {
+    setdetailsShow({ show: false, data: [] });
+  };
+  const handleDetailsShow = (show, data) =>
+    setdetailsShow({ show: show, data: data });
 
   useEffect(() => {
     if (userData === null || userData.user === null) navigate("/login");
@@ -56,6 +66,10 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
 
   return (
     <div>
+      <MedicineDetailsModal
+        handleDetailsClose={handleDetailsClose}
+        detailsShow={detailsShow}
+      />
       <div className="Content">
         <img src={searchIcon} alt="search-icon" />
         <input
@@ -71,50 +85,37 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
           {currentShopStock.length ? (
             currentShopStock.map((medicine) => {
               return (
-                <div
-                  className="col-xs-12 col-md-6 bootstrap snippets bootdeys"
-                  key={medicine.id}
-                >
-                  <div className="product-content product-wrap clearfix">
-                    <div className="row">
-                      <div className="col-md-5 col-sm-12 col-xs-12">
-                        <div className="product-image">
-                          <img
-                            src={medicine.medImage}
-                            height="250px"
-                            width="257px"
-                            alt="medicinePhoto"
-                            className="img-responsive"
-                          />
-                        </div>
+                <>
+                  <Card key={medicine.id} className="m-3  medCard">
+                    <div className="row align-items-center p-1">
+                      <div className="col-5 ">
+                        <Card.Img src={medicine.medImage} />
                       </div>
-                      <div className="col-md-7 col-sm-12 col-xs-12">
-                        <div className="product-deatil">
-                          <h5 className="name">
-                            <a href="/">
-                              {medicine.medName} <span>{medicine.medType}</span>
-                            </a>
-                          </h5>
-                          <p className="price-container">
-                            <span>&#8377;{medicine.medPrice}</span>
-                          </p>
-                          <span className="tag1"></span>
-                        </div>
-                        <div className="description">
-                          <p>{medicine.medDes}</p>
-                        </div>
-                        <div className="product-info smart-form">
-                          <a href="/" className="btn btn-success">
-                            Details
-                          </a>
-                          <span style={{ float: "right", margin: "0px auto" }}>
-                            Quantity: {medicine.currentQuantity}
-                          </span>
-                        </div>
+                      <div className="col-7 text-center">
+                        <p className="mb-1">
+                          {medicine.medName} | {medicine.medType}
+                        </p>
+                        <p className="m-1">
+                          {" "}
+                          Price : &#8377; {medicine.medPrice}
+                        </p>
+                        <p className="m-1">Supplier : {medicine.medCompany}</p>
+                        <p className="m-1">
+                          {" "}
+                          Stock :{medicine.currentQuantity}
+                        </p>
+                        <Button
+                          onClick={() => {
+                            handleDetailsShow(true, medicine);
+                          }}
+                          className="mb-2"
+                        >
+                          details
+                        </Button>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </Card>
+                </>
               );
             })
           ) : (

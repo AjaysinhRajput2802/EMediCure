@@ -37,6 +37,11 @@ class MedicineSerializers(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fileds = ['currentQuantity',]
 
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep['medCompany'] = instance.medCompany.companyName
+        return rep
+
     def get_currentQuantity(self, obj):
         return obj.checkQuantity()
 
