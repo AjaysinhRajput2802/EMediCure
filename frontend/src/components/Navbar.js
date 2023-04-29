@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import { Button } from "react-bootstrap";
 
 const Navbar = ({
   userData,
@@ -48,7 +49,7 @@ const Navbar = ({
       alert(response.statusText);
     }
   };
-  
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0 mb-5">
       <div className="container">
@@ -187,16 +188,26 @@ const Navbar = ({
             </ul>
           ) : (
             <ul className="navbar-nav d-flex flex-row">
-              <li className="btn btn-primary me-3">
-                <a className="nav-link" href="/register">
-                  Register
-                </a>
-              </li>
-              <li className="btn btn-secondary ms-3">
-                <a className="nav-link" href="/login">
-                  Login
-                </a>
-              </li>
+              <Button
+                type="submit"
+                onClick={() => {
+                  navigate("/register");
+                }}
+                className="ms-4"
+                style={{ backgroundColor: "#10454F", border: "none" }}
+              >
+                Register
+              </Button>
+              <Button
+                type="submit"
+                onClick={() => {
+                  navigate("/login");
+                }}
+                className="ms-5"
+                style={{ backgroundColor: "#10454F", border: "none" }}
+              >
+                Login
+              </Button>
             </ul>
           )}
         </div>
