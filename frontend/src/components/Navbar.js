@@ -50,7 +50,7 @@ const Navbar = ({
   };
   
   return (
-    <nav className="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
+    <nav className="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0 mb-5">
       <div className="container">
         <a className="navbar-brand" href="/">
           <span style={{ color: "#5e9693" }}>EMedi</span>
@@ -113,6 +113,11 @@ const Navbar = ({
                 )
               ) : (
                 <>
+                  <li className="nav-item">
+                    <a className="nav-link" id="dashboard" href="/dashboard">
+                      Dashboard
+                    </a>
+                  </li>
                   <li className="nav-item">
                     <a className="nav-link" href={`/inventory/${shopId}`}>
                       Inventory

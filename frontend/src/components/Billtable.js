@@ -9,7 +9,6 @@ import searchIcon from "../images/search-icon.svg";
 let pagination_size = 5;
 
 const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
-
   // USE STATES AND VARIABLE DEFINITION
   const [show, setShow] = useState({ show: false, data: [] });
   const [Clicked, setClicked] = useState(false);
@@ -25,7 +24,7 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
   );
   const nPages = Math.ceil(currentBill.length / recordsPerPage);
 
-  // USE EFFECTS 
+  // USE EFFECTS
   useEffect(() => {
     filterBills();
   }, [searchTerm]);
@@ -62,89 +61,105 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
   };
 
   // HELPER FUNCTIONS
-  const handleClose = () => {setShow({ show: false, data: [] })};
+  const handleClose = () => {
+    setShow({ show: false, data: [] });
+  };
   const handleShow = (show, data) => setShow({ show: show, data: data });
 
   return (
     <Container>
       <BillModal show={show} handleClose={handleClose} />
       <Row className="justify-content-center">
-        <Col className="dynamic-form-headings">
-          <h3 style={{ color: "#5e9693" }}>Old </h3>
-          <h3 style={{ color: "#fff" }}>Bill Details</h3>
+        <Col xs={2} className="dynamic-form-headings">
+          <h3 style={{ color: "#5e9693"}}>All </h3>
+          <h3 style={{ color: "#fff"}}>Bill Details</h3>
+        </Col>
+        <Col>
+            <br />
           <Button
             onClick={() => {
               setClicked(!Clicked);
             }}
+            style={{ display: "inline", float: "left", marginTop:"11px",backgroundColor:"#10454F",borderColor:"#10454F" }}
           >
-            {Clicked ? <>Hide </> : <>Show </>}
-            Data
+          
+            {Clicked ? <i class="bi bi-box-arrow-in-up"></i> : <i class="bi bi-box-arrow-down"></i>}
           </Button>
         </Col>
+        <Col>
+          {Clicked ? (
+            <div className="Content" style={{width:"45rem"}}>
+              <img src={searchIcon} alt="search-icon" />
+              <input
+                type="text"
+                placeholder="Search Bill by Customer Name"
+                id="searchbar"
+                onChange={(e) => setSearchTerm(e.target.value)}
+                value={searchTerm}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
+        </Col>
+        
 
         {Clicked ? (
           <>
-          <div className="Content">
-            <img src={searchIcon} alt="search-icon" />
-            <input
-              type="text"
-              placeholder="Search Bill by Customer Name"
-              id="searchbar"
-              onChange={(e) => setSearchTerm(e.target.value)}
-              value={searchTerm}
-            />
-          </div>
-          
-          <div className="container" style={{padding:"10px"}}>
-            <Table borderless striped hover variant="light">
-              <thead className="table bg-secondary">
-                <tr>
-                  <th scope="col">Bill Id</th>
-                  <th scope="col">Customer Name </th>
-                  <th scope="col">Bill Date </th>
-                  <th scope="col">Total Payable Amount</th>
-                  <th scope="col">View</th>
-                  <th scope="col">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentRecords.map((bill) => {
-                  console.log(bill.BillItems);
-                  return (
-                    <tr key={bill.pk}>
-                      <td>{bill.pk}</td>
-                      <td> {bill.custName}</td>
-                      <td> {(bill.generatedDate).slice(0,10)} {" "} {(bill.generatedDate).slice(11,16)} </td>
-                      <td>{bill.totalAmount}</td>
-                      <td>
-                        <Button
-                          variant="primary"
-                          onClick={() => handleShow(true, bill)}
-                        >
-                          view
-                        </Button>
-                      </td>
-                      <td>
-                        <Button
-                          variant="danger"
-                          onClick={(e) => {
-                            HandleDelete(e, bill.pk);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
+            <div className="container" style={{ padding: "10px" }}>
+              <Table borderless striped hover variant="light">
+                <thead className="table bg-secondary">
+                  <tr>
+                    <th scope="col">Bill Id</th>
+                    <th scope="col">Customer Name </th>
+                    <th scope="col">Bill Date </th>
+                    <th scope="col">Total Payable Amount</th>
+                    <th scope="col">View</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentRecords.map((bill) => {
+                    console.log(bill.BillItems);
+                    return (
+                      <tr key={bill.pk}>
+                        <td>{bill.pk}</td>
+                        <td> {bill.custName}</td>
+                        <td>
+                          {" "}
+                          {bill.generatedDate.slice(0, 10)}{" "}
+                          {bill.generatedDate.slice(11, 16)}{" "}
+                        </td>
+                        <td>{bill.totalAmount}</td>
+                        <td>
+                          <Button
+                            variant="primary"
+                            onClick={() => handleShow(true, bill)}
+                          >
+                            view
+                          </Button>
+                        </td>
+                        <td>
+                          <Button
+                            variant="danger"
+                            onClick={(e) => {
+                              HandleDelete(e, bill.pk);
+                            }}
+                          >
+                            Delete
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
 
-            <Paginations
-              nPages={nPages}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
+              <Paginations
+                nPages={nPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
           </>
         ) : (

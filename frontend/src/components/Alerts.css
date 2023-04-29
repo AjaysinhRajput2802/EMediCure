@@ -1,11 +1,11 @@
-.medCard{
-    width: 18rem;
+.alertCard{
+    width: 25rem;
     transition: transform .5s;
     background-color: #B2BEBF;
     color:#012E40;
 }
 
-.medCard:hover{
+.alertCard:hover{
    transform:scale(1.1);
 }
 

@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
-
+import CreateMedicineModal from "./CreateMedicineModal";
+import CreateCompanyModal from "./CreateCompanyModal";
 import "./StockForm.css";
 
-const StockForm = ({ userData, shopId }) => {
+const StockForm = ({
+  userData,
+  shopId,
+  createMed,
+  setMed,
+  handleShow,
+  handleClose,
+  createCom,
+  SetCom,
+  handleComShow,
+  handleComClose
+}) => {
   const [currentMed, setCurrentMed] = useState([]);
   const [currentCompany, setCurrentCompany] = useState([]);
   const [Stock, setStock] = useState({
@@ -33,7 +45,7 @@ const StockForm = ({ userData, shopId }) => {
     }
   };
 
-  const fetchCompany = async (e) => {
+  const fetchCompany = async () => {
     const response = await fetch(
       `http://127.0.0.1:8000/api/company/?medShop=${shopId}`,
       {
@@ -112,15 +124,27 @@ const StockForm = ({ userData, shopId }) => {
     fetchCompany();
   }, [userData]);
 
+  useEffect(() => {
+    fetchMedicine();
+  },[createMed]);
+
+  useEffect(() => {
+    fetchCompany();
+  }, [createCom]);
+
   return (
-    <Container>
-      <Row className="justify-content-center">
-        <h3 style={{ color: "#5e9693" }}>Add </h3>
+    <Container className="pt-3">
+      <Row>
+        <h3 style={{ color: "#5e9693"}}>Add </h3>
         <h3 style={{ color: "#fff" }}> New Stock</h3>
       </Row>
-      <Form className="stockform" style={{color:"aquamarine"}} onSubmit={(event) => handleSubmit(event)}>
-        <Row className="justify-content-center">
-          <Col xs="6">
+      <Form
+        className="stockform"
+        style={{ color: "aquamarine", backgroundColor:"#506266", padding:"20px", borderRadius:"10px"}}
+        onSubmit={(event) => handleSubmit(event)}
+      >
+        <Row className="justify-content-center pt-2 pb-1">
+          <Col xs="8" className="justify-content-center">
             <Form.Group as={Row} className="mb-3">
               <Form.Label className="filter" column sm={4}>
                 Medicine
@@ -145,14 +169,12 @@ const StockForm = ({ userData, shopId }) => {
                 </Form.Control>
               </Col>
             </Form.Group>
-            
-            <h3><i class="bi bi-plus-circle-fill"></i></h3>
-            
+
             <Form.Group as={Row} className="mb-3">
-              <Form.Label column sm={5}>
+              <Form.Label column sm={4}>
                 Ordered Quantity
               </Form.Label>
-              <Col sm={7}>
+              <Col sm={8}>
                 <Form.Control
                   required
                   type="number"
@@ -167,10 +189,10 @@ const StockForm = ({ userData, shopId }) => {
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
-              <Form.Label column sm={5}>
+              <Form.Label column sm={4}>
                 Medicine Expiry Date
               </Form.Label>
-              <Col sm={7}>
+              <Col sm={8}>
                 <Form.Control
                   required
                   type="date"
@@ -206,14 +228,12 @@ const StockForm = ({ userData, shopId }) => {
                 </Form.Control>
               </Col>
             </Form.Group>
-            
-            <h3><i class="bi bi-plus-square-fill"></i></h3>
-            
+
             <Form.Group as={Row} className="mb-3">
-              <Form.Label column sm={5}>
+              <Form.Label column sm={4}>
                 Stock Arrival Date
               </Form.Label>
-              <Col sm={7}>
+              <Col sm={8}>
                 <Form.Control
                   required
                   type="datetime-local"
@@ -225,10 +245,52 @@ const StockForm = ({ userData, shopId }) => {
                 ></Form.Control>
               </Col>
             </Form.Group>
-            <Button type="submit">Submit</Button>
+            <div className="text-center">
+            <Button type="submit" className="mt-2" style={{backgroundColor:"#10454F",border:"none"}}>Submit</Button>
+            </div>
+          </Col>
+          <Col xs={1}>
+            <h3>
+              <CreateMedicineModal
+                userData={userData}
+                shopId={shopId}
+                createMed={createMed}
+                handleClose={handleClose}
+              />
+              <i
+                className="bi bi-plus-circle-fill"
+                variant="primary"
+                style={{cursor:"pointer"}}
+                onClick={() => {
+                  handleShow(true);
+                }}
+              ></i>
+            </h3>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <h3>
+              <CreateCompanyModal
+                userData={userData}
+                shopId={shopId}
+                createCom={createCom}
+                handleComClose={handleComClose}
+              />
+              <i
+                className="bi bi-plus-square-fill"
+                style={{cursor:"pointer"}}
+                variant="primary"
+                onClick={() => {
+                  handleComShow(true);
+                }}
+              ></i>
+            </h3>
           </Col>
         </Row>
       </Form>
+
     </Container>
   );
 };

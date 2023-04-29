@@ -4,13 +4,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import { Row } from "react-bootstrap";
-function CreateCompanyModal({
-  createCom,
-  SetCom,
-  shopId,
+
+const CreateCompanyModal = ({
   userData,
-  handleComClose,
-}) {
+  shopId,
+  createCom,
+  handleComClose
+}) => 
+{
   const [company, SetCompany] = useState({
     companyName: "",
     address: "",
@@ -32,11 +33,12 @@ function CreateCompanyModal({
       [e.target.name]: e.target.value,
     }));
   };
+
   // POST Medicine CALL
   const postCompany = async (newCompany) => {
     const requestURL = "http://127.0.0.1:8000/api/company/";
     // const uploadData = new FormData();
-
+    console.log(newCompany);
     const response = await fetch(requestURL, {
       method: "POST",
       headers: {
@@ -51,30 +53,11 @@ function CreateCompanyModal({
     if (response.status === 201) {
       console.log("postCompany", data);
       handleComClose();
-      window.location.reload();
     } else {
       alert(data.statusText);
       console.log("postCompany", data);
     }
   };
-  const fetchCompanyList = async (e) => {
-    const response = await fetch(
-      `http://127.0.0.1:8000/api/company/?medShop=${shopId}`,
-      {
-        method: "GET",
-      }
-    ).catch((e) => console.log(e));
-    if (response.status === 200) {
-      let data = await response.json();
-      console.log(data);
-      SetCompanyList(data);
-    } else {
-      alert(response.statusText);
-    }
-  };
-  useEffect(() => {
-    fetchCompanyList();
-  }, []);
 
   return (
     <>
@@ -152,5 +135,6 @@ function CreateCompanyModal({
       </Modal>
     </>
   );
-}
+};
+
 export default CreateCompanyModal;

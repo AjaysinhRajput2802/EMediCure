@@ -5,8 +5,7 @@ import "./Inventory.css";
 import searchIcon from "../images/search-icon.svg";
 import MedicineDetailsModal from "./MedicineDetailsModal";
 import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import { Button, Row, Col } from "react-bootstrap";
+
 const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   const [detailsShow, setdetailsShow] = useState({ show: false, data: [] });
   const [currentShopStock, setCurrentShopStock] = useState([]);
@@ -65,11 +64,12 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   }, [searchTerm]);
 
   return (
-    <div>
+    <div className="pt-5">
       <MedicineDetailsModal
         handleDetailsClose={handleDetailsClose}
         detailsShow={detailsShow}
       />
+      <div className="fixed-top mt-5">
       <div className="Content">
         <img src={searchIcon} alt="search-icon" />
         <input
@@ -80,38 +80,35 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
           value={searchTerm}
         />
       </div>
-      <div className="container">
-        <div className="row">
+      </div>
+      <div className="container mt-3">
+        <div className="d-flex flex-row" id="flex-basis">
           {currentShopStock.length ? (
             currentShopStock.map((medicine) => {
               return (
                 <>
-                  <Card key={medicine.id} className="m-3  medCard">
-                    <div className="row align-items-center p-1">
-                      <div className="col-5 ">
-                        <Card.Img src={medicine.medImage} />
+                  <Card key={medicine.id} className="m-3 medCard" onClick={() => {
+                    handleDetailsShow(true, medicine);
+                  }} style={{cursor:"pointer"}}>
+                    <div className="row align-items-center p-3">
+                      <div className="col-5">
+                        <Card.Img src={medicine.medImage} height="110px" width="135px" />
                       </div>
-                      <div className="col-7 text-center">
-                        <p className="mb-1">
-                          {medicine.medName} | {medicine.medType}
+                      <div className="col-7">
+                        <p className="m-1" id="medDetails">
+                          {medicine.medName}
                         </p>
-                        <p className="m-1">
+                        <p className="m-1" id="medDetails">
+                          {medicine.medType}
+                        </p>
+                        <p className="m-1" id="medDetails">
                           {" "}
                           Price : &#8377; {medicine.medPrice}
                         </p>
-                        <p className="m-1">Supplier : {medicine.medCompany}</p>
-                        <p className="m-1">
+                        <p className="m-1" id="medDetails">
                           {" "}
-                          Stock :{medicine.currentQuantity}
+                          Stock : {medicine.currentQuantity}
                         </p>
-                        <Button
-                          onClick={() => {
-                            handleDetailsShow(true, medicine);
-                          }}
-                          className="mb-2"
-                        >
-                          details
-                        </Button>
                       </div>
                     </div>
                   </Card>

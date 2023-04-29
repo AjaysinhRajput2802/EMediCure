@@ -74,8 +74,9 @@ class StockItemC(generics.CreateAPIView, generics.ListAPIView):
     permission_classes = (AllowAny,)
     queryset = models.StockItem.objects.all().order_by('-arrivalDate')
     serializer_class = serializers.StockItemSerializers
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
     filterset_fields = ['medShop']
+    search_fields = ['medName']
 
 
 class StockItemRUD(generics.RetrieveUpdateDestroyAPIView):

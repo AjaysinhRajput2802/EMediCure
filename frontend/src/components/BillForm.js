@@ -125,16 +125,16 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
   useEffect(() => {
     fetchMedicine();
   }, [userData, shopId]);
- 
+
   return (
-    <Container>
+    <Container className="pt-3">
       <h3 style={{ color: "#5e9693" }}>Create </h3>
       <h3 style={{ color: "#fff" }}> New Bill</h3>
 
       <Form onSubmit={(event) => handleSubmit(event)}>
         {Allbillitem.length > 0 && (
           <>
-            <Row className="mb-1">
+            <Row className="mb-2 mt-3">
               <Form.Group>
                 {/* <Col>
                   <Form.Label>Customer Name :</Form.Label>
@@ -188,14 +188,44 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
                       />
                     </Form.Group>
                   </Col>
-                  <Col xs={2} className="justify text-center">
-                    <Button
-                      variant="secondary"
-                      onClick={() => handleRemovebillItems(index)}
+                  {(Allbillitem.length>1) ? (
+                    <Col
+                      xs={1}
+                      style={{ color: "red", marginTop: "3px", width: "50px" }}
                     >
-                      Cancel
-                    </Button>
-                  </Col>
+                      <h3>
+                        <i
+                          className="bi bi-dash-circle-fill"
+                          style={{ cursor: "pointer" }}
+                          variant="primary"
+                          onClick={() => {
+                            handleRemovebillItems(index);
+                          }}
+                        ></i>
+                      </h3>
+                    </Col>
+                  ) : (
+                    <></>
+                  )}
+                  {index + 1 === Allbillitem.length ? (
+                    <Col
+                      xs={1}
+                      style={{ color: "aquamarine", marginTop: "3px" }}
+                    >
+                      <h3>
+                        <i
+                          className="bi bi-plus-circle-fill"
+                          style={{ cursor: "pointer" }}
+                          variant="primary"
+                          onClick={() => {
+                            handleAddbillitem();
+                          }}
+                        ></i>
+                      </h3>
+                    </Col>
+                  ) : (
+                    <></>
+                  )}
                 </Row>
                 <Row>
                   <div id={index}></div>
@@ -209,17 +239,12 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
         <Row className="my-3">
           <Col className="justify text-center">
             <Button
-              variant="primary"
               type="submit"
               alignment="center"
               id="submitbutton"
+              style={{backgroundColor:"#10454F",border:"none"}}
             >
               Submit
-            </Button>
-          </Col>
-          <Col className="justify text-center">
-            <Button variant="primary" onClick={() => handleAddbillitem()}>
-              Add New Bill Item
             </Button>
           </Col>
         </Row>

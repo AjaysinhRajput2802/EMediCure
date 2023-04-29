@@ -3,12 +3,18 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import Stocktable from "./Stocktable";
 import StockForm from "./StockForm";
-import CreateMedicineModal from "./CreateMedicineModal";
 import { Button, Row, Col } from "react-bootstrap";
+
+import CreateMedicineModal from "./CreateMedicineModal";
 import CreateCompanyModal from "./CreateCompanyModal";
 
 const Stock = ({ userData, updateUserData }) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userData === null || userData.user === null) navigate("/login");
+  }, []);
+  const [currentStock, setCurrentStock] = useState([]);
   const { shopId } = useParams();
 
   const [createMed, setMed] = useState(false);
@@ -19,54 +25,49 @@ const Stock = ({ userData, updateUserData }) => {
   const handleComClose = () => SetCom(false);
   const handleComShow = () => SetCom(true);
 
+  const fetchStock = async () => {
+    console.log(shopId);
+
+    const response = await fetch(
+      `http://127.0.0.1:8000/api/stockItem/?medShop=${shopId}`,
+      { method: "GET" }
+    ).catch((e) => {
+      console.log(e);
+    });
+
+    const data = await response.json();
+
+    if (response.status >= 200 && response.status < 300) {
+      setCurrentStock(data);
+    } else {
+      alert(response.statusText);
+    }
+  };
+
+  const updateCurrentStock = (data) => {
+    setCurrentStock(data);
+  };
+
   useEffect(() => {
-    if (userData === null || userData.user === null) navigate("/login");
-  }, []);
+    fetchStock();
+  }, [userData]);
+  
 
   return (
     <>
-      <StockForm userData={userData} shopId={shopId} />
+      <StockForm userData={userData}
+      shopId={shopId}
+      createMed={createMed}
+      setMed={setMed}
+      handleShow={handleShow}
+      handleClose={handleClose}
+      createCom={createCom}
+      SetCom={SetCom}
+      handleComShow={handleComShow}
+      handleComClose={handleComClose}      />
       <br />
       <br />
-      <Row className="text-center">
-        <Col>
-          <CreateMedicineModal
-            userData={userData}
-            shopId={shopId}
-            createMed={createMed}
-            setMed={setMed}
-            handleClose={handleClose}
-          />
-          <Button
-            variant="primary"
-            onClick={() => {
-              handleShow(true);
-            }}
-          >
-            Create Medicine
-          </Button>
-        </Col>
-        <Col>
-          <CreateCompanyModal
-            userData={userData}
-            shopId={shopId}
-            createCom={createCom}
-            SetCom={SetCom}
-            handleComClose={handleComClose}
-          />
-          <Button
-            variant="primary"
-            onClick={() => {
-              handleComShow(true);
-            }}
-          >
-            Create Company
-          </Button>
-        </Col>
-      </Row>
-      <br />
-      <br />
-      <Stocktable userData={userData} shopId={shopId} />
+      <Stocktable currentStock={currentStock} updateCurrentStock={updateCurrentStock} shopId={shopId} />
     </>
   );
 };

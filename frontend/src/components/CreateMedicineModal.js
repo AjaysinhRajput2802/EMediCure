@@ -8,11 +8,9 @@ import { Row, Col } from "react-bootstrap";
 function CreateMedicineModal({
   handleClose,
   createMed,
-  setMed,
   shopId,
   userData,
 }) {
-  const [validated, setValidated] = useState(false);
 
   const [medicine, SetMedicine] = useState({
     is_delete: false,
@@ -23,8 +21,8 @@ function CreateMedicineModal({
     minimumQty: null,
     medShop: shopId,
     medCompany: null,
-    medImage: null,
   });
+  const [image, setImage] = useState(null);
   const [companyList, SetCompanyList] = useState([]);
   const typeList = ["Tablet", "Capsule", "Liquid", "Cream", "Patche", "Other"];
   // FORM SUBMIT
@@ -46,17 +44,10 @@ function CreateMedicineModal({
   };
   // Handle Input
   const handleInput = (e) => {
-    if ([e.target.name] === "medImage") {
-      SetMedicine((prev) => ({
-        ...prev,
-        [e.target.name]: e.target.files[0],
-      }));
-    } else {
-      SetMedicine((prev) => ({
+    SetMedicine((prev) => ({
         ...prev,
         [e.target.name]: e.target.value,
       }));
-    }
   };
   // POST Medicine CALL
   const postMedicine = async (newMedicine) => {
@@ -69,11 +60,12 @@ function CreateMedicineModal({
     uploadData.append("minimumQty", newMedicine.minimumQty);
     uploadData.append("medCompany", newMedicine.medCompany);
     uploadData.append("medShop", newMedicine.medShop);
-    if (newMedicine.medImage !== null)
+    console.log(newMedicine);
+    if (image !== null)
       uploadData.append(
         "medImage",
-        newMedicine.medImage,
-        newMedicine.medImage.name
+        image,
+        image.name
       );
 
     const response = await fetch(requestURL, {
@@ -89,11 +81,11 @@ function CreateMedicineModal({
     if (response.status === 201) {
       console.log("postmedicine", data);
       handleClose();
-      window.location.reload();
     } else {
       console.log("postmedicine", data);
     }
   };
+
   const fetchCompanyList = async (e) => {
     const response = await fetch(
       `http://127.0.0.1:8000/api/company/?medShop=${shopId}`,
@@ -236,10 +228,10 @@ function CreateMedicineModal({
                   {/* <Form.Label>Medicine Image</Form.Label> */}
                   <Form.Control
                     type="file"
-                    accept="Image"
+                    accept="image/*"
                     placeholder="Enter Medicine Image (Not Required)"
                     name="medImage"
-                    onChange={(event) => handleInput(event)}
+                    onChange={(e) => {const file = e.target.files[0]; setImage(file);}}
                   />
                   <Form.Text id="medImage-error"></Form.Text>
                 </Form.Group>

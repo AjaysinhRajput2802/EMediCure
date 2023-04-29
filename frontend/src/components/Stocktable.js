@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-
+import searchIcon from "../images/search-icon.svg";
 import Paginations from "./Paginations";
 
 let pagination_size = 5;
 
-const Stocktable = ({ userData, shopId }) => {
+const Stocktable = ({ currentStock, updateCurrentStock, shopId }) => {
+  // USE STATES AND VARIABLE DEFINITION
+  const [Clicked, setClicked] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(pagination_size);
-  const [currentStock, setCurrentStock] = useState([]);
-
+  const [searchTerm, setSearchTerm] = useState("");
+  
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = currentStock.slice(
@@ -18,43 +20,77 @@ const Stocktable = ({ userData, shopId }) => {
   );
   const nPages = Math.ceil(currentStock.length / recordsPerPage);
 
-  const FetchStock = async () => {
+  // USE EFFECTS
+  useEffect(() => {
+    filterStock();
+  }, [searchTerm]);
+
+  // API CALLS
+  const HandleDelete = async (event, id) => {
+    let res = window.confirm("Are You sure want to delete this Stock Item : " + id);
+    if (res === true) {
+      const response = await fetch(`http://127.0.0.1:8000/api/stockItem/` + id, {
+        method: "DELETE",
+      }).catch((e) => console.log(e));
+
+      alert("Stock Item Id : " + id + " Deleted Successfully.");
+      window.location.reload();
+    }
+  };
+
+  const filterStock = async () => {
+    console.log(shopId);
+
     const response = await fetch(
-      `http://127.0.0.1:8000/api/stockItem/?medShop=${shopId}`,
-      { method: "GET" }
-    ).catch((e) => {
-      console.log(e);
-    });
-
-    const data = await response.json();
-
-    if (response.status >= 200 && response.status < 300) {
-      setCurrentStock(data);
+      `http://127.0.0.1:8000/api/stockItem/?medShop=${shopId}&search=${searchTerm}`,
+      {
+        method: "GET",
+      }
+    ).catch((e) => console.log(e));
+    if (response.status === 200) {
+      let data = await response.json();
+      console.log(data);
+      updateCurrentStock(data);
     } else {
       alert(response.statusText);
     }
   };
 
-  useEffect(() => {
-    FetchStock();
-  }, [userData]);
-
-  const [Clicked, setClicked] = useState(false);
   return (
     <Container>
       <Row className="justify-content-center">
-        <Col className="dynamic-form-headings">
-        <h3 style={{ color: "#5e9693" }}>Old </h3>
+        <Col xs={2} className="dynamic-form-headings">
+        <h3 style={{ color: "#5e9693" }}>All </h3>
         <h3 style={{ color: "#fff" }}> Stock Details</h3>
+        </Col>
+        <Col>
+            <br />
           <Button
             onClick={() => {
               setClicked(!Clicked);
             }}
+            style={{ display: "inline", float: "left", marginTop:"11px",backgroundColor:"#10454F",borderColor:"#10454F" }}
           >
-            {Clicked ? <>Hide </> : <>Show </>}
-            Data
+          
+            {Clicked ? <i class="bi bi-box-arrow-in-up"></i> : <i class="bi bi-box-arrow-down"></i>}
           </Button>
         </Col>
+        <Col>
+          {Clicked ? (
+            <div className="Content" style={{width:"45rem"}}>
+              <img src={searchIcon} alt="search-icon" />
+              <input
+                type="text"
+                placeholder="Search Stock by Medicine Name"
+                id="searchbar"
+                onChange={(e) => setSearchTerm(e.target.value)}
+                value={searchTerm}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
+        </Col>  
 
         {Clicked ? (
           <div style={{padding:"10px"}}>
@@ -94,8 +130,7 @@ const Stocktable = ({ userData, shopId }) => {
                                   className="float-end"
                                   variant="danger"
                                   onClick={(e) => {
-                                    alert("delete clicked");
-                                    //   HandleDelete(e, bill.pk);
+                                    HandleDelete(e, stockitem.id);
                                   }}
                                 >
                                   Delete

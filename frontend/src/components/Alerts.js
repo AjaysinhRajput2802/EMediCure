@@ -1,6 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Card from "react-bootstrap/Card";
+import './Alerts.css';
+
 const Alerts = ({ userData, updateUserData, shopList, updateShopList }) => {
   const [currentShopStock, setCurrentShopStock] = useState([]);
   const navigate = useNavigate();
@@ -15,6 +18,7 @@ const Alerts = ({ userData, updateUserData, shopList, updateShopList }) => {
         method: "GET",
       }
     ).catch((e) => console.log(e));
+    console.log(response);
     if (response.status === 200) {
       let data = await response.json();
       const alertMeds = data.filter((medicine) => {
@@ -29,63 +33,58 @@ const Alerts = ({ userData, updateUserData, shopList, updateShopList }) => {
 
   useEffect(() => {
     if (userData === null || userData.user === null) navigate("/login");
+    fetchInventory();
   }, []);
 
   return (
     <div>
-      <div className="container d-flex align-items-center justify-content-center">
-        <div className="row">
+      <div className="container mt-3">
+        <div className="d-flex flex-row" id="flex-basis">
           {currentShopStock.length ? (
             currentShopStock.map((medicine) => {
               return (
-                <div
-                  className="col-xs-12 col-md-6 bootstrap snippets bootdeys"
-                  key={medicine.id}
-                >
-                  <div className="product-content product-wrap clearfix">
-                    <div className="row">
-                      <div className="col-md-5 col-sm-12 col-xs-12">
-                        <div className="product-image">
-                          <img
-                            src={medicine.medImage}
-                            height="250px"
-                            width="257px"
-                            alt="medicinePhoto"
-                            className="img-responsive"
-                          />
-                        </div>
+                <>
+                  <Card
+                    key={medicine.id}
+                    className="m-3 alertCard"
+                  >
+                    <div className="row align-items-center p-3">
+                      <div className="col-5">
+                        <Card.Img
+                          src={medicine.medImage}
+                          height="120px"
+                          width="140px"
+                        />
                       </div>
-                      <div className="col-md-7 col-sm-12 col-xs-12">
-                        <div className="product-deatil">
-                          <h5 className="name">
-                            <a href="/">
-                              {medicine.medName} <span>{medicine.medType}</span>
-                            </a>
-                          </h5>
-                          <p className="price-container">
-                            <span>&#8377;{medicine.medPrice}</span>
-                          </p>
-                          <span className="tag1"></span>
-                        </div>
-                        <div className="description">
-                          <p>{medicine.medDes}</p>
-                        </div>
-                        <div className="product-info smart-form">
-                          <a href="/" className="btn btn-success">
-                            Details
-                          </a>
-                          <span style={{ float: "right", margin: "0px auto" }}>
-                            Quantity: {medicine.currentQuantity}
-                          </span>
-                        </div>
+                      <div className="col-7">
+                        <p className="m-1" id="medDetails">
+                          {medicine.medName}
+                        </p>
+                        <p className="m-1" id="medDetails">
+                          {medicine.medType}
+                        </p>
+                        <p className="m-1" id="medDetails">
+                          {" "}
+                          Price : &#8377; {medicine.medPrice}
+                        </p>
+                        <p className="m-1" id="medDetails">
+                          {" "}
+                          Stock : {medicine.currentQuantity}
+                        </p>
+                        <p className="m-1" id="medDetails" style={{color:"red"}}>
+                          {" "}
+                          Minimum Required : {medicine.minimumQty}
+                        </p>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </Card>
+                </>
               );
             })
           ) : (
-            <h1 style={{color:"white"}}>No Alerts Found</h1>
+            <div className="d-flex justify-content-center align-items-center" style={{width:"100vw", height:"40vh"}}>
+              <h1 style={{ color: "white" }}>No Alerts Found</h1>
+            </div>
           )}
         </div>
       </div>

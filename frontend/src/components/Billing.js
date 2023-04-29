@@ -15,7 +15,7 @@ const Billing = ({ userData, updateUserData, shopList, updateShopList }) => {
   const [currentBill, setCurrentBill] = useState([]);
   const { shopId } = useParams();
 
-  const fetchBills = async (e) => {
+  const fetchBills = async () => {
     console.log(shopId);
 
     const response = await fetch(

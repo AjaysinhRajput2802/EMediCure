@@ -149,7 +149,7 @@ const Profile = ({ userData, updateUserData }) => {
   }, []);
 
   return (
-    <div className="container rounded bg-white mt-5 mb-5" onLoad={LoadData}>
+    <div className="container rounded bg-white mb-5" style={{marginTop:"120px"}} onLoad={LoadData}>
       {userData && userData.user ? (
         <div className="row">
           <div className="col-md-3 border-right">
