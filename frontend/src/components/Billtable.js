@@ -33,7 +33,7 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
   const HandleDelete = async (event, id) => {
     let res = window.confirm("Are You sure want to delete this Bill : " + id);
     if (res === true) {
-      const response = await fetch(`http://127.0.0.1:8000/api/bill/` + id, {
+      const response = await fetch(`${process.env.API_URL}api/bill/` + id, {
         method: "DELETE",
       }).catch((e) => console.log(e));
 
@@ -46,7 +46,7 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
     console.log(shopId);
 
     const response = await fetch(
-      `http://127.0.0.1:8000/api/bill/?medShop=${shopId}&search=${searchTerm}`,
+      `${process.env.API_URL}api/bill/?medShop=${shopId}&search=${searchTerm}`,
       {
         method: "GET",
       }

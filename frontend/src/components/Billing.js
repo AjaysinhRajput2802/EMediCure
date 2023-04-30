@@ -22,7 +22,7 @@ const Billing = ({ userData, updateUserData, shopList, updateShopList }) => {
     console.log(shopId);
 
     const response = await fetch(
-      `http://127.0.0.1:8000/api/bill/?medShop=${shopId}`,
+      `${process.env.API_URL}api/bill/?medShop=${shopId}`,
       {
         method: "GET",
       }

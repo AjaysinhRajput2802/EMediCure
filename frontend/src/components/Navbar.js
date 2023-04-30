@@ -14,7 +14,7 @@ const Navbar = ({
 
   const LogOut = async () => {
     let data;
-    let response = await fetch("http://127.0.0.1:8000/auth/refresh/", {
+    let response = await fetch(`${process.env.API_URL}auth/refresh/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +30,7 @@ const Navbar = ({
     }
     const token = data.access;
 
-    response = await fetch("http://127.0.0.1:8000/auth/logout/", {
+    response = await fetch(`${process.env.API_URL}auth/logout/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

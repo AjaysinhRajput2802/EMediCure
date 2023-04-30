@@ -25,7 +25,7 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   const fetchInventory = async (e) => {
     console.log(shopId);
     const response = await fetch(
-      `http://127.0.0.1:8000/api/medicine/?medShop=${shopId}`,
+      `${process.env.API_URL}api/medicine/?medShop=${shopId}`,
       {
         method: "GET",
       }
@@ -49,7 +49,7 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
     console.log(shopId);
 
     const response = await fetch(
-      `http://127.0.0.1:8000/api/medicine/?medShop=${shopId}&search=${searchTerm}`,
+      `${process.env.API_URL}api/medicine/?medShop=${shopId}&search=${searchTerm}`,
       {
         method: "GET",
       }

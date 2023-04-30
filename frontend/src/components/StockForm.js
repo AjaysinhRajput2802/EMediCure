@@ -31,7 +31,7 @@ const StockForm = ({
 
   const fetchMedicine = async (e) => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/medicine/?medShop=${shopId}`,
+      `${process.env.API_URL}api/medicine/?medShop=${shopId}`,
       {
         method: "GET",
       }
@@ -47,7 +47,7 @@ const StockForm = ({
 
   const fetchCompany = async () => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/company/?medShop=${shopId}`,
+      `${process.env.API_URL}api/company/?medShop=${shopId}`,
       {
         method: "GET",
       }
@@ -62,7 +62,7 @@ const StockForm = ({
   };
 
   const postStock = async (input_stock) => {
-    const response = await fetch("http://127.0.0.1:8000/api/stockItem/", {
+    const response = await fetch(`${process.env.API_URL}api/stockItem/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

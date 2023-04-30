@@ -47,7 +47,7 @@ const Dashboard = ({
       const role = userData.user.profile.role;
       console.log(role);
       const response = await fetch(
-        `http://127.0.0.1:8000/api/medical/?shop${role}=${userData.user.id}`,
+        `${process.env.API_URL}api/medical/?shop${role}=${userData.user.id}`,
         {
           method: "GET",
           headers: {

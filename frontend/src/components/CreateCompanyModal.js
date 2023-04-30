@@ -36,7 +36,7 @@ const CreateCompanyModal = ({
 
   // POST Medicine CALL
   const postCompany = async (newCompany) => {
-    const requestURL = "http://127.0.0.1:8000/api/company/";
+    const requestURL = `${process.env.API_URL}api/company/`;
     // const uploadData = new FormData();
     console.log(newCompany);
     const response = await fetch(requestURL, {

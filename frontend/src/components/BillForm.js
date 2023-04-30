@@ -30,7 +30,7 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
     }
     console.log("Here ", shopId);
     const response = await fetch(
-      `http://127.0.0.1:8000/api/medicine/?medShop=${shopId}`,
+      `${process.env.API_URL}api/medicine/?medShop=${shopId}`,
       {
         method: "GET",
       }
@@ -50,7 +50,7 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
     if (shopId === 0) {
       return;
     }
-    const response = await fetch("http://127.0.0.1:8000/api/bill/", {
+    const response = await fetch(`${process.env.API_URL}api/bill/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

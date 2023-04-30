@@ -15,7 +15,7 @@ const StaffMemberModal = ({show, handleClose, shopId}) => {
 
    // ADD API CALL
   const postStaffMember = async (newStaffMember) => {
-   const response = await fetch("http://127.0.0.1:8000/api/staffMember/", {
+   const response = await fetch(`${process.env.API_URL}api/staffMember/`, {
      method: "POST",
      headers: {
        "Content-Type": "application/json",

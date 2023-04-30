@@ -58,7 +58,7 @@ const CreateMedicine = ({ userData, shopId }) => {
 
   // POST Medicine CALL
   const postMedicine = async (newMedicine) => {
-    const requestURL = "http://127.0.0.1:8000/api/medicine/";
+    const requestURL = `${process.env.API_URL}api/medicine/`;
     const uploadData = new FormData();
     uploadData.append("medName", medicine.medName);
     uploadData.append("medDes", medicine.medDes);
@@ -93,7 +93,7 @@ const CreateMedicine = ({ userData, shopId }) => {
 
   const fetchCompanyList = async (e) => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/company/?medShop=${shopId}`,
+      `${process.env.API_URL}api/company/?medShop=${shopId}`,
       {
         method: "GET",
       }

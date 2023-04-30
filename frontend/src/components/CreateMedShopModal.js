@@ -36,7 +36,7 @@ function CreateMedShopModal({
   // POST SHOP CALL
   const postMedical = async (newMedical) => {
     newMedical.shopOwner = userData.user.id;
-    const response = await fetch("http://127.0.0.1:8000/api/medical/", {
+    const response = await fetch(`${process.env.API_URL}api/medical/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

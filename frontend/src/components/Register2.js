@@ -32,7 +32,7 @@ const Register2 = ({ userData, updateUserData, signIn }) => {
         return;
     }*/
 
-    const response = await fetch("http://127.0.0.1:8000/auth/register/", {
+    const response = await fetch(`${process.env.API_URL}auth/register/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

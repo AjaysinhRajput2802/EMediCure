@@ -21,7 +21,7 @@ const StaffMember = ({
   // List API CALL
   const fetchStaffMemberList = async () => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/staffMember/?medShop=${shopId}`,
+      `${process.env.API_URL}api/staffMember/?medShop=${shopId}`,
       {
         method: "GET",
         headers: {
@@ -43,7 +43,7 @@ const StaffMember = ({
   // DELETE API CALL
   const deleteStaffMember = async (staffMemberId) => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/staffMember/${staffMemberId}`,
+      `${process.env.API_URL}api/staffMember/${staffMemberId}`,
       {
         method: "DELETE",
         headers: {
