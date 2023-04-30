@@ -51,27 +51,33 @@ const Stock = ({ userData, updateUserData }) => {
   useEffect(() => {
     fetchStock();
   }, [userData]);
-  
+
   useEffect(() => {
-  if (userData === null || userData.user === null) navigate("/login-register");
+    if (userData === null || userData.user === null)
+      navigate("/login-register");
   }, []);
 
-  
   return (
     <>
-      <StockForm userData={userData}
-      shopId={shopId}
-      createMed={createMed}
-      setMed={setMed}
-      handleShow={handleShow}
-      handleClose={handleClose}
-      createCom={createCom}
-      SetCom={SetCom}
-      handleComShow={handleComShow}
-      handleComClose={handleComClose}      />
+      <StockForm
+        userData={userData}
+        shopId={shopId}
+        createMed={createMed}
+        setMed={setMed}
+        handleShow={handleShow}
+        handleClose={handleClose}
+        createCom={createCom}
+        SetCom={SetCom}
+        handleComShow={handleComShow}
+        handleComClose={handleComClose}
+      />
       <br />
       <br />
-      <Stocktable currentStock={currentStock} updateCurrentStock={updateCurrentStock} shopId={shopId} />
+      <Stocktable
+        currentStock={currentStock}
+        updateCurrentStock={updateCurrentStock}
+        shopId={shopId}
+      />
     </>
   );
 };

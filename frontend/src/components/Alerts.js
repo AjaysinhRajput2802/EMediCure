@@ -13,11 +13,7 @@ const Alerts = ({ userData, updateUserData, shopList, updateShopList }) => {
 
   // USE-EFFECTS
   useEffect(() => {
-    if (userData == null || userData.user == null || shopId == 0)
-      navigate("/login-register");
-  }, []);
-
-  useEffect(() => {
+    if (userData === null || userData.user === null) navigate("/login-register");
     if (shopId != 0) fetchInventory();
   }, []);
 
@@ -45,10 +41,7 @@ const Alerts = ({ userData, updateUserData, shopList, updateShopList }) => {
   };
 
 
-  useEffect(() => {
-    if (userData === null || userData.user === null) navigate("/login");
-    fetchInventory();
-  }, []);
+  
 
   // RETURN STATEMENT
 
