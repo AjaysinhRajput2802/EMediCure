@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import * as Components from "./Login_Register_css";
+import { Form , Col, Row} from "react-bootstrap";
 
 const Register2 = ({ userData, updateUserData, signIn }) => {
   const [username, setUsername] = useState();
@@ -152,18 +154,24 @@ const Register2 = ({ userData, updateUserData, signIn }) => {
         />
         <span id="confpassError" style={{ color: "red" }}></span>
 
-        <select
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm={3}>Role:</Form.Label>
+        <Col sm={3}>
+        <Form.Select
           type="select"
           name="roles"
           id="roles"
           value={role}
           onChange={(e) => setRole(e.target.value)}
           required
+          style={{width:"150px"}}
         >
           <option value="Owner">Owner</option>
           <option value="Supervisor">Supervisor</option>
-        </select>
-
+        </Form.Select>
+        </Col>
+      <br/>
+      </Form.Group>
         <Components.Button type="submit">Sign Up</Components.Button>
       </Components.Form>
     </Components.SignUpContainer>

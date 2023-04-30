@@ -14,7 +14,7 @@ export const Container = styled.div`
 export const SignUpContainer = styled.div`
   position: absolute;
   top: 0;
-  height: 90%;
+  height: 100%;
   transition: all 0.6s ease-in-out;
   left: 0;
   width: 50%;
@@ -67,8 +67,8 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   border-radius: 20px;
-  border: 1px solid #ff4b2b;
-  background-color: #ff4b2b;
+  border: 1px solid #2F4F4F;
+  background-color: #2F4F4F;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -112,7 +112,7 @@ export const OverlayContainer = styled.div`
 export const Overlay = styled.div`
   background: #ff416c;
   background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  background: linear-gradient(to right, #008080, #2F4F4F);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;

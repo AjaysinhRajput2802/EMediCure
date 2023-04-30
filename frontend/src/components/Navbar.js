@@ -187,28 +187,15 @@ const Navbar = ({
               </li>
             </ul>
           ) : (
+            <>
             <ul className="navbar-nav d-flex flex-row">
-              <Button
-                type="submit"
-                onClick={() => {
-                  navigate("/register");
-                }}
-                className="ms-4"
-                style={{ backgroundColor: "#10454F", border: "none" }}
-              >
-                Register
-              </Button>
-              <Button
-                type="submit"
-                onClick={() => {
-                  navigate("/login");
-                }}
-                className="ms-5"
-                style={{ backgroundColor: "#10454F", border: "none" }}
-              >
-                Login
-              </Button>
+              <li className="btn btn-primary me-3">
+                <a className="nav-link" href="/login-register">
+                  Welcome!
+                </a>
+              </li>
             </ul>
+            </>
           )}
         </div>
       </div>

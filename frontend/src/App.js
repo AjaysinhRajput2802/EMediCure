@@ -10,13 +10,13 @@ import Profile from "./components/Profile";
 import Inventory from "./components/Inventory";
 import Billing from "./components/Billing";
 import Alerts from "./components/Alerts";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Login_Register from "./components/Login_Register";
 import Navbar from "./components/Navbar";
 import Stock from "./components/Stock";
-// import About from "./components/About";
 import StaffMember from "./components/StaffMember";
+import Login_Register from "./components/Login_Register";
+// import About from "./components/About";
+// import Register from "./components/Register";
+// import Login from "./components/Login";
 
 /* All Pages
  Home, Dashboard, Profile, Register, Login, About, Inventory, Billing
@@ -96,13 +96,6 @@ function App() {
             <Profile userData={userData} updateUserData={updateUserData} />
           }
         />
-        {/* <Route
-          exact
-          path="/about"
-          element={
-            <About userData={userData} updateUserData={updateUserData} />
-          }
-        /> */}
         <Route
           exact
           path="/inventory/:shopId"
@@ -163,7 +156,14 @@ function App() {
             />
           }
         />
-        <Route
+        {/* <Route
+          exact
+          path="/about"
+          element={
+            <About userData={userData} updateUserData={updateUserData} />
+          }
+        /> */}
+        {/*<Route
           exact
           path="/register"
           element={
@@ -180,7 +180,7 @@ function App() {
               updateShopId={updateShopId}
             />
           }
-        />
+        /> */}
         <Route
           exact
           path="/login-register"

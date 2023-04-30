@@ -52,7 +52,11 @@ const Stock = ({ userData, updateUserData }) => {
     fetchStock();
   }, [userData]);
   
+  useEffect(() => {
+  if (userData === null || userData.user === null) navigate("/login-register");
+  }, []);
 
+  
   return (
     <>
       <StockForm userData={userData}

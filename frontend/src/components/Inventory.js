@@ -37,7 +37,7 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
     setdetailsShow({ show: show, data: data });
 
   useEffect(() => {
-    if (userData === null || userData.user === null) navigate("/login");
+    if (userData === null || userData.user === null) navigate("/login-register");
     // console.log(userData);
   }, [shopId]);
 

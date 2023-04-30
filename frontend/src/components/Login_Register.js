@@ -1,8 +1,10 @@
 import React from 'react'
+
 import * as Components from "./Login_Register_css";
 import Register2 from "./Register2";
+import Login2 from "./Login2";
 
-const Login_Register = ({userData, updateUserData}) => {
+const Login_Register = ({userData, updateUserData, updateShopId}) => {
    const [signIn, toggle] = React.useState(true);
    return (
       <div style={{
@@ -15,16 +17,8 @@ const Login_Register = ({userData, updateUserData}) => {
          margin: "200px 0 50px"}}>
             <Components.Container>
          <Register2 userData={userData} updateUserData={updateUserData} signIn={signIn} />
+         <Login2 userData={userData} updateUserData={updateUserData} updateShopId={updateShopId} signIn={signIn} />
          
-         <Components.SignInContainer signingIn={signIn}>
-         <Components.Form>
-            <Components.Title>Sign in</Components.Title>
-            <Components.Input type="email" placeholder="Email" />
-            <Components.Input type="password" placeholder="Password" />
-            <Components.Anchor href="#">Forgot your password?</Components.Anchor>
-            <Components.Button>Sign In</Components.Button>
-         </Components.Form>
-         </Components.SignInContainer>
          <Components.OverlayContainer signingIn={signIn}>
          <Components.Overlay signingIn={signIn}>
             <Components.LeftOverlayPanel signingIn={signIn}>

@@ -9,7 +9,7 @@ const Billing = ({ userData, updateUserData, shopList, updateShopList }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userData === null || userData.user === null) navigate("/login");
+    if (userData === null || userData.user === null) navigate("/login-register");
   }, []);
 
   const [currentBill, setCurrentBill] = useState([]);

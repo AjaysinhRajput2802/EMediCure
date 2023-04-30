@@ -143,7 +143,7 @@ const Profile = ({ userData, updateUserData }) => {
   useEffect(() => {
     if (userData === null || userData.user === null) {
       console.log("navigating");
-      navigate("/login");
+      navigate("/login-register");
       return;
     }
   }, []);

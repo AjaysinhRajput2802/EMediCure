@@ -15,7 +15,7 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
 
   // LOGIN REQUIRED
   useEffect(() => {
-    if (userData === null || userData.user === null) navigate("/login");
+    if (userData === null || userData.user === null) navigate("/login-register");
   }, []);
 
   // GET MEDICINE API CALL

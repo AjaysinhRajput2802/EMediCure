@@ -5,10 +5,23 @@ import Card from "react-bootstrap/Card";
 import './Alerts.css';
 
 const Alerts = ({ userData, updateUserData, shopList, updateShopList }) => {
-  const [currentShopStock, setCurrentShopStock] = useState([]);
   const navigate = useNavigate();
   const { shopId } = useParams();
+  
+  // USE-STATES
+  const [currentShopStock, setCurrentShopStock] = useState([]);
 
+  // USE-EFFECTS
+  useEffect(() => {
+    if (userData == null || userData.user == null || shopId == 0)
+      navigate("/login-register");
+  }, []);
+
+  useEffect(() => {
+    if (shopId != 0) fetchInventory();
+  }, []);
+
+  // API CALLS
   const fetchInventory = async (e) => {
     console.log(shopId);
 
@@ -31,10 +44,13 @@ const Alerts = ({ userData, updateUserData, shopList, updateShopList }) => {
     }
   };
 
+
   useEffect(() => {
     if (userData === null || userData.user === null) navigate("/login");
     fetchInventory();
   }, []);
+
+  // RETURN STATEMENT
 
   return (
     <div>

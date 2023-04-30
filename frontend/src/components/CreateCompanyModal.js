@@ -53,6 +53,7 @@ const CreateCompanyModal = ({
     if (response.status === 201) {
       console.log("postCompany", data);
       handleComClose();
+      alert("New Supplier Added Successfully.")
     } else {
       alert(data.statusText);
       console.log("postCompany", data);

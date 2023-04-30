@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useDeferredValue } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
@@ -28,10 +28,9 @@ const Dashboard = ({
   const [createMedShop, setMedShop] = useState(false);
 
   // -------- USE EFFECTS ------
-
-  useEffect(()=>{
+  useEffect(() => {
     updateShopId(0);
-  });
+  },[shopList]);
 
   useEffect(() => {
     fetchShopList();
@@ -41,7 +40,7 @@ const Dashboard = ({
 
   const fetchShopList = async () => {
     if (userData === null || userData.user === null) {
-      navigate("/login");
+      navigate("/login-register");
       return;
     } else {
       try {
@@ -93,14 +92,14 @@ const Dashboard = ({
   };
 
   // -------- RETURN STATEMENTS ------
-  return (
+  return ( 
     <Container>
       <br />
       <div className="row">
         {shopList.map((shop) => {
           return (
             <div className="col-sm-6" key={shop.id}>
-              <div className="card">
+              <div className="card" >
                 <div className="card-body">
                   <h5 className="card-title">{shop.shopName}</h5>
                   <p className="card-text">{shop.shopAddress}</p>
@@ -152,25 +151,29 @@ const Dashboard = ({
         })}
 
         {/* {userData.user.profile.role === "Owner" ? ( */}
-        <CreateMedShopModal
-          userData={userData}
-          setMedShop={setMedShop}
-          createMedShop={createMedShop}
-          handleMedShopClose={handleMedShopClose}
-        />
-        <div className="card bg-transparent mb-3 col-sm-6">
-        <div
-          className="btn text-light"
-          onClick={() => {
-            handleMedShopShow(true);
-          }}
-          >
-            <i class="bi bi-plus-circle"></i>
-            Create New Store
-          </div>
-        </div>
-        </div>
-        {/* ) : <></>} */}
+          <>
+            <CreateMedShopModal
+              userData={userData}
+              setMedShop={setMedShop}
+              createMedShop={createMedShop}
+              handleMedShopClose={handleMedShopClose}
+            />
+            <div
+              className="card bg-transparent mb-3 col-sm-6"
+              style={{ border: "0mm" }}
+            >
+              <i
+                className="btn plus bi bi-plus-square-fill"
+                onClick={() => {
+                  handleMedShopShow(true);
+                }}
+              ></i>
+            </div>
+          </>
+          {/* ) : (
+           <></>
+        )} */}
+      </div>
     </Container>
   );
 };

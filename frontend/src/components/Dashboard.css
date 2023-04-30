@@ -1,0 +1,19 @@
+.plus {
+   font-size: 80px;
+   color:silver ;
+   border-color: white;
+   display: inline-block;
+           border-radius: 10px 10px;
+           box-shadow: 0px 0px 2px white;
+           padding: 0.2em 0.3em;
+   margin-top: 50px;
+   width: 200px;
+   margin-left: 225px;
+   margin-bottom: 50px;
+}
+
+.card{
+        background-color: #C4EEF2;
+        color:black
+}
+
