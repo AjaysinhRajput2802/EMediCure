@@ -141,7 +141,7 @@ const Navbar = ({
                   <img
                     className="profileIcon"
                     src={
-                      "http://127.0.0.1:8000" +
+                      "${process.env.REACT_APP_API_URL}" +
                       userData.user.profile.profilePhoto
                     }
                     alt="profilePhoto"

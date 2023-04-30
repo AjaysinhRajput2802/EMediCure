@@ -157,7 +157,7 @@ const Profile = ({ userData, updateUserData }) => {
             <div className="img" onClick={(e) => hiddenFileInput.current.click()} style={{ position:"relative"}}>
             <button id="middle">Change Photo</button>
             <img className="rounded-circle" id="image" src={image ? URL.createObjectURL(image) :
-                `http://127.0.0.1:8000${userData.user.profile.profilePhoto}`
+                `${process.env.REACT_APP_API_URL}${userData.user.profile.profilePhoto}`
               } alt="profilePhoto"/>
             <input
               id="image-upload-input"
