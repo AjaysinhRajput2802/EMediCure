@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import { useParams } from "react-router-dom";
-import { Container} from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 import StaffMemberModal from "./StaffMemberModal";
 
@@ -57,70 +57,76 @@ const StaffMember = ({
 
     if (response.status == 204) {
       alert("staffMember deleted succesfully");
+      fetchStaffMemberList();
     } else {
       let data = await response.json();
       alert(response.status);
       console.log(data);
     }
   };
-  
+
   // DELETE HANDLE
   const handleDelete = (id) => {
     deleteStaffMember(id);
   };
 
   useEffect(() => {
-      fetchStaffMemberList();
-    },[staffMemberList, userData]);
+    fetchStaffMemberList();
+  }, [userData, show]);
 
-    
-   //HELPER FUNCTION
-   const handleClose = () => {setShow(false)};
-   const handleShow = () => setShow(true);
-    
+  //HELPER FUNCTION
+  const handleClose = () => {
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
+
   return (
-      <Container>
-        <h3 style={{ color: "#5e9693" }}>Staff </h3>
-        <h3 style={{ color: "#fff" }}>Details</h3>
-        
-        <StaffMemberModal show={show} handleClose={handleClose} shopId={shopId} />  
-          <button className="btn btn-warning" onClick={handleShow} style={{marginTop:"-50px", float:"right"}}>
-          <i className="bi bi-person-plus-fill"></i> New StaffMember
-          </button>
-            <Table>
-              <thead style={{ color:"lightblue"}}>
-                <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">Contact Details</th>
-                  <th scope="col">Salary</th>
-                  <th scope="col">Delete</th>
-                </tr>
-              </thead>
+    <Container>
+      <h3 style={{ color: "#5e9693" }}>Staff </h3>
+      <h3 style={{ color: "#fff" }}>Details</h3>
 
-              <tbody style={{color:"lightgrey"}}>
-                {staffMemberList.map((item, index) => {
-                  return (
-                    <tr key={item.id}>
-                      <td>{item.staffName}</td>
-                      <td>{item.mobileNo}</td>
-                      <td>₹ {item.salary}</td>
-                      <td>
-                        <Button
-                          variant="danger "
-                          className="bg-danger"
-                          onClick={() => {
-                            handleDelete(item.id);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
-      </Container>
+      <StaffMemberModal show={show} handleClose={handleClose} shopId={shopId} />
+      <button
+        className="btn btn-warning"
+        onClick={handleShow}
+        style={{ marginTop: "-50px", float: "right" }}
+      >
+        <i className="bi bi-person-plus-fill"></i> New StaffMember
+      </button>
+      <Table>
+        <thead style={{ color: "lightblue" }}>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Contact Details</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+
+        <tbody style={{ color: "lightgrey" }}>
+          {staffMemberList.map((item, index) => {
+            return (
+              <tr key={item.id}>
+                <td>{item.staffName}</td>
+                <td>{item.mobileNo}</td>
+                <td>₹ {item.salary}</td>
+                <td>
+                  <Button
+                    variant="danger "
+                    className="bg-danger"
+                    onClick={() => {
+                      handleDelete(item.id);
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    </Container>
   );
 };
 
