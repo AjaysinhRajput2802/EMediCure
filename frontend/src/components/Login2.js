@@ -25,27 +25,7 @@ const Login2 = ({ userData, updateUserData, updateShopId, signIn }) => {
     if (response.status === 200) {
       console.log(data);
       updateUserData(data.user, data.refresh, data.access);
-      if (data.user.profile.role === "Owner") {
-        //console.log("owner");
-        navigate("/dashboard");
-      } else {
-        const response = await fetch(
-          `http://127.0.0.1:8000/api/medical/?shopSupervisor=${data.user.id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        ).catch((e) => console.log(e));
-        if (response.status === 200) {
-          let data = await response.json();
-          updateShopId(data[0].id);
-          navigate(`/inventory/${data[0].id}`);
-        } else {
-          alert(response.statusText);
-        }
-      }
+      navigate("/dashboard");
     } else {
       alert(data.detail);
     }

@@ -7,10 +7,11 @@ import './Alerts.css';
 const Alerts = ({ userData, updateUserData, shopList, updateShopList }) => {
   const navigate = useNavigate();
   const { shopId } = useParams();
+  if(typeof(userData)=="string")
+    userData=JSON.parse(userData);
   
   // USE-STATES
   const [currentShopStock, setCurrentShopStock] = useState([]);
-
   // USE-EFFECTS
   useEffect(() => {
     if (userData === null || userData.user === null) navigate("/login-register");

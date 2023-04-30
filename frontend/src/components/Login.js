@@ -42,8 +42,7 @@ const Login = ({userData, updateUserData, updateShopId }) => {
         ).catch((e) => console.log(e));
         if (response.status === 200) {
           let data = await response.json();
-          updateShopId(data[0].id);
-          navigate(`/inventory/${data[0].id}`);
+          navigate('/dashboard');
         } else {
           alert(response.statusText);
         }

@@ -7,7 +7,10 @@ import Billtable from "./Billtable";
 
 const Billing = ({ userData, updateUserData, shopList, updateShopList }) => {
   const navigate = useNavigate();
+  if(typeof(userData)=="string")
+    userData=JSON.parse(userData);
 
+  // LOGIN REQUIRED
   useEffect(() => {
     if (userData === null || userData.user === null) navigate("/login-register");
   }, []);

@@ -11,6 +11,14 @@ const Profile = ({ userData, updateUserData }) => {
   const [initialMobile, setInitialMobile] = useState("");
   const [image, setImage] = useState(null);
   const hiddenFileInput = useRef(null);
+  
+  if(typeof(userData)=="string")
+    userData=JSON.parse(userData);
+
+  // LOGIN REQUIRED
+  useEffect(() => {
+    if (userData === null || userData.user === null) navigate("/login-register");
+  }, []);
 
   const LoadData = () => {
     setEmail(userData.user.email);
@@ -140,18 +148,10 @@ const Profile = ({ userData, updateUserData }) => {
     }
   };
 
-  useEffect(() => {
-    if (userData === null || userData.user === null) {
-      console.log("navigating");
-      navigate("/login-register");
-      return;
-    }
-  }, []);
-
   return (
-    <div className="container rounded bg-white mb-5" style={{marginTop:"120px"}} onLoad={LoadData}>
+    <div className="container rounded mb-5" style={{marginTop:"120px",backgroundColor:"lightgrey",color:"#10454F"}} onLoad={LoadData}>
       {userData && userData.user ? (
-        <div className="row">
+        <div className="row justify-content-center">
           <div className="col-md-3 border-right">
             <div className="d-flex flex-column align-items-center text-center p-3 py-5 mt-3">
             <div className="img" onClick={(e) => hiddenFileInput.current.click()} style={{ position:"relative"}}>
@@ -243,6 +243,7 @@ const Profile = ({ userData, updateUserData }) => {
                     className="btn btn-primary profile-button"
                     type="submit"
                     id="saveButton"
+                    style={{backgroundColor:"#10454F"}}
                     disabled={true}
                   >
                     Save Profile
@@ -255,12 +256,11 @@ const Profile = ({ userData, updateUserData }) => {
               </form>
             </div>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-3">
             <div className="p-3 py-5">
               <div className="d-flex justify-content-between align-items-center experience">
                 <span>Role</span>
-                <span className="border px-3 p-1 add-experience">
-                  <i className="fa fa-plus"></i>&nbsp;
+                <span className="px-3 p-1" style={{backgroundColor:"#506266",color:"white",cursor:"auto",borderRadius:"5px"}}>
                   {userData.user.profile.role}
                 </span>
               </div>

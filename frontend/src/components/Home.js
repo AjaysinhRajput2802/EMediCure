@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router";
 
 const Home = ({ userData, updateUserData }) => {
+  const navigate = useNavigate();
+
+  if(typeof(userData)=="string")
+    userData=JSON.parse(userData);
+  
+  useEffect(() => {
+    if (userData === null || userData.user === null) navigate("/login-register");
+    else navigate("/dashboard");
+  }, []);
+
   return (
     <header>
       <section>

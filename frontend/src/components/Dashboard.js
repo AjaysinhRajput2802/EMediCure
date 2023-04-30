@@ -16,9 +16,15 @@ const Dashboard = ({
   updateShopId,
 }) => {
   const navigate = useNavigate();
+  if (typeof userData == "string") userData = JSON.parse(userData);
+
+  // LOGIN REQUIRED
+  useEffect(() => {
+    if (userData === null || userData.user === null)
+      navigate("/login-register");
+  }, []);
 
   // -------- USE STATES ------
-
   const [show, setShow] = useState(false);
   const [inputData, setinputData] = useState({
     email: "",
@@ -28,9 +34,6 @@ const Dashboard = ({
   const [createMedShop, setMedShop] = useState(false);
 
   // -------- USE EFFECTS ------
-  useEffect(() => {
-    updateShopId(0);
-  },[shopList]);
 
   useEffect(() => {
     fetchShopList();
@@ -39,32 +42,28 @@ const Dashboard = ({
   // -------- API CALLING FUNCTIONS ------
 
   const fetchShopList = async () => {
-    if (userData === null || userData.user === null) {
-      navigate("/login-register");
-      return;
-    } else {
-      try {
-        const role = userData.user.profile.role;
-        console.log(role);
-        const response = await fetch(
-          `http://127.0.0.1:8000/api/medical/?shop${role}=${userData.user.id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        ).catch((e) => console.log(e));
-        if (response.status === 200) {
-          let data = await response.json();
-          console.log(data);
-          updateShopList(data);
-        } else {
-          alert(response.statusText);
+    try {
+      //console.log(userData);
+      const role = userData.user.profile.role;
+      console.log(role);
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/medical/?shop${role}=${userData.user.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      } catch (e) {
-        console.log(e.message);
+      ).catch((e) => console.log(e));
+      if (response.status === 200) {
+        let data = await response.json();
+        //console.log(data);
+        updateShopList(data);
+      } else {
+        alert(response.statusText);
       }
+    } catch (e) {
+      console.log(e.message);
     }
   };
 
@@ -92,29 +91,44 @@ const Dashboard = ({
   };
 
   // -------- RETURN STATEMENTS ------
-  return ( 
+  return (
     <Container>
       <br />
       <div className="row">
         {shopList.map((shop) => {
           return (
             <div className="col-sm-6" key={shop.id}>
-              <div className="card" >
+              <div className="card">
                 <div className="card-body">
-                  <h5 className="card-title">{shop.shopName}</h5>
-                  <p className="card-text">{shop.shopAddress}</p>
+                  <div
+                    className="text-center mb-2"
+                    style={{
+                      backgroundColor: "#005E54",
+                      maxWidth: "15rem",
+                      minHeight: "2.5rem",
+                      margin: "2px auto",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    <h4 className="card-title pt-1">{shop.shopName}</h4>
+                  </div>
                   <p className="card-text">
-                    shop contact : {shop.shopContactNo}
+                    <i class="bi bi-pin-map"></i> {shop.shopAddress}
                   </p>
-                  <p className="card-text">Owner : {shop.shopOwner}</p>
+                  <p className="card-text">
+                    <i className="bi bi-phone"> {shop.shopContactNo} </i>
+                  </p>
+                  <p className="card-text">
+                  <i class="bi bi-shop"></i> {shop.shopOwner}
+                  </p>
                   <div className="row">
-                    <div className="col">
+                    <div className="col mt-1">
                       <p className="card-text">
-                        Supervisor : {shop.shopSupervisor}
+                      <i className="bi bi-person-square"></i> {shop.shopSupervisor}
                       </p>
                     </div>
                     {userData.user.profile.role === "Owner" ? (
-                      <div className="col-sm-6">
+                      <div className="col-sm-9">
                         <AssignSupervisorModal
                           userData={userData}
                           show={show}
@@ -124,7 +138,7 @@ const Dashboard = ({
                         />
 
                         <button
-                          className="btn btn-outline-dark"
+                          className="btn btn-outline-dark btn-sm"
                           onClick={() => {
                             assignButton(shop.id);
                           }}
@@ -136,13 +150,19 @@ const Dashboard = ({
                       <></>
                     )}
                   </div>
-
+                        <div className="d-flex justify-content-end mt-2 me-5">
                   <button
                     onClick={() => gotoShop(shop.id)}
                     className="btn btn-primary"
+                    style={{
+                      backgroundColor: "#45C4B0",
+                      border: "none",
+                      borderRadius: "5px",
+                    }}
                   >
                     Goto Shop
                   </button>
+                  </div>
                 </div>
               </div>
               <br />
@@ -150,7 +170,7 @@ const Dashboard = ({
           );
         })}
 
-        {/* {userData.user.profile.role === "Owner" ? ( */}
+        {userData.user.profile.role === "Owner" ? (
           <>
             <CreateMedShopModal
               userData={userData}
@@ -158,21 +178,21 @@ const Dashboard = ({
               createMedShop={createMedShop}
               handleMedShopClose={handleMedShopClose}
             />
-            <div
-              className="card bg-transparent mb-3 col-sm-6"
-              style={{ border: "0mm" }}
-            >
-              <i
-                className="btn plus bi bi-plus-square-fill"
+            <div className="card bg-transparent mb-3 col-sm-6">
+              <div
+                className="btn text-light"
                 onClick={() => {
                   handleMedShopShow(true);
                 }}
-              ></i>
+              >
+                <i className="bi bi-plus-circle"></i>
+                Create New Store
+              </div>
             </div>
           </>
-          {/* ) : (
-           <></>
-        )} */}
+        ) : (
+          <></>
+        )}
       </div>
     </Container>
   );

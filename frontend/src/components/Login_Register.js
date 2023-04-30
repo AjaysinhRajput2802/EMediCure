@@ -14,8 +14,8 @@ const Login_Register = ({userData, updateUserData, updateShopId}) => {
          flexDirection: "column",
          fontFamily: "'Montserrat', sans-serif",
          height: "55vh",
-         margin: "200px 0 50px"}}>
-            <Components.Container>
+         margin: "195px 0 50px"}}>
+            <Components.Container style={{minHeight:"623px"}}>
          <Register2 userData={userData} updateUserData={updateUserData} signIn={signIn} />
          <Login2 userData={userData} updateUserData={updateUserData} updateShopId={updateShopId} signIn={signIn} />
          

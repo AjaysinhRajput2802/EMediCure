@@ -23,7 +23,7 @@ const CreateCompanyModal = ({
   // FORM SUBMIT
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log();
+    //console.log(e);
     postCompany(company);
   };
   // Handle Input
@@ -53,10 +53,10 @@ const CreateCompanyModal = ({
     if (response.status === 201) {
       console.log("postCompany", data);
       handleComClose();
-      alert("New Supplier Added Successfully.")
+      alert("New Supplier added successfully");
     } else {
       alert(data.statusText);
-      console.log("postCompany", data);
+      //console.log("postCompany", data);
     }
   };
 

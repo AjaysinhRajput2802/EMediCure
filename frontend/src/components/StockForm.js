@@ -76,10 +76,10 @@ const StockForm = ({
     if (response.status >= 200 && response.status < 300) {
       console.log(data);
       alert("Stock Added SuccessFully.");
-      // window.location.reload();
+      window.location.reload();
     } else {
       alert(response.statusText);
-      console.log(data);
+      //console.log(data);
     }
   };
 
@@ -141,7 +141,6 @@ const StockForm = ({
       <Form
         className="stockform"
         style={{ color: "aquamarine", backgroundColor:"#506266", padding:"20px", borderRadius:"10px"}}
-        onSubmit={(event) => handleSubmit(event)}
       >
         <Row className="justify-content-center pt-2 pb-1">
           <Col xs="8" className="justify-content-center">
@@ -246,7 +245,7 @@ const StockForm = ({
               </Col>
             </Form.Group>
             <div className="text-center">
-            <Button type="submit" className="mt-2" style={{backgroundColor:"#10454F",border:"none"}}>Submit</Button>
+            <Button type="submit" className="mt-2" style={{backgroundColor:"#10454F",border:"none"}} onClick={(e)=>handleSubmit(e)}>Submit</Button>
             </div>
           </Col>
           <Col xs={1}>

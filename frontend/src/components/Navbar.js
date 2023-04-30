@@ -71,14 +71,14 @@ const Navbar = ({
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto">
             {userData && userData.user ? (
-              userData.user.profile.role === "Owner" ? (
-                shopId ? (
+              <>
+                <li className="nav-item">
+                  <a className="nav-link" id="dashboard" href="/dashboard">
+                    Dashboard
+                  </a>
+                </li>
+                {shopId ? (
                   <>
-                    <li className="nav-item">
-                      <a className="nav-link" id="dashboard" href="/dashboard">
-                        Dashboard
-                      </a>
-                    </li>
                     <li className="nav-item">
                       <a className="nav-link" href={`/inventory/${shopId}`}>
                         Inventory
@@ -106,46 +106,9 @@ const Navbar = ({
                     </li>
                   </>
                 ) : (
-                  <li className="nav-item">
-                    <a className="nav-link" id="dashboard" href="/dashboard">
-                      Dashboard
-                    </a>
-                  </li>
-                )
-              ) : (
-                <>
-                  <li className="nav-item">
-                    <a className="nav-link" id="dashboard" href="/dashboard">
-                      Dashboard
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href={`/inventory/${shopId}`}>
-                      Inventory
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href={`/billing/${shopId}`}>
-                      Billing
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href={`/stock/${shopId}`}>
-                      Stock
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href={`/alerts/${shopId}`}>
-                      Alerts
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href={`/staffMember/${shopId}`}>
-                      Staff Member
-                    </a>
-                  </li>
-                </>
-              )
+                  <></>
+                )}
+              </>
             ) : (
               <></>
             )}
@@ -189,9 +152,9 @@ const Navbar = ({
           ) : (
             <>
             <ul className="navbar-nav d-flex flex-row">
-              <li className="btn btn-primary me-3">
-                <a className="nav-link" href="/login-register">
-                  Welcome!
+              <li className="btn btn-primary me-3" style={{backgroundColor:"#5e9693",border:"none"}}>
+                <a className="nav-link" href="/login-register" style={{color:"#fff"}}>
+                <i className="bi bi-bag-plus-fill"></i> Welcome!
                 </a>
               </li>
             </ul>

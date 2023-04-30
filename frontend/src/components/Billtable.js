@@ -83,7 +83,7 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
             style={{ display: "inline", float: "left", marginTop:"11px",backgroundColor:"#10454F",borderColor:"#10454F" }}
           >
           
-            {Clicked ? <i class="bi bi-caret-up-fill"></i> : <i class="bi bi-caret-down-fill"></i> }
+            {Clicked ? <i className="bi bi-caret-up-fill"></i> : <i className="bi bi-caret-down-fill"></i> }
           </Button>
         </Col>
         <Col>

@@ -24,7 +24,7 @@ function MedicineDetailsModal({ handleDetailsClose, detailsShow }) {
                 style={{
                   width: "240px",
                   height: "250px",
-                  "object-fit": "contain",
+                  objectFit: "contain",
                 }}
                 src={medicine.medImage}
                 alt="medicinePhoto"

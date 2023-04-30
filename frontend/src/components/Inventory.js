@@ -5,6 +5,7 @@ import "./Inventory.css";
 import searchIcon from "../images/search-icon.svg";
 import MedicineDetailsModal from "./MedicineDetailsModal";
 import Card from "react-bootstrap/Card";
+import { Fragment } from "react";
 
 const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   const [detailsShow, setdetailsShow] = useState({ show: false, data: [] });
@@ -12,6 +13,14 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const { shopId } = useParams();
+
+  if(typeof(userData)=="string")
+    userData=JSON.parse(userData);
+
+  // LOGIN REQUIRED
+  useEffect(() => {
+    if (userData === null || userData.user === null) navigate("/login-register");
+  }, []);
 
   const fetchInventory = async (e) => {
     console.log(shopId);
@@ -35,11 +44,6 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   };
   const handleDetailsShow = (show, data) =>
     setdetailsShow({ show: show, data: data });
-
-  useEffect(() => {
-    if (userData === null || userData.user === null) navigate("/login-register");
-    // console.log(userData);
-  }, [shopId]);
 
   const filterMedicine = async () => {
     console.log(shopId);
@@ -86,8 +90,8 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
           {currentShopStock.length ? (
             currentShopStock.map((medicine) => {
               return (
-                <>
-                  <Card key={medicine.id} className="m-3 medCard" onClick={() => {
+                <Fragment key={medicine.id}>
+                  <Card className="m-3 medCard" onClick={() => {
                     handleDetailsShow(true, medicine);
                   }} style={{cursor:"pointer"}}>
                     <div className="row align-items-center p-3">
@@ -112,12 +116,12 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
                       </div>
                     </div>
                   </Card>
-                </>
+                </Fragment>
               );
             })
           ) : (
-            <div>
-              <h1>No Data Found</h1>
+            <div className="d-flex justify-content-center align-items-center" style={{width:"100vw", height:"40vh"}}>
+              <h1 style={{ color: "white" }}>No Medicine Found</h1>
             </div>
           )}
         </div>

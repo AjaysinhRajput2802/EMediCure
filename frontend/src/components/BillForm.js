@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
@@ -17,6 +17,9 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
   useEffect(() => {
     if (userData === null || userData.user === null) navigate("/login-register");
   }, []);
+
+  if(typeof(userData)=="string")
+    userData=JSON.parse(userData);
 
   // GET MEDICINE API CALL
   const fetchMedicine = async (e) => {
@@ -151,8 +154,8 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
               </Form.Group>
             </Row>
             {Allbillitem.map((field, index) => (
-              <>
-                <Row key={index} className="my-1">
+              <Fragment key={index}>
+                <Row className="my-1">
                   {/* <Col>Bill Item {index + 1}</Col> */}
                   <Col xs={5} className="justify text-center">
                     <Form.Group>
@@ -230,7 +233,7 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
                 <Row>
                   <div id={index}></div>
                 </Row>
-              </>
+              </Fragment>
             ))}
 
             <div id="form_error"> </div>

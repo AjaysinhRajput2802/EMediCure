@@ -10,10 +10,14 @@ import CreateCompanyModal from "./CreateCompanyModal";
 
 const Stock = ({ userData, updateUserData }) => {
   const navigate = useNavigate();
-
+  // LOGIN REQUIRED
   useEffect(() => {
-    if (userData === null || userData.user === null) navigate("/login");
+    if (userData === null || userData.user === null) navigate("/login-register");
   }, []);
+
+  if(typeof(userData)=="string")
+    userData=JSON.parse(userData);
+    
   const [currentStock, setCurrentStock] = useState([]);
   const { shopId } = useParams();
 
@@ -51,11 +55,6 @@ const Stock = ({ userData, updateUserData }) => {
   useEffect(() => {
     fetchStock();
   }, [userData]);
-
-  useEffect(() => {
-    if (userData === null || userData.user === null)
-      navigate("/login-register");
-  }, []);
 
   return (
     <>

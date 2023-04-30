@@ -76,7 +76,7 @@ class StockItemC(generics.CreateAPIView, generics.ListAPIView):
     serializer_class = serializers.StockItemSerializers
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
     filterset_fields = ['medShop']
-    search_fields = ['medName']
+    search_fields = ['medName__medName']
 
 
 class StockItemRUD(generics.RetrieveUpdateDestroyAPIView):

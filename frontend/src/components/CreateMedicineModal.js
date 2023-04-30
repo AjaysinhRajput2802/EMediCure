@@ -81,8 +81,10 @@ function CreateMedicineModal({
     if (response.status === 201) {
       console.log("postmedicine", data);
       handleClose();
+      alert("New Medicine added successfully");
     } else {
-      console.log("postmedicine", data);
+      //console.log("postmedicine", data);
+      console.log(data.statusText);
     }
   };
 
