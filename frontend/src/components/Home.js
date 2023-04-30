@@ -4,12 +4,15 @@ import { useNavigate } from "react-router";
 const Home = ({ userData, updateUserData }) => {
   const navigate = useNavigate();
 
-  if(typeof(userData)=="string")
-    userData=JSON.parse(userData);
-  
+  if (typeof userData == "string") userData = JSON.parse(userData);
+
   useEffect(() => {
-    if (userData === null || userData.user === null) navigate("/login-register");
-    else navigate("/dashboard");
+    if (userData === null || userData.user === null) {
+      navigate("/login-register");
+      return;
+    } else {
+      navigate("/dashboard");
+    }
   }, []);
 
   return (

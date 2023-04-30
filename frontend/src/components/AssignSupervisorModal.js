@@ -41,7 +41,7 @@ const AssignSupervisorModal = ({
   // API CALLS
   const assignsupervisor_Update_User_MedicalShop = async () => {
     const response = await fetch(
-      `${process.env.API_URL}auth/user/${postData.id}`,
+      `${process.env.REACT_APP_API_URL}auth/user/${postData.id}`,
       {
         method: "PATCH",
         headers: {
@@ -57,7 +57,7 @@ const AssignSupervisorModal = ({
 
     if (response.status >= 200 && response.status < 300) {
       const response2 = await fetch(
-        `${process.env.API_URL}api/medical/${inputData.medshopid}`,
+        `${process.env.REACT_APP_API_URL}api/medical/${inputData.medshopid}`,
         {
           method: "PATCH",
           headers: {
@@ -91,7 +91,7 @@ const AssignSupervisorModal = ({
 
   const assignsupervisor_getUserId = async () => {
     const response = await fetch(
-      `${process.env.API_URL}auth/user?email=${inputData.email}`,
+      `${process.env.REACT_APP_API_URL}auth/user?email=${inputData.email}`,
       {
         method: "GET",
         headers: {

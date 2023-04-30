@@ -11,7 +11,7 @@ const Login = ({userData, updateUserData, updateShopId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${process.env.API_URL}auth/login/`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}auth/login/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -32,7 +32,7 @@ const Login = ({userData, updateUserData, updateShopId }) => {
       }
       else{
         const response = await fetch(
-          `${process.env.API_URL}api/medical/?shopSupervisor=${data.user.id}`,
+          `${process.env.REACT_APP_API_URL}api/medical/?shopSupervisor=${data.user.id}`,
           {
             method: "GET",
             headers: {

@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import * as Components from "./Login_Register_css";
 
 const Login2 = ({ userData, updateUserData, updateShopId, signIn }) => {
@@ -11,7 +10,7 @@ const Login2 = ({ userData, updateUserData, updateShopId, signIn }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${process.env.API_URL}auth/login/`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}auth/login/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

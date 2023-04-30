@@ -21,7 +21,7 @@ const StaffMember = ({
   // List API CALL
   const fetchStaffMemberList = async () => {
     const response = await fetch(
-      `${process.env.API_URL}api/staffMember/?medShop=${shopId}`,
+      `${process.env.REACT_APP_API_URL}api/staffMember/?medShop=${shopId}`,
       {
         method: "GET",
         headers: {
@@ -43,7 +43,7 @@ const StaffMember = ({
   // DELETE API CALL
   const deleteStaffMember = async (staffMemberId) => {
     const response = await fetch(
-      `${process.env.API_URL}api/staffMember/${staffMemberId}`,
+      `${process.env.REACT_APP_API_URL}api/staffMember/${staffMemberId}`,
       {
         method: "DELETE",
         headers: {
@@ -85,7 +85,7 @@ const StaffMember = ({
         
         <StaffMemberModal show={show} handleClose={handleClose} shopId={shopId} />  
           <button className="btn btn-warning" onClick={handleShow} style={{marginTop:"-50px", float:"right"}}>
-          <i class="bi bi-person-plus-fill"></i> New StaffMember
+          <i className="bi bi-person-plus-fill"></i> New StaffMember
           </button>
             <Table>
               <thead style={{ color:"lightblue"}}>

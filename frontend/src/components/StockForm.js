@@ -31,7 +31,7 @@ const StockForm = ({
 
   const fetchMedicine = async (e) => {
     const response = await fetch(
-      `${process.env.API_URL}api/medicine/?medShop=${shopId}`,
+      `${process.env.REACT_APP_API_URL}api/medicine/?medShop=${shopId}`,
       {
         method: "GET",
       }
@@ -47,7 +47,7 @@ const StockForm = ({
 
   const fetchCompany = async () => {
     const response = await fetch(
-      `${process.env.API_URL}api/company/?medShop=${shopId}`,
+      `${process.env.REACT_APP_API_URL}api/company/?medShop=${shopId}`,
       {
         method: "GET",
       }
@@ -62,7 +62,7 @@ const StockForm = ({
   };
 
   const postStock = async (input_stock) => {
-    const response = await fetch(`${process.env.API_URL}api/stockItem/`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}api/stockItem/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

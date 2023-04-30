@@ -25,7 +25,7 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   const fetchInventory = async (e) => {
     console.log(shopId);
     const response = await fetch(
-      `${process.env.API_URL}api/medicine/?medShop=${shopId}`,
+      `${process.env.REACT_APP_API_URL}api/medicine/?medShop=${shopId}`,
       {
         method: "GET",
       }
@@ -49,7 +49,7 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
     console.log(shopId);
 
     const response = await fetch(
-      `${process.env.API_URL}api/medicine/?medShop=${shopId}&search=${searchTerm}`,
+      `${process.env.REACT_APP_API_URL}api/medicine/?medShop=${shopId}&search=${searchTerm}`,
       {
         method: "GET",
       }

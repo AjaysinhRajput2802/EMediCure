@@ -23,7 +23,7 @@ const Alerts = ({ userData, updateUserData, shopList, updateShopList }) => {
     console.log(shopId);
 
     const response = await fetch(
-      `${process.env.API_URL}api/medicine/?medShop=${shopId}`,
+      `${process.env.REACT_APP_API_URL}api/medicine/?medShop=${shopId}`,
       {
         method: "GET",
       }

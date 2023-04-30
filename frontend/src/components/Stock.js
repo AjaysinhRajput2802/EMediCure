@@ -33,7 +33,7 @@ const Stock = ({ userData, updateUserData }) => {
     console.log(shopId);
 
     const response = await fetch(
-      `${process.env.API_URL}api/stockItem/?medShop=${shopId}`,
+      `${process.env.REACT_APP_API_URL}api/stockItem/?medShop=${shopId}`,
       { method: "GET" }
     ).catch((e) => {
       console.log(e);

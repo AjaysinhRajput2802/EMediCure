@@ -29,7 +29,7 @@ const Stocktable = ({ currentStock, updateCurrentStock, shopId }) => {
   const HandleDelete = async (event, id) => {
     let res = window.confirm("Are You sure want to delete this Stock Item : " + id);
     if (res === true) {
-      const response = await fetch(`${process.env.API_URL}api/stockItem/` + id, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}api/stockItem/` + id, {
         method: "DELETE",
       }).catch((e) => console.log(e));
 
@@ -42,7 +42,7 @@ const Stocktable = ({ currentStock, updateCurrentStock, shopId }) => {
     console.log(shopId);
 
     const response = await fetch(
-      `${process.env.API_URL}api/stockItem/?medShop=${shopId}&search=${searchTerm}`,
+      `${process.env.REACT_APP_API_URL}api/stockItem/?medShop=${shopId}&search=${searchTerm}`,
       {
         method: "GET",
       }

@@ -43,11 +43,11 @@ const Dashboard = ({
 
   const fetchShopList = async () => {
     try {
-      //console.log(userData);
+      console.log(userData);
       const role = userData.user.profile.role;
       console.log(role);
       const response = await fetch(
-        `${process.env.API_URL}api/medical/?shop${role}=${userData.user.id}`,
+        `${process.env.REACT_APP_API_URL}api/medical/?shop${role}=${userData.user.id}`,
         {
           method: "GET",
           headers: {
@@ -113,13 +113,13 @@ const Dashboard = ({
                     <h4 className="card-title pt-1">{shop.shopName}</h4>
                   </div>
                   <p className="card-text">
-                    <i class="bi bi-pin-map"></i> {shop.shopAddress}
+                    <i className="bi bi-pin-map"></i> {shop.shopAddress}
                   </p>
                   <p className="card-text">
                     <i className="bi bi-phone"> {shop.shopContactNo} </i>
                   </p>
                   <p className="card-text">
-                  <i class="bi bi-shop"></i> {shop.shopOwner}
+                  <i className="bi bi-shop"></i> {shop.shopOwner}
                   </p>
                   <div className="row">
                     <div className="col mt-1">

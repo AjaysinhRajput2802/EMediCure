@@ -42,7 +42,7 @@ const Profile = ({ userData, updateUserData }) => {
     e.preventDefault();
 
     const response1 = await fetch(
-      `${process.env.API_URL}auth/user/${userData.user.id}`,
+      `${process.env.REACT_APP_API_URL}auth/user/${userData.user.id}`,
       {
         method: "PATCH",
         headers: {
@@ -92,7 +92,7 @@ const Profile = ({ userData, updateUserData }) => {
       }
       form_data.append("role",userData.user.profile.role);
       const response2 = await fetch(
-        `${process.env.API_URL}api/profile/${userData.user.profile.id}`,
+        `${process.env.REACT_APP_API_URL}api/profile/${userData.user.profile.id}`,
         {
           method: "PATCH",
           headers: {

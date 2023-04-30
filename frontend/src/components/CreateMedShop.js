@@ -32,7 +32,7 @@ const CreateMedShop = ({ userData }) => {
 
   // POST SHOP CALL
   const postMedical = async (newMedical) => {
-    const response = await fetch(`${process.env.API_URL}api/medical/`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}api/medical/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

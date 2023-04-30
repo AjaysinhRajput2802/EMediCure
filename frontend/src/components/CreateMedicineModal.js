@@ -51,7 +51,7 @@ function CreateMedicineModal({
   };
   // POST Medicine CALL
   const postMedicine = async (newMedicine) => {
-    const requestURL = `${process.env.API_URL}api/medicine/`;
+    const requestURL = `${process.env.REACT_APP_API_URL}api/medicine/`;
     const uploadData = new FormData();
     uploadData.append("medName", newMedicine.medName);
     uploadData.append("medDes", newMedicine.medDes);
@@ -90,7 +90,7 @@ function CreateMedicineModal({
 
   const fetchCompanyList = async (e) => {
     const response = await fetch(
-      `${process.env.API_URL}api/company/?medShop=${shopId}`,
+      `${process.env.REACT_APP_API_URL}api/company/?medShop=${shopId}`,
       {
         method: "GET",
       }
