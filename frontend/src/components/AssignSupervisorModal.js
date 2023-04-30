@@ -86,6 +86,7 @@ const AssignSupervisorModal = ({
       console.log(data);
       alert(response.statusText);
     }
+    window.location.reload();
   };
 
   const assignsupervisor_getUserId = async () => {
@@ -121,6 +122,7 @@ const AssignSupervisorModal = ({
         "User with email address is not registered. Please register the user first then assign him as Supervisor."
       );
     }
+    window.location.reload();
   };
 
   const handleSubmit = (e) => {
