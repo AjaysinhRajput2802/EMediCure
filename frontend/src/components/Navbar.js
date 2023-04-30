@@ -141,7 +141,7 @@ const Navbar = ({
                   <img
                     className="profileIcon"
                     src={
-                      "${process.env.REACT_APP_API_URL}" +
+                      `${process.env.REACT_APP_API_URL}` +
                       userData.user.profile.profilePhoto
                     }
                     alt="profilePhoto"
