@@ -81,7 +81,7 @@ const StaffMember = ({
   const handleShow = () => setShow(true);
 
   return (
-    <Container>
+    <Container style={{marginTop:"90px"}}>
       <h3 style={{ color: "#5e9693" }}>Staff </h3>
       <h3 style={{ color: "#fff" }}>Details</h3>
 
@@ -93,7 +93,7 @@ const StaffMember = ({
       >
         <i className="bi bi-person-plus-fill"></i> New StaffMember
       </button>
-      <Table>
+      <Table responsive>
         <thead style={{ color: "lightblue" }}>
           <tr>
             <th scope="col">Name</th>

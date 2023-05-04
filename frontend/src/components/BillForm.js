@@ -157,7 +157,7 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
               <Fragment key={index}>
                 <Row className="my-1">
                   {/* <Col>Bill Item {index + 1}</Col> */}
-                  <Col xs={5} className="justify text-center">
+                  <Col xs={5} className="justify text-center" >
                     <Form.Group>
                       <Form.Control
                         required
@@ -178,7 +178,7 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
                       </Form.Control>
                     </Form.Group>
                   </Col>
-                  <Col xs={5} className="justify text-center">
+                  <Col xs={5} className="justify text-center" style={{marginLeft:"-10px",marginRight:"-12px"}}>
                     <Form.Group>
                       <Form.Control
                         type="Number"
@@ -194,7 +194,7 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
                   {(Allbillitem.length>1) ? (
                     <Col
                       xs={1}
-                      style={{ color: "red", marginTop: "3px", width: "50px" }}
+                      style={{ color: "red", marginTop: "3px", width: "50px",marginRight:"-17px" }}
                     >
                       <h3>
                         <i
