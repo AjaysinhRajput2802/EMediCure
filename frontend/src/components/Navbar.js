@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import { Button } from "react-bootstrap";
 
 const Navbar = ({
   userData,
@@ -51,7 +50,7 @@ const Navbar = ({
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0 mb-5">
+    <nav className="navbar navbar-expand-lg navbar-dark fixed-top mask-custom shadow-0 mb-5">
       <div className="container">
         <a className="navbar-brand" href="/">
           <span style={{ color: "#5e9693" }}>EMedi</span>
@@ -60,46 +59,46 @@ const Navbar = ({
         <button
           className="navbar-toggler"
           type="button"
-          data-mdb-toggle="collapse"
-          data-mdb-target="#navbarSupportedContent"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <i className="fas fa-bars"></i>
+          <span className="navbar-toggler-icon"></span>  
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto">
             {userData && userData.user ? (
               <>
-                <li className="nav-item">
+                <li className="nav-item text-center">
                   <a className="nav-link" id="dashboard" href="/dashboard">
                     Dashboard
                   </a>
                 </li>
                 {shopId ? (
                   <>
-                    <li className="nav-item">
+                    <li className="nav-item text-center">
                       <a className="nav-link" href={`/inventory/${shopId}`}>
                         Inventory
                       </a>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item text-center">
                       <a className="nav-link" href={`/billing/${shopId}`}>
                         Billing
                       </a>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item text-center">
                       <a className="nav-link" href={`/stock/${shopId}`}>
                         New Stock
                       </a>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item text-center">
                       <a className="nav-link" href={`/alerts/${shopId}`}>
                         Alerts
                       </a>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item text-center">
                       <a className="nav-link" href={`/staffMember/${shopId}`}>
                         Staff Member
                       </a>
@@ -115,7 +114,7 @@ const Navbar = ({
           </ul>
 
           {userData && userData.user ? (
-            <ul className="navbar-nav d-flex flex-row">
+            <ul className="navbar-nav d-flex flex-row justify-content-center">
               <div className="navigation">
                 <button
                   className="btt btn btn-sm bg-transparent"

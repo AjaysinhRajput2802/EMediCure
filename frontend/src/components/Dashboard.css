@@ -1,3 +1,10 @@
+@media only screen and (max-width: 992px) {
+        /* For mobile phones: */
+        [class="col-sm-9"] {
+            margin-top: 15px;
+        }
+}
+
 .plus {
    font-size: 80px;
    color:silver ;

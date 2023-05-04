@@ -2,8 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Components from "./Login_Register_css";
+import { useEffect } from "react";
 
-const Login2 = ({ userData, updateUserData, updateShopId, signIn }) => {
+const Login2 = ({ userData, updateUserData, updateShopId, signIn, toggleSignIn, onMobile }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -32,8 +33,8 @@ const Login2 = ({ userData, updateUserData, updateShopId, signIn }) => {
 
   return (
     <Components.SignInContainer signingIn={signIn}>
-      <Components.Form onSubmit={handleSubmit}>
-        <Components.Title>Sign in</Components.Title>
+      <Components.Form onSubmit={handleSubmit} signingIn={signIn}>
+        <Components.Title style={{marginBottom:"10px"}}>Sign in</Components.Title>
 
         <Components.Input
           type="text"
@@ -53,9 +54,9 @@ const Login2 = ({ userData, updateUserData, updateShopId, signIn }) => {
           required
         />
 
-        <Components.Anchor href="#">Forgot password?</Components.Anchor>
+        {onMobile?<Components.Anchor onClick={()=>toggleSignIn(false)}>Don't have an account ! Register here?</Components.Anchor>:null}
 
-        <Components.Button type="submit">Sign In</Components.Button>
+        <Components.Button type="submit" style={{marginTop:"20px"}}>Sign In</Components.Button>
       </Components.Form>
     </Components.SignInContainer>
   );

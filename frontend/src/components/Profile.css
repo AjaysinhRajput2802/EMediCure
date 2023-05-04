@@ -1,3 +1,13 @@
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [id="role"] {
+        margin-top: -200px;
+    }
+    [id="saveButton"] {
+        margin-top: 60px;
+    }
+}
+
 .form-control:focus {
     box-shadow: none;
     border-color: #BA68C8

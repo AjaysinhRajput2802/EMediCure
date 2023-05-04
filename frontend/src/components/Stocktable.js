@@ -69,7 +69,7 @@ const Stocktable = ({ currentStock, updateCurrentStock, shopId }) => {
             onClick={() => {
               setClicked(!Clicked);
             }}
-            style={{ display: "inline", float: "left", marginTop:"11px",backgroundColor:"#10454F",borderColor:"#10454F" }}
+            style={{ display: "inline", float: "left", marginTop:"11px",marginLeft:"30px",backgroundColor:"#10454F",borderColor:"#10454F" }}
           >
           
           {Clicked ? <i className="bi bi-caret-up-fill"></i> : <i className="bi bi-caret-down-fill"></i> }
@@ -77,7 +77,7 @@ const Stocktable = ({ currentStock, updateCurrentStock, shopId }) => {
         </Col>
         <Col>
           {Clicked ? (
-            <div className="Content" style={{width:"45rem"}}>
+            <div className="Content" style={{width:"45vw",minWidth:"320px"}}>
               <img src={searchIcon} alt="search-icon" />
               <input
                 type="text"
@@ -110,7 +110,8 @@ const Stocktable = ({ currentStock, updateCurrentStock, shopId }) => {
                         aria-expanded="false"
                         aria-controls={"flush-collapse" + index1}
                       >
-                        <table className="table table-striped">
+                      <div style={{width:"85vw",overflowX:"auto"}}>
+                        <table className="table table-responsive tabel-striped">
                           <tbody>
                             <tr>
                               <th scope="col">Id : {stockitem.id}</th>
@@ -139,6 +140,7 @@ const Stocktable = ({ currentStock, updateCurrentStock, shopId }) => {
                             </tr>
                           </tbody>
                         </table>
+                        </div>
                       </button>
                     </h2>
                     <div

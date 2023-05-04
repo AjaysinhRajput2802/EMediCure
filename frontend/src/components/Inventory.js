@@ -73,7 +73,7 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
         handleDetailsClose={handleDetailsClose}
         detailsShow={detailsShow}
       />
-      <div className="fixed-top mt-5">
+      <div className="fixed-top mt-5" style={{zIndex:"1"}}>
       <div className="Content">
         <img src={searchIcon} alt="search-icon" />
         <input

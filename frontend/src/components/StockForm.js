@@ -249,7 +249,7 @@ const StockForm = ({
             </div>
           </Col>
           <Col xs={1}>
-            <h3>
+            <h3 className="medicineButton">
               <CreateMedicineModal
                 userData={userData}
                 shopId={shopId}
@@ -270,7 +270,7 @@ const StockForm = ({
             <br />
             <br />
             <br />
-            <h3>
+            <h3 className="companyButton">
               <CreateCompanyModal
                 userData={userData}
                 shopId={shopId}

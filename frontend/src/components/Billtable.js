@@ -80,7 +80,7 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
             onClick={() => {
               setClicked(!Clicked);
             }}
-            style={{ display: "inline", float: "left", marginTop:"11px",backgroundColor:"#10454F",borderColor:"#10454F" }}
+            style={{ display: "inline", float: "left", marginTop:"11px",marginLeft:"30px",backgroundColor:"#10454F",borderColor:"#10454F" }}
           >
           
             {Clicked ? <i className="bi bi-caret-up-fill"></i> : <i className="bi bi-caret-down-fill"></i> }
@@ -88,12 +88,13 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
         </Col>
         <Col>
           {Clicked ? (
-            <div className="Content" style={{width:"45rem"}}>
+            <div className="Content" style={{width:"45vw",minWidth:"320px"}}>
               <img src={searchIcon} alt="search-icon" />
               <input
                 type="text"
                 placeholder="Search Bill by Customer Name"
                 id="searchbar"
+                style={{paddingLeft:"40px"}}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 value={searchTerm}
               />
@@ -107,7 +108,7 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
         {Clicked ? (
           <>
             <div className="container" style={{ padding: "10px" }}>
-              <Table borderless striped hover variant="light">
+              <Table borderless striped hover responsive variant="light">
                 <thead className="table bg-secondary">
                   <tr>
                     <th scope="col">Bill Id</th>

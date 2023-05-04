@@ -119,12 +119,13 @@ const Dashboard = ({
                     <i className="bi bi-phone"> {shop.shopContactNo} </i>
                   </p>
                   <p className="card-text">
-                  <i className="bi bi-shop"></i> {shop.shopOwner}
+                    <i className="bi bi-shop"></i> {shop.shopOwner}
                   </p>
                   <div className="row">
                     <div className="col mt-1">
                       <p className="card-text">
-                      <i className="bi bi-person-square"></i> {shop.shopSupervisor}
+                        <i className="bi bi-person-square"></i>{" "}
+                        {shop.shopSupervisor}
                       </p>
                     </div>
                     {userData.user.profile.role === "Owner" ? (
@@ -150,18 +151,18 @@ const Dashboard = ({
                       <></>
                     )}
                   </div>
-                        <div className="d-flex justify-content-end mt-2 me-5">
-                  <button
-                    onClick={() => gotoShop(shop.id)}
-                    className="btn btn-primary"
-                    style={{
-                      backgroundColor: "#45C4B0",
-                      border: "none",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    Goto Shop
-                  </button>
+                  <div className="d-flex justify-content-end mt-2 me-4">
+                    <button
+                      onClick={() => gotoShop(shop.id)}
+                      className="btn btn-primary"
+                      style={{
+                        backgroundColor: "#45C4B0",
+                        border: "none",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      Goto Shop
+                    </button>
                   </div>
                 </div>
               </div>

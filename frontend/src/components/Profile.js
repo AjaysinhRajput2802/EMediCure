@@ -149,11 +149,11 @@ const Profile = ({ userData, updateUserData }) => {
   };
 
   return (
-    <div className="container rounded mb-5" style={{marginTop:"120px",backgroundColor:"lightgrey",color:"#10454F"}} onLoad={LoadData}>
+    <div className="container rounded mb-5" style={{marginTop:"120px",maxWidth:"90vw",backgroundColor:"lightgrey",color:"#10454F"}} onLoad={LoadData}>
       {userData && userData.user ? (
         <div className="row justify-content-center">
           <div className="col-md-3 border-right">
-            <div className="d-flex flex-column align-items-center text-center p-3 py-5 mt-3">
+            <div className="d-flex flex-column align-items-center text-center p-3 pt-5 pb-0 mt-3">
             <div className="img" onClick={(e) => hiddenFileInput.current.click()} style={{ position:"relative"}}>
             <button id="middle">Change Photo</button>
             <img className="rounded-circle" id="image" src={image ? URL.createObjectURL(image) :
@@ -238,7 +238,7 @@ const Profile = ({ userData, updateUserData }) => {
                     <span id="emailError" style={{ color: "red" }}></span>
                   </div>
                 </div>
-                <div className="mt-5 text-center">
+                <div className="text-center" id="save" style={{marginTop:"40px"}}>
                   <button
                     className="btn btn-primary profile-button"
                     type="submit"
@@ -256,7 +256,7 @@ const Profile = ({ userData, updateUserData }) => {
               </form>
             </div>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-3" id="role">
             <div className="p-3 py-5">
               <div className="d-flex justify-content-between align-items-center experience">
                 <span>Role</span>

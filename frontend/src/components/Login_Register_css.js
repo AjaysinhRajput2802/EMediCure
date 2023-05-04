@@ -1,14 +1,33 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
+  height: 55vh;
+  margin: 195px 0 50px;
+`;
+
 export const Container = styled.div`
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
-  width: 1000px;
   max-width: 600%;
-  min-height: 660px;
+  margin: 0 auto;
+  margin-top: 100px;
+  width: 1000px; 
+  min-height: 635px;
+  @media (max-width: 425px){
+    ${props =>
+    props.signIn === true
+      ? `min-height: 370px;` : `height: 730px;`}
+    width: 90vw; 
+    margin-bottom: 40px;
+  }
 `;
 
 export const SignUpContainer = styled.div`
@@ -28,6 +47,17 @@ export const SignUpContainer = styled.div`
 	z-index: 5;
 	`
       : null}
+  @media (max-width: 425px){
+    ${props => (props.signingIn === true ? `display:none;` : null)}
+    width: 1%;
+    height: 720px;
+    label{
+      width: 65px;
+    }
+    .Col{
+      display: inline;
+    }
+  }
 `;
 
 export const SignInContainer = styled.div`
@@ -39,6 +69,12 @@ export const SignInContainer = styled.div`
   width: 50%;
   z-index: 2;
   ${props => (props.signingIn !== true ? `transform: translateX(100%);` : null)}
+  @media (max-width: 425px){
+    ${props => (props.signingIn !== true ? `display:none;` : null)}
+    ${props =>
+    props.signingIn === true
+      ? `height: 535px;` : ``}
+  }
 `;
 
 export const Form = styled.form`
@@ -48,13 +84,24 @@ export const Form = styled.form`
   justify-content: center;
   flex-direction: column;
   padding: 0 50px;
-  height: 100%;
+  height:100%;
   text-align: center;
+  @media (max-width: 425px){
+    ${props =>
+    props.signingIn === true
+      ? `height: 98vw;` : `height: 735px;`}
+    width: 90vw;
+    max-height: 750px;
+  }
 `;
 
 export const Title = styled.h1`
   font-weight: bold;
   margin: 0;
+  @media (max-width: 425px){
+    margin-bottom: 20px;
+    margin-top: -30px;
+  }
 `;
 
 export const Input = styled.input`
@@ -73,6 +120,7 @@ export const Button = styled.button`
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
+  margin-bottom: 10px;
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
@@ -81,6 +129,9 @@ export const Button = styled.button`
   }
   &:focus {
     outline: none;
+  }
+  @media (max-width: 425px){
+    margin-bottom: -40px;
   }
 `;
 
@@ -94,6 +145,7 @@ export const Anchor = styled.a`
   font-size: 14px;
   text-decoration: none;
   margin: 15px 0;
+  cursor: pointer;
 `;
 
 export const OverlayContainer = styled.div`
@@ -107,6 +159,9 @@ export const OverlayContainer = styled.div`
   z-index: 100;
   ${props =>
     props.signingIn !== true ? `transform: translateX(-100%);` : null}
+  @media (max-width: 425px){
+    display: none;
+  }
 `;
 
 export const Overlay = styled.div`

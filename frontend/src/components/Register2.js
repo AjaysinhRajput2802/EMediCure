@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import * as Components from "./Login_Register_css";
 import { Form , Col, Row} from "react-bootstrap";
 
-const Register2 = ({ userData, updateUserData, signIn }) => {
+const Register2 = ({ userData, updateUserData, signIn, toggleSignIn, onMobile }) => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [firstname, setFirstname] = useState();
@@ -85,7 +85,7 @@ const Register2 = ({ userData, updateUserData, signIn }) => {
 
   return (
     <Components.SignUpContainer signingIn={signIn}>
-      <Components.Form onSubmit={handleSubmit}>
+      <Components.Form onSubmit={handleSubmit} signingIn={signIn}>
         <Components.Title>Create Account</Components.Title>
         <Components.Input
           type="text"
@@ -154,9 +154,9 @@ const Register2 = ({ userData, updateUserData, signIn }) => {
         />
         <span id="confpassError" style={{ color: "red" }}></span>
 
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm={3}>Role:</Form.Label>
-        <Col sm={3}>
+        <Form.Group as={Row} className="mb-3 mt-2">
+          <Form.Label column sm={3} style={{marginLeft:"-35px"}}>Role:</Form.Label>
+        <Col sm={3} style={onMobile?{width:"100px"}:{}}>
         <Form.Select
           type="select"
           name="roles"
@@ -164,7 +164,7 @@ const Register2 = ({ userData, updateUserData, signIn }) => {
           value={role}
           onChange={(e) => setRole(e.target.value)}
           required
-          style={{width:"150px"}}
+          style={onMobile?{width:"110px"}:{width:"150px"}}
         >
           <option value="Owner">Owner</option>
           <option value="Supervisor">Supervisor</option>
@@ -172,6 +172,7 @@ const Register2 = ({ userData, updateUserData, signIn }) => {
         </Col>
       <br/>
       </Form.Group>
+      {onMobile?<Components.Anchor onClick={()=>toggleSignIn(true)}>Already have an account ! Login here?</Components.Anchor>:null}
         <Components.Button type="submit">Sign Up</Components.Button>
       </Components.Form>
     </Components.SignUpContainer>
