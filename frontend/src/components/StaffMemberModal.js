@@ -13,6 +13,8 @@ const StaffMemberModal = ({show, handleClose, shopId}) => {
       medShop: shopId,
     }); 
 
+    
+
    // ADD API CALL
   const postStaffMember = async (newStaffMember) => {
    const response = await fetch(`${process.env.REACT_APP_API_URL}api/staffMember/`, {
@@ -28,15 +30,15 @@ const StaffMemberModal = ({show, handleClose, shopId}) => {
 
    if (response.status >= 200 && response.status < 300) {
      alert("stafff Added SuccessFully.");
+     handleClose();
    } else {
      let data = await response.json();
 
      if (data.staffName) {
-       document.getElementById("staffName-error").innerHTML =
-         data["staffName"];
+       document.getElementById("staffName-error").innerHTML = data["staffName"];
      }
      if (data.mobileNo) {
-       document.getElementById("mobileNo-error").innerHTML = data["mobileNo"];
+       document.getElementById("mobileNo-error").innerHTML = data["mobileNo"] ;
      }
      if (data.salary) {
        document.getElementById("salary-error").innerHTML = data["salary"];
@@ -50,11 +52,14 @@ const StaffMemberModal = ({show, handleClose, shopId}) => {
       ...prev,
       [e.target.name]: e.target.value,
       }));
+
+      document.getElementById("staffName-error").innerHTML = "";
+      document.getElementById("mobileNo-error").innerHTML = "";
+      document.getElementById("salary-error").innerHTML = "";
    };
 
-     // FORM HANDLE
+    // FORM HANDLE
    const handleSubmit = (e) => {
-      handleClose();
       e.preventDefault();
       console.log(staffMember);
       postStaffMember(staffMember);
@@ -96,7 +101,7 @@ const StaffMemberModal = ({show, handleClose, shopId}) => {
                   <Form.Label></Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Employee Contact Number"
+                    placeholder="Employee Contact Number with country code like +91"
                     name="mobileNo"
                     value={staffMember.mobileNo}
                     onChange={(event) => handleInput(event)}

@@ -39,6 +39,10 @@ const Dashboard = ({
     fetchShopList();
   }, [userData]);
 
+  useEffect(() => {
+    updateShopId(0);
+  },[shopList]);
+
   // -------- API CALLING FUNCTIONS ------
 
   const fetchShopList = async () => {
@@ -179,16 +183,16 @@ const Dashboard = ({
               createMedShop={createMedShop}
               handleMedShopClose={handleMedShopClose}
             />
-            <div className="card bg-transparent mb-3 col-sm-6">
-              <div
-                className="btn text-light"
+            <div
+              className="card bg-transparent mb-3 col-sm-6"
+              style={{ border: "0mm" }}
+            >
+              <i
+                className="btn plus bi bi-plus-square-fill"
                 onClick={() => {
                   handleMedShopShow(true);
                 }}
-              >
-                <i className="bi bi-plus-circle"></i>
-                Create New Store
-              </div>
+              ></i>
             </div>
           </>
         ) : (

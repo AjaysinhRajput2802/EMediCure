@@ -103,11 +103,14 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
 
   const handleRemovebillItems = (index) => {
     const values = [...Allbillitem];
+    console.log(values[index])
     if (values.length !== 1) {
       values.splice(index, 1);
       setAllbillitem(values);
     }
   };
+
+  console.log(Allbillitem)
 
   const handleInput = (index, event) => {
     const values = [...Allbillitem];
@@ -165,8 +168,10 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
                         type="select"
                         name="medName"
                         id={"med" + index}
+                        value={field.medName}
                         onChange={(event) => handleInput(index, event)}
                       >
+                        
                         <option value="">Select Medicine</option>
                         {currentMed.map((m, index2) => {
                           return (

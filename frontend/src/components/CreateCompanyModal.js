@@ -55,7 +55,7 @@ const CreateCompanyModal = ({
       handleComClose();
       alert("New Supplier added successfully");
     } else {
-      alert(data.statusText);
+      alert(data.contactNumber);
       //console.log("postCompany", data);
     }
   };
