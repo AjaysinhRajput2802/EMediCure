@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Components from "./Login_Register_css";
-import { useEffect } from "react";
 
 const Login2 = ({ userData, updateUserData, updateShopId, signIn, toggleSignIn, onMobile }) => {
   const [username, setUsername] = useState("");

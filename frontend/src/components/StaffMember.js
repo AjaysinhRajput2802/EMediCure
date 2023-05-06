@@ -55,7 +55,7 @@ const StaffMember = ({
       console.log(e);
     });
 
-    if (response.status == 204) {
+    if (response.status === 204) {
       alert("staffMember deleted succesfully");
       fetchStaffMemberList();
     } else {

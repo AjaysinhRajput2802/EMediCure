@@ -14,12 +14,10 @@ import Navbar from "./components/Navbar";
 import Stock from "./components/Stock";
 import StaffMember from "./components/StaffMember";
 import Login_Register from "./components/Login_Register";
-// import About from "./components/About";
-// import Register from "./components/Register";
-// import Login from "./components/Login";
 
 /* All Pages
- Home, Dashboard, Profile, Register, Login, About, Inventory, Billing
+ Dashboard, Profile, Register, Login, About, Inventory, Billing,
+  New Stock, Alerts, Staff Member
 */
 
 function App() {

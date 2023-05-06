@@ -188,7 +188,8 @@ const Dashboard = ({
               style={{ border: "0mm" }}
             >
               <i
-                className="btn plus bi bi-plus-square-fill"
+                className="btn bi bi-plus-square-fill"
+                id="addCard"
                 onClick={() => {
                   handleMedShopShow(true);
                 }}
