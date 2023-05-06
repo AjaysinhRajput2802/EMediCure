@@ -13,7 +13,7 @@ EMediCure is a web app for Medical Shop Management System. There are two types o
 ![profile](https://user-images.githubusercontent.com/54072689/236619346-ac4cfd2b-a995-4561-b0cd-57f2aaf7402b.png)
 
 ### Dashboard Page ###
-![owner_dashboard](https://user-images.githubusercontent.com/54072689/236619363-57aeae43-584c-40dc-8828-52cc092d8962.png)
+![owner_dashboard](https://user-images.githubusercontent.com/54072689/236631316-513edf4e-c0e2-4449-8029-2d3654f0586f.png)
 
 ### Inventory Page ###
 ![inventory](https://user-images.githubusercontent.com/54072689/236619360-aaa26cb2-916b-4985-a8f5-b1e3c632da6c.png)
