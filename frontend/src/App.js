@@ -14,7 +14,7 @@ import Navbar from "./components/Navbar";
 import Stock from "./components/Stock";
 import StaffMember from "./components/StaffMember";
 import Login_Register from "./components/Login_Register";
-
+import Reports from "./components/Reports";
 /* All Pages
  Dashboard, Profile, Register, Login, About, Inventory, Billing,
   New Stock, Alerts, Staff Member
@@ -152,6 +152,13 @@ function App() {
               shopList={shopList}
               updateShopList={updateShopList}
             />
+          }
+        />
+        <Route
+          exact
+          path="/report/:shopId"
+          element={
+            <Reports userData={userData} updateUserData={updateUserData} />
           }
         />
         {/* <Route

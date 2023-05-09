@@ -5,6 +5,7 @@ import datetime
 from phonenumber_field.modelfields import PhoneNumberField
 
 
+
 class NotDeleted(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_deleted=False)

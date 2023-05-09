@@ -4,6 +4,8 @@ import decimal
 import datetime
 
 
+
+
 class MedicalShopSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.MedicalShop

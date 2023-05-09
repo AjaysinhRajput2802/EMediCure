@@ -27,6 +27,10 @@ urlpatterns = [
     path('medicine/', views.MedicineC.as_view(), name="medicine.create"),
     path('medicine/<int:pk>', views.MedicineRUD.as_view(), name="medicine.RUD"),
 
+    path('profile/', views.ProfileC.as_view(), name="profile.create"),
+    path('profile/<int:pk>', views.ProfileRUD.as_view(), name="profile.RUD"),
+
+
     path('staffMember/', views.StaffMemberC.as_view(), name="sfm.create"),
     path('staffMember/<int:pk>', views.StaffMemberRUD.as_view(), name="sfm.RUD"),
 
@@ -42,13 +46,11 @@ urlpatterns = [
     path('stockItem/', views.StockItemC.as_view(), name="stockItem.create"),
     path('stockItem/<int:pk>', views.StockItemRUD.as_view(), name="stockItem.RUD"),
 
-    path('profile/', views.ProfileC.as_view(), name="profile.create"),
-    path('profile/<int:pk>', views.ProfileRUD.as_view(), name="profile.RUD"),
-
+  
     # path('user/<int:pk>', views.UserRUD.as_view(), name='user.RUD'),
 
     path('bill/',views.BillView.as_view(),name='bill.create'),
     path('bill/<int:pk>',views.BillRUDView.as_view(),name='bill.rud'),
 
-
+    
 ]

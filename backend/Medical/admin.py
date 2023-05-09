@@ -4,6 +4,7 @@ from . import models
 from rest_framework_simplejwt.token_blacklist.admin import OutstandingTokenAdmin    
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
+
 class MedicalShopAdmin(admin.ModelAdmin):
     model = models.MedicalShop
     list_display = ('id','shopName', 'shopContactNo','shopOwner',
@@ -82,3 +83,4 @@ class OutstandingTokenAdmin(admin.ModelAdmin):
     
 admin.site.unregister(OutstandingToken)
 admin.site.register(OutstandingToken, OutstandingTokenAdmin)
+

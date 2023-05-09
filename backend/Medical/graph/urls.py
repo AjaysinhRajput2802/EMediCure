@@ -15,12 +15,12 @@ Including another URLconf
 """
 
 
-from django.contrib import admin
-from django.urls import include, path
-
+from django.urls import path
+from.views import SalesView,PurchaseView,MedicinePurchaseView,MedicineSalesView,MedicineTypeSales
 urlpatterns = [
-    path('api/', include('Medical.apiURLS')),
-    path('auth/', include('Medical.auth.urls')),
-    path('new/',include('Medical.newSVU.urls')),
-    path('graph/',include('Medical.graph.urls'))
+    path('sales/<int:shopId>/',SalesView.as_view(),name="sales"),
+    path('purchase/<int:shopId>/',PurchaseView.as_view(),name="purchase"),
+    path('medSales/<int:medName>/',MedicineSalesView.as_view(),name="medicine.sales"),
+    path('medPurchase/<int:medName>/',MedicinePurchaseView.as_view(),name="medicine.purchase"),
+    path('medTypeSales/<int:shopId>/',MedicineTypeSales.as_view(),name="medType.sales"),
 ]

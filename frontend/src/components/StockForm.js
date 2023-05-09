@@ -14,7 +14,7 @@ const StockForm = ({
   createCom,
   SetCom,
   handleComShow,
-  handleComClose
+  handleComClose,
 }) => {
   const [currentMed, setCurrentMed] = useState([]);
   const [currentCompany, setCurrentCompany] = useState([]);
@@ -62,13 +62,16 @@ const StockForm = ({
   };
 
   const postStock = async (input_stock) => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}api/stockItem/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(input_stock),
-    }).catch((e) => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}api/stockItem/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(input_stock),
+      }
+    ).catch((e) => {
       console.log(e);
     });
 
@@ -114,7 +117,7 @@ const StockForm = ({
 
     setStock((prevStock) => ({
       ...prevStock,
-      stockdata
+      stockdata,
     }));
     // console.log(Stock);
   };
@@ -126,7 +129,7 @@ const StockForm = ({
 
   useEffect(() => {
     fetchMedicine();
-  },[createMed]);
+  }, [createMed]);
 
   useEffect(() => {
     fetchCompany();
@@ -135,13 +138,17 @@ const StockForm = ({
   return (
     <Container className="pt-3">
       <Row>
-        <h3 style={{ color: "#5e9693"}}>Add </h3>
+        <h3 style={{ color: "#5e9693" }}>Add </h3>
         <h3 style={{ color: "#fff" }}> New Stock</h3>
       </Row>
       <Form
         className="stockform"
-        style={{ color: "aquamarine", backgroundColor:"#506266", padding:"20px", borderRadius:"10px"}}
-        onSubmit={(event) => handleSubmit(event)}
+        style={{
+          color: "aquamarine",
+          backgroundColor: "#506266",
+          padding: "20px",
+          borderRadius: "10px",
+        }}
       >
         <Row className="justify-content-center pt-2 pb-1">
           <Col xs="8" className="justify-content-center">
@@ -246,7 +253,13 @@ const StockForm = ({
               </Col>
             </Form.Group>
             <div className="text-center">
-            <Button type="submit" className="mt-2" style={{backgroundColor:"#10454F",border:"none"}}>Submit</Button>
+              <Button
+                type="submit"
+                className="mt-2"
+                style={{ backgroundColor: "#10454F", border: "none" }}
+              >
+                Submit
+              </Button>
             </div>
           </Col>
           <Col xs={1}>
@@ -260,7 +273,7 @@ const StockForm = ({
               <i
                 className="bi bi-plus-circle-fill"
                 variant="primary"
-                style={{cursor:"pointer"}}
+                style={{ cursor: "pointer" }}
                 onClick={() => {
                   handleShow(true);
                 }}
@@ -280,7 +293,7 @@ const StockForm = ({
               />
               <i
                 className="bi bi-plus-square-fill"
-                style={{cursor:"pointer"}}
+                style={{ cursor: "pointer" }}
                 variant="primary"
                 onClick={() => {
                   handleComShow(true);
@@ -290,7 +303,6 @@ const StockForm = ({
           </Col>
         </Row>
       </Form>
-
     </Container>
   );
 };

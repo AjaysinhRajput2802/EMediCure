@@ -13,13 +13,16 @@ const Navbar = ({
 
   const LogOut = async () => {
     let data;
-    let response = await fetch(`${process.env.REACT_APP_API_URL}auth/refresh/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ refresh: userData.refresh }),
-    }).catch((e) => console.log(e));
+    let response = await fetch(
+      `${process.env.REACT_APP_API_URL}auth/refresh/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refresh: userData.refresh }),
+      }
+    ).catch((e) => console.log(e));
     if (response.status === 200) {
       data = await response.json();
       console.log(data);
@@ -65,7 +68,7 @@ const Navbar = ({
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>  
+          <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto">
@@ -101,6 +104,11 @@ const Navbar = ({
                     <li className="nav-item text-center">
                       <a className="nav-link" href={`/staffMember/${shopId}`}>
                         Staff Member
+                      </a>
+                    </li>
+                    <li className="nav-item text-center">
+                      <a className="nav-link" href={`/report/${shopId}`}>
+                        Charts
                       </a>
                     </li>
                   </>
@@ -150,13 +158,20 @@ const Navbar = ({
             </ul>
           ) : (
             <>
-            <ul className="navbar-nav d-flex flex-row">
-              <li className="btn btn-primary me-3" style={{backgroundColor:"#5e9693",border:"none"}}>
-                <a className="nav-link" href="/login-register" style={{color:"#fff"}}>
-                <i className="bi bi-bag-plus-fill"></i> Welcome!
-                </a>
-              </li>
-            </ul>
+              <ul className="navbar-nav d-flex flex-row">
+                <li
+                  className="btn btn-primary me-3"
+                  style={{ backgroundColor: "#5e9693", border: "none" }}
+                >
+                  <a
+                    className="nav-link"
+                    href="/login-register"
+                    style={{ color: "#fff" }}
+                  >
+                    <i className="bi bi-bag-plus-fill"></i> Welcome!
+                  </a>
+                </li>
+              </ul>
             </>
           )}
         </div>

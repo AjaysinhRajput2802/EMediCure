@@ -6,6 +6,7 @@ import searchIcon from "../images/search-icon.svg";
 import MedicineDetailsModal from "./MedicineDetailsModal";
 import Card from "react-bootstrap/Card";
 import { Fragment } from "react";
+import Analysis from "./Reports";
 
 const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   const [detailsShow, setdetailsShow] = useState({ show: false, data: [] });
@@ -14,12 +15,12 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   const navigate = useNavigate();
   const { shopId } = useParams();
 
-  if(typeof(userData)=="string")
-    userData=JSON.parse(userData);
+  if (typeof userData == "string") userData = JSON.parse(userData);
 
   // LOGIN REQUIRED
   useEffect(() => {
-    if (userData === null || userData.user === null) navigate("/login-register");
+    if (userData === null || userData.user === null)
+      navigate("/login-register");
   }, []);
 
   const fetchInventory = async (e) => {
@@ -73,17 +74,17 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
         handleDetailsClose={handleDetailsClose}
         detailsShow={detailsShow}
       />
-      <div className="fixed-top mt-5" style={{zIndex:"1"}}>
-      <div className="Content">
-        <img src={searchIcon} alt="search-icon" />
-        <input
-          type="text"
-          placeholder="Search Medicine"
-          id="searchbar"
-          onChange={(e) => setSearchTerm(e.target.value)}
-          value={searchTerm}
-        />
-      </div>
+      <div className="fixed-top mt-5" style={{ zIndex: "1" }}>
+        <div className="Content">
+          <img src={searchIcon} alt="search-icon" />
+          <input
+            type="text"
+            placeholder="Search Medicine"
+            id="searchbar"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            value={searchTerm}
+          />
+        </div>
       </div>
       <div className="container mt-3">
         <div className="d-flex flex-row" id="flex-basis">
@@ -91,12 +92,20 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
             currentShopStock.map((medicine) => {
               return (
                 <Fragment key={medicine.id}>
-                  <Card className="m-3 medCard" onClick={() => {
-                    handleDetailsShow(true, medicine);
-                  }} style={{cursor:"pointer"}}>
+                  <Card
+                    className="m-3 medCard"
+                    onClick={() => {
+                      handleDetailsShow(true, medicine);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
                     <div className="row align-items-center p-3">
                       <div className="col-5">
-                        <Card.Img src={medicine.medImage} height="110px" width="135px" />
+                        <Card.Img
+                          src={medicine.medImage}
+                          height="110px"
+                          width="135px"
+                        />
                       </div>
                       <div className="col-7">
                         <p className="m-1" id="medDetails">
@@ -120,7 +129,10 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
               );
             })
           ) : (
-            <div className="d-flex justify-content-center align-items-center" style={{width:"100vw", height:"40vh"}}>
+            <div
+              className="d-flex justify-content-center align-items-center"
+              style={{ width: "100vw", height: "40vh" }}
+            >
               <h1 style={{ color: "white" }}>No Medicine Found</h1>
             </div>
           )}
