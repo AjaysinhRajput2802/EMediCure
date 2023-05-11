@@ -44,10 +44,10 @@ const MedTypeSales = ({ shopId }) => {
             border: "none",
           }}
         >
-          General Purchase Chart
+          Medicine TypeWise Sales Chart
         </Button>
       </div>
-      {data.length ? (
+      {data.length !== 0 ? (
         <ResponsiveContainer width="100%" height="100%" aspect={3}>
           <BarChart
             width={50}

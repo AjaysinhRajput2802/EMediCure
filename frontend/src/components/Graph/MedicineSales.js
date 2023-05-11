@@ -116,7 +116,7 @@ const MedicineSales = ({ medList }) => {
                       border: "none",
                     }}
                   >
-                    General Sales Chart
+                    Medicine Sales Chart
                   </Button>
                 </div>
               </Form.Label>

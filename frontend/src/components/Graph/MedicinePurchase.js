@@ -115,7 +115,7 @@ const MedicinePurChase = ({ medList }) => {
                     border: "none",
                   }}
                 >
-                  General Purchase Chart
+                  Medicine Purchase Chart
                 </Button>
               </div>
             </Form.Label>
