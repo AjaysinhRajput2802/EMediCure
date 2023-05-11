@@ -27,6 +27,11 @@ const MedTypeSales = ({ shopId }) => {
     ).catch((e) => console.log(e));
     if (response.status === 200) {
       let datar = await response.json();
+      for (let i = 0; i < datar.length; i++) {
+        let temp = datar[i];
+        temp["amount"] = parseFloat(temp["amount"]);
+        datar[i] = temp;
+      }
       // console.log(datar);
       setData(datar);
     } else {

@@ -38,7 +38,12 @@ const MedicinePurChase = ({ medList }) => {
     ).catch((e) => console.log(e));
     if (response.status === 200) {
       let datar = await response.json();
-      console.log(datar);
+      for (let i = 0; i < datar.length; i++) {
+        let temp = datar[i];
+        temp["Medicine_Purchase"] = parseFloat(temp["Medicine_Purchase"]);
+        datar[i] = temp;
+      }
+      // console.log(datar);
       setData(datar);
       setFilData(datar);
     } else {
@@ -55,7 +60,7 @@ const MedicinePurChase = ({ medList }) => {
     let filterData = data.filter((item) => {
       let datearray = item.day.split("/");
       let todayDate = new Date(datearray[2], datearray[1], datearray[0]);
-      console.log(todayDate);
+      // console.log(todayDate);
       return (
         todayDate >= date.selection.startDate &&
         todayDate <= date.selection.endDate
