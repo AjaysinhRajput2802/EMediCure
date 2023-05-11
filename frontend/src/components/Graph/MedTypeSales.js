@@ -17,7 +17,7 @@ const MedTypeSales = ({ shopId }) => {
 
   const fetchTypeSales = async () => {
     const response = await fetch(
-      `http://127.0.0.1:8000/graph/medTypeSales/${shopId}/`,
+      `${process.env.REACT_APP_API_URL}graph/medTypeSales/${shopId}/`,
       {
         method: "GET",
         headers: {
@@ -27,7 +27,7 @@ const MedTypeSales = ({ shopId }) => {
     ).catch((e) => console.log(e));
     if (response.status === 200) {
       let datar = await response.json();
-      console.log(datar);
+      // console.log(datar);
       setData(datar);
     } else {
       console.log(response);
