@@ -1,8 +1,5 @@
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import React, { Fragment } from "react";
-import Table from "react-bootstrap/Table";
-import { Row, Col, ModalHeader } from "react-bootstrap";
+import React from "react";
 
 function MedicineDetailsModal({ handleDetailsClose, detailsShow }) {
   const medicine = detailsShow.data;

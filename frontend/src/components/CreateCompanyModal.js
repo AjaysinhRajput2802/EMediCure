@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Row } from "react-bootstrap";
 
@@ -18,7 +18,6 @@ const CreateCompanyModal = ({
     contactNumber: "",
     medShop: shopId,
   });
-  const [companyList, SetCompanyList] = useState([]);
 
   // FORM SUBMIT
   const handleSubmit = async (e) => {

@@ -4,9 +4,7 @@ import {
   Line,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   Label,
 } from "recharts";
@@ -14,10 +12,9 @@ import {
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import Modal from "react-bootstrap/Modal";
-import { Button, Row, Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 // import { Calendar } from "react-date-range";
 import { DateRangePicker } from "react-date-range";
-import { format } from "date-fns";
 
 const Purchase = ({ shopId }) => {
   const [data, setData] = useState([]);

@@ -13,7 +13,7 @@ import Alerts from "./components/Alerts";
 import Navbar from "./components/Navbar";
 import Stock from "./components/Stock";
 import StaffMember from "./components/StaffMember";
-import Login_Register from "./components/Login_Register";
+import LoginRegister from "./components/Login_Register";
 import Reports from "./components/Reports";
 /* All Pages
  Dashboard, Profile, Register, Login, About, Inventory, Billing,
@@ -190,7 +190,7 @@ function App() {
           exact
           path="/login-register"
           element={
-            <Login_Register
+            <LoginRegister
               userData={userData}
               updateUserData={updateUserData}
               updateShopId={updateShopId}

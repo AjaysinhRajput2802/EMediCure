@@ -3,10 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import Stocktable from "./Stocktable";
 import StockForm from "./StockForm";
-import { Button, Row, Col } from "react-bootstrap";
-
-import CreateMedicineModal from "./CreateMedicineModal";
-import CreateCompanyModal from "./CreateCompanyModal";
 
 const Stock = ({ userData, updateUserData }) => {
   const navigate = useNavigate();

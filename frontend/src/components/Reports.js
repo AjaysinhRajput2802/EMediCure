@@ -3,9 +3,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 
 // Bootstrap import
-import { Card } from "react-bootstrap";
-import { Row, Col } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
 import Carousel from "react-bootstrap/Carousel";
 
 // module import
@@ -19,7 +16,6 @@ import MedTypeSales from "./Graph/MedTypeSales";
 const Reports = ({ userData, updateUserData }) => {
   const { shopId } = useParams();
   const [medList, setMedList] = useState([]);
-  const [medName, setMedName] = useState("");
   useEffect(() => {
     fetchMedicineList();
   }, []);
@@ -38,11 +34,6 @@ const Reports = ({ userData, updateUserData }) => {
       let data = await response.json();
       console.log(data);
     }
-  };
-  const handleInput = (e) => {
-    console.log(e.target.value);
-    setMedName(e.target.value);
-    console.log(medName);
   };
 
   return (

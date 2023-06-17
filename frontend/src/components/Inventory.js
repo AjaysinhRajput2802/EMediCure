@@ -6,7 +6,6 @@ import searchIcon from "../images/search-icon.svg";
 import MedicineDetailsModal from "./MedicineDetailsModal";
 import Card from "react-bootstrap/Card";
 import { Fragment } from "react";
-import Analysis from "./Reports";
 
 const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
   const [detailsShow, setdetailsShow] = useState({ show: false, data: [] });
@@ -23,7 +22,7 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
       navigate("/login-register");
   }, []);
 
-  const fetchInventory = async (e) => {
+  /*const fetchInventory = async (e) => {
     console.log(shopId);
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}api/medicine/?medShop=${shopId}`,
@@ -38,7 +37,7 @@ const Inventory = ({ userData, updateUserData, shopList, updateShopList }) => {
     } else {
       alert(response.statusText);
     }
-  };
+  };*/
 
   const handleDetailsClose = () => {
     setdetailsShow({ show: false, data: [] });

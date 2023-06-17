@@ -61,7 +61,7 @@ const StockForm = ({
     }
   };
 
-  const postStock = async (input_stock) => {
+  /*const postStock = async (input_stock) => {
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}api/stockItem/`,
       {
@@ -90,7 +90,7 @@ const StockForm = ({
     e.preventDefault();
     console.log(Stock);
     postStock(Stock);
-  };
+  };*/
 
   const handleInput = (e) => {
     let stockdata = Stock;

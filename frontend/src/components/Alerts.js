@@ -15,7 +15,7 @@ const Alerts = ({ userData, updateUserData, shopList, updateShopList }) => {
   // USE-EFFECTS
   useEffect(() => {
     if (userData === null || userData.user === null) navigate("/login-register");
-    if (shopId != 0) fetchInventory();
+    if (shopId !== 0) fetchInventory();
   }, []);
 
   // API CALLS

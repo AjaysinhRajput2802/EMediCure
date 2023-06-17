@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Row, Col, Button } from "react-bootstrap";
 
@@ -7,9 +7,7 @@ import {
   Line,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   Label,
 } from "recharts";
@@ -19,7 +17,6 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import Modal from "react-bootstrap/Modal";
 // import { Calendar } from "react-date-range";
 import { DateRangePicker } from "react-date-range";
-import { format } from "date-fns";
 
 const MedicineSales = ({ medList }) => {
   const [data, setData] = useState([]);

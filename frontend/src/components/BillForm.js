@@ -15,11 +15,11 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
 
   // LOGIN REQUIRED
   useEffect(() => {
-    if (userData === null || userData.user === null) navigate("/login-register");
+    if (userData === null || userData.user === null)
+      navigate("/login-register");
   }, []);
 
-  if(typeof(userData)=="string")
-    userData=JSON.parse(userData);
+  if (typeof userData == "string") userData = JSON.parse(userData);
 
   // GET MEDICINE API CALL
   const fetchMedicine = async (e) => {
@@ -77,9 +77,11 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
         }
 
         data.Outofstock_error.map((field, index) => {
-          Object.keys(field).map((key, i) => {
-            ind[key] = false;
-            document.getElementById(key).innerHTML = field[key];
+          return Object.keys(field).map((key, i) => {
+            return [
+              (ind[key] = false),
+              (document.getElementById(key).innerHTML = field[key]),
+            ];
           });
         });
 
@@ -103,14 +105,14 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
 
   const handleRemovebillItems = (index) => {
     const values = [...Allbillitem];
-    console.log(values[index])
+    console.log(values[index]);
     if (values.length !== 1) {
       values.splice(index, 1);
       setAllbillitem(values);
     }
   };
 
-  console.log(Allbillitem)
+  console.log(Allbillitem);
 
   const handleInput = (index, event) => {
     const values = [...Allbillitem];
@@ -160,7 +162,7 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
               <Fragment key={index}>
                 <Row className="my-1">
                   {/* <Col>Bill Item {index + 1}</Col> */}
-                  <Col xs={5} className="justify text-center" >
+                  <Col xs={5} className="justify text-center">
                     <Form.Group>
                       <Form.Control
                         required
@@ -171,7 +173,6 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
                         value={field.medName}
                         onChange={(event) => handleInput(index, event)}
                       >
-                        
                         <option value="">Select Medicine</option>
                         {currentMed.map((m, index2) => {
                           return (
@@ -183,7 +184,11 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
                       </Form.Control>
                     </Form.Group>
                   </Col>
-                  <Col xs={5} className="justify text-center" style={{marginLeft:"-10px",marginRight:"-12px"}}>
+                  <Col
+                    xs={5}
+                    className="justify text-center"
+                    style={{ marginLeft: "-10px", marginRight: "-12px" }}
+                  >
                     <Form.Group>
                       <Form.Control
                         type="Number"
@@ -196,10 +201,15 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
                       />
                     </Form.Group>
                   </Col>
-                  {(Allbillitem.length>1) ? (
+                  {Allbillitem.length > 1 ? (
                     <Col
                       xs={1}
-                      style={{ color: "red", marginTop: "3px", width: "50px",marginRight:"-17px" }}
+                      style={{
+                        color: "red",
+                        marginTop: "3px",
+                        width: "50px",
+                        marginRight: "-17px",
+                      }}
                     >
                       <h3>
                         <i
@@ -250,7 +260,7 @@ const BillForm = ({ userData, updateUserData, shopId, fetchBills }) => {
               type="submit"
               alignment="center"
               id="submitbutton"
-              style={{backgroundColor:"#10454F",border:"none"}}
+              style={{ backgroundColor: "#10454F", border: "none" }}
             >
               Submit
             </Button>

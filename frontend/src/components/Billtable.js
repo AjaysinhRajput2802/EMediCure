@@ -33,9 +33,9 @@ const Billtable = ({ currentBill, updateCurrentBill, shopId }) => {
   const HandleDelete = async (event, id) => {
     let res = window.confirm("Are You sure want to delete this Bill : " + id);
     if (res === true) {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}api/bill/` + id, {
+      await fetch(`${process.env.REACT_APP_API_URL}api/bill/` + id, {
         method: "DELETE",
-      }).catch((e) => console.log(e));
+      }).then(() => console.log("Bill deleted successfully.")).catch((e) => console.log(e));
 
       alert("Bill Id : " + id + " Deleted Successfully.");
       window.location.reload();
